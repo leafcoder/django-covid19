@@ -41,25 +41,29 @@ class Covid19Pipeline(object):
 
     def close_spider(self,spider):
         basedir = join(settings.BASE_DIR, 'spider', 'data')
-        if not exists(basedir):
-            os.makedirs(basedir)
+        for name in ('cities', 'provinces', 'countries'):
+            if not exists(basedir):
+                os.makedirs(join(basedir, name))
 
-        data = []
         for inst in CityItem.django_model.objects.all():
-            data.append(model_to_dict(inst))
-        with open(join(basedir, 'city.json'), 'w') as f:
-            json.dump(data, f, ensure_ascii=False)
+            data = model_to_dict(inst)
+            cityName = data['cityName']
+            path = join(basedir, 'cities', '%s.json' % cityName)
+            with open(path, 'w') as f:
+                json.dump(data, f, ensure_ascii=False)
 
 
-        data = []
         for inst in ProvinceItem.django_model.objects.all():
-            data.append(model_to_dict(inst))
-        with open(join(basedir, 'province.json'), 'w') as f:
-            json.dump(data, f, ensure_ascii=False)
+            data = model_to_dict(inst)
+            provinceName = data['provinceName']
+            path = join(basedir, 'provinces', '%s.json' % provinceName)
+            with open(path, 'w') as f:
+                json.dump(data, f, ensure_ascii=False)
 
 
-        data = []
         for inst in CountryItem.django_model.objects.all():
-            data.append(model_to_dict(inst))
-        with open(join(basedir, 'country.json'), 'w') as f:
-            json.dump(data, f, ensure_ascii=False)
+            data = model_to_dict(inst)
+            countryName = data['countryName']
+            path = join(basedir, 'countries', '%s.json' % countryName)
+            with open(path, 'w') as f:
+                json.dump(data, f, ensure_ascii=False)
