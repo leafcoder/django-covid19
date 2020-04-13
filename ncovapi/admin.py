@@ -29,6 +29,7 @@ class CityAdmin(BaseAdmin):
         'locationId', 'province', 'cityName', 'currentConfirmedCount',
         'confirmedCount', 'suspectedCount', 'curedCount', 'deadCount'
     )
+    search_fields = ('locationId', 'cityName', 'province__provinceName')
 
 @admin.register(models.Province)
 class ProvinceAdmin(BaseAdmin):
@@ -37,6 +38,7 @@ class ProvinceAdmin(BaseAdmin):
         'locationId', 'provinceName', 'currentConfirmedCount',
         'confirmedCount', 'suspectedCount', 'curedCount', 'deadCount'
     )
+    search_fields = ('locationId', 'provinceName')
 
 @admin.register(models.Country)
 class CountryAdmin(BaseAdmin):
@@ -46,7 +48,6 @@ class CountryAdmin(BaseAdmin):
         'currentConfirmedCount', 'confirmedCount',
         'suspectedCount', 'curedCount', 'deadCount'
     )
-
     search_fields = (
         'locationId', 'continents', 'countryFullName', 'countryShortCode',
         'countryName'
