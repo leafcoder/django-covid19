@@ -101,3 +101,4 @@ venv.bak/
 /site
 
 spider/COVID19/__pycache__/
+ncovapi/__pycache__/
