@@ -1,9 +1,18 @@
 from django.db import models
 from django.utils import timezone
 
+class Crawler(models.Model):
+
+    createTime = models.DateTimeField(
+        "抓取时间", default=timezone.now, editable=False)
+
+    class Meta:
+        verbose_name = "抓取版本"
+        verbose_name_plural = "抓取版本"
+
 class Province(models.Model):
 
-    locationId = models.IntegerField(primary_key=True)
+    locationId = models.IntegerField()
     provinceName = models.CharField(max_length=50)
     provinceShortName = models.CharField(max_length=20)
     currentConfirmedCount = models.IntegerField()
@@ -13,8 +22,10 @@ class Province(models.Model):
     deadCount = models.IntegerField()
     comment = models.CharField(max_length=200)
     statisticsData = models.CharField(max_length=500)
-    crawl_time = models.DateTimeField(
-        '抓取时间', default=timezone.now, editable=False)
+    crawler = models.ForeignKey(
+        "Crawler", on_delete=models.CASCADE, related_name="provinces",
+        db_column="crawlerId"
+    )
 
     class Meta:
         verbose_name = '省份'
@@ -23,23 +34,27 @@ class Province(models.Model):
 class City(models.Model):
 
     locationId = models.IntegerField()
-    province = models.ForeignKey(
-        'Province', on_delete=models.CASCADE, related_name="cities",
-        db_column='provinceId'
-    )
     cityName = models.CharField(max_length=50)
     currentConfirmedCount = models.IntegerField()
     confirmedCount = models.IntegerField()
     suspectedCount = models.IntegerField()
     curedCount = models.IntegerField()
     deadCount = models.IntegerField()
-    crawl_time = models.DateTimeField(
-        '抓取时间', default=timezone.now, editable=False)
+    province = models.ForeignKey(
+        "Province", on_delete=models.CASCADE, related_name="cities",
+        db_column="provinceId"
+    )
+    crawler = models.ForeignKey(
+        "Crawler", on_delete=models.CASCADE, db_column="crawlerId"
+    )
+
+    @property
+    def provinceName(self):
+        return self.province.provinceName
 
     class Meta:
-        verbose_name = '城市'
-        verbose_name_plural = '城市'
-        unique_together = ('province', 'cityName')
+        verbose_name = "城市"
+        verbose_name_plural = "城市"
 
 class Country(models.Model):
 
@@ -68,11 +83,11 @@ class Country(models.Model):
     operator = models.CharField(max_length=50, null=True)
     modifyTime = models.IntegerField(null=True)
     createTime = models.IntegerField(null=True)
-    crawl_time = models.DateTimeField(
-        '抓取时间', default=timezone.now, editable=False)
-
+    crawler = models.ForeignKey(
+        "Crawler", on_delete=models.CASCADE, related_name="countries",
+        db_column="countryId"
+    )
 
     class Meta:
-        verbose_name = '国家或地区'
-        verbose_name_plural = '国家或地区'
-        unique_together = ('continents', 'countryShortCode')
+        verbose_name = "国家或地区"
+        verbose_name_plural = "国家或地区"

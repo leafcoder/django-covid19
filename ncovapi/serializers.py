@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 class ProvinceSerializer(serializers.HyperlinkedModelSerializer):
 
-    # cities = CitySerializer(many=True)
+    provinceName = serializers.CharField(read_only=True)
 
     class Meta:
         model = Province
@@ -11,21 +11,17 @@ class ProvinceSerializer(serializers.HyperlinkedModelSerializer):
             'locationId', 'provinceName', 'provinceShortName',
             'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
             'curedCount', 'deadCount'
-            # 'comment', 'statisticsData'
         ]
 
 
-class CitySerializer(serializers.HyperlinkedModelSerializer):
-
-    province = ProvinceSerializer()
+class CitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = City
         fields = [
-            'locationId', 'province', 'cityName',
+            'locationId', 'provinceName', 'cityName',
             'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
-            'curedCount', 'deadCount',
-            # 'comment', 'statisticsData'
+            'curedCount', 'deadCount'
         ]
 
 class CountrySerializer(serializers.HyperlinkedModelSerializer):
@@ -36,9 +32,5 @@ class CountrySerializer(serializers.HyperlinkedModelSerializer):
             'locationId', 'continents', 'countryShortCode',
             'countryType', 'countryName', 'countryFullName',
             'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
-            'curedCount', 'deadCount',
-            # 'showRank', 'deadRateRank',
-            # 'deadCountRank', 'confirmedCountRank', 'deadRate', 'tags',
-            # 'statisticsData', 'comment', 'incrVo', 'sort', 'operator',
-            # 'modifyTime', 'createTime'
+            'curedCount', 'deadCount'
         ]

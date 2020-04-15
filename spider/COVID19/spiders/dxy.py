@@ -22,14 +22,15 @@ class DXYSpider(scrapy.Spider):
     def parse(self, response):
         sel = Selector(response)
         # 处理国内数据
+
         ret = sel.re(r'getAreaStat\s*=\s*(\[[^\<\>]+\])[^\<\>]*\<')
         provinces = json.loads(ret[0])
         for province in provinces:
             cities = province.pop('cities', [])
-            yield ProvinceItem(**province)
-            provinceId = province['locationId']
+            province = ProvinceItem(**province)
+            yield province
             for city in cities:
-                yield CityItem(province=provinceId, **city)
+                yield CityItem(province=province['locationId'], **city)
         # 处理国外数据
         ret = sel.re(
             r'getListByCountryTypeService2true\s*=\s*(\[[^\<\>]+\])[^\<\>]*\<')
