@@ -145,12 +145,10 @@ CACHES = {
 CRONTAB_LOCK_JOBS = True
 
 # 配置 Scrapy 命令完整路径
-SCRAPY_CMD = '/usr/local/bin/scrapy'
-if os.path.exists(SCRAPY_CMD):
-    SCRAPY_CMD = os.popen('which scrapy').read().strip()
+SCRAPY_CMD = '~/.virtualenvs/covid19/bin/scrapy'
 
 # Setting of Crontab
 CRONJOBS = (
     # 每分钟抓取一次
-    ('*/1 * * * *', 'ncovapi.cron.crawl_dxy', [], {}, '> /home/zhanglei3/Desktop/django-covid19/test.log'),
+    ('*/1 * * * *', 'ncovapi.cron.crawl_dxy', [], {}, '>> %s/crontab.log' % BASE_DIR),
 )
