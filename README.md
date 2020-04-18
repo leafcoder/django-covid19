@@ -13,6 +13,10 @@
     $ ./manage.py makemigrations ncovapi
     $ ./manage.py migrate
 
+## 创建缓存表
+
+    $ ./manage.py createcachetable
+
 ## 创建自动抓取丁香园新冠数据任务
 
     $ ./manage.py crontab add
