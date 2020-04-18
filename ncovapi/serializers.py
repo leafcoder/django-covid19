@@ -1,6 +1,26 @@
 from .models import City, Province, Country
 from rest_framework import serializers
 
+
+class StatisticsGroupSerializer(serializers.Serializer):
+
+    currentConfirmedCount = serializers.IntegerField()
+    confirmedCount = serializers.IntegerField()
+    suspectedCount = serializers.IntegerField()
+    seriousCount = serializers.IntegerField()
+    curedCount = serializers.IntegerField()
+    deadCount = serializers.IntegerField()
+
+
+class StatisticsSerializer(serializers.Serializer):
+
+    globalStatistics = StatisticsGroupSerializer()
+    domesticStatistics = StatisticsGroupSerializer()
+    internationalStatistics = StatisticsGroupSerializer()
+    modifyTime = serializers.IntegerField()
+    createTime = serializers.IntegerField()
+
+
 class ProvinceSerializer(serializers.HyperlinkedModelSerializer):
 
     provinceName = serializers.CharField(read_only=True)

@@ -1,5 +1,8 @@
+from django.db.models import Q, Sum
 from django.http import Http404
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -9,9 +12,48 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework_extensions.cache.decorators import cache_response
 
-from .serializers import CitySerializer, ProvinceSerializer, CountrySerializer
-from .models import Crawler, City, Province, Country
+from .serializers import StatisticsSerializer, CitySerializer, \
+                         ProvinceSerializer, CountrySerializer
+from .models import Crawler, Statistics, City, Province, Country
 from .filters import CityFilter, ProvinceFilter, CountryFilter
+
+
+TIMEOUT = 60 * 60
+
+class StatisticsView(APIView):
+    """统计信息"""
+
+    def get_object(self):
+        try:
+            crawler = Crawler.objects.order_by('-id').first()
+        except Crawler.DoesNotExist:
+            raise Http404
+        result = {}
+        insts = Statistics.objects.filter(crawler=crawler).all()
+        for inst in insts:
+            item = {}
+            item['currentConfirmedCount'] = inst.currentConfirmedCount
+            item['confirmedCount'] = inst.confirmedCount
+            item['suspectedCount'] = inst.suspectedCount
+            item['seriousCount'] = inst.seriousCount
+            item['curedCount'] = inst.curedCount
+            item['deadCount'] = inst.deadCount
+            countryType = inst.countryType
+            if countryType == Statistics.GLOBAL:
+                result['globalStatistics'] = item
+            elif countryType == Statistics.DOMESTIC:
+                result['domesticStatistics'] = item
+            elif countryType == Statistics.INTERNATIONAL:
+                result['internationalStatistics'] = item
+        result['createTime'] = crawler.createTime.timestamp()
+        result['modifyTime'] = crawler.modifyTime.timestamp()
+        return result
+
+    @method_decorator(cache_page(TIMEOUT))
+    def get(self, request):
+        data = self.get_object()
+        serializer = StatisticsSerializer(data)
+        return Response(serializer.data)
 
 
 class ProvinceListView(ListAPIView):
@@ -25,6 +67,10 @@ class ProvinceListView(ListAPIView):
         crawler = Crawler.objects.order_by('-id').first()
         queryset = Province.objects.filter(crawler=crawler)
         return queryset
+
+    @method_decorator(cache_page(TIMEOUT))
+    def dispatch(self, *args, **kwargs):
+        return super(ProvinceListView, self).dispatch(*args, **kwargs)
 
 
 class ProvinceRetrieveByNameView(APIView):
@@ -41,6 +87,7 @@ class ProvinceRetrieveByNameView(APIView):
         except Province.DoesNotExist:
             raise Http404
 
+    @method_decorator(cache_page(TIMEOUT))
     def get(self, request, provinceName):
         province = self.get_object(provinceName)
         serializer = ProvinceSerializer(province)
@@ -55,6 +102,7 @@ class ProvinceRetrieveView(APIView):
         except Province.DoesNotExist:
             raise Http404
 
+    @method_decorator(cache_page(TIMEOUT))
     def get(self, request, pk):
         province = self.get_object(pk)
         serializer = ProvinceSerializer(province)
@@ -71,6 +119,10 @@ class CountryListView(ListAPIView):
         queryset = Country.objects.filter(crawler=crawler)
         return queryset.all()
 
+    @method_decorator(cache_page(TIMEOUT))
+    def dispatch(self, *args, **kwargs):
+        return super(CountryListView, self).dispatch(*args, **kwargs)
+
 
 class CountryRetrieveView(APIView):
 
@@ -80,6 +132,7 @@ class CountryRetrieveView(APIView):
         except Country.DoesNotExist:
             raise Http404
 
+    @method_decorator(cache_page(TIMEOUT))
     def get(self, request, pk):
         country = self.get_object(pk)
         serializer = CountrySerializer(country)
@@ -99,6 +152,7 @@ class CountryRetrieveByNameView(APIView):
         except Country.DoesNotExist:
             raise Http404
 
+    @method_decorator(cache_page(TIMEOUT))
     def get(self, request, countryName):
         country = self.get_object(countryName)
         serializer = CountrySerializer(country)
@@ -115,6 +169,10 @@ class CityListView(ListAPIView):
         queryset = City.objects.filter(crawler=crawler)
         return queryset
 
+    @method_decorator(cache_page(TIMEOUT))
+    def dispatch(self, *args, **kwargs):
+        return super(CityListView, self).dispatch(*args, **kwargs)
+
 
 class CityRetrieveView(APIView):
 
@@ -124,6 +182,7 @@ class CityRetrieveView(APIView):
         except City.DoesNotExist:
             raise Http404
 
+    @method_decorator(cache_page(TIMEOUT))
     def get(self, request, pk):
         city = self.get_object(pk)
         serializer = CitySerializer(city)
@@ -143,6 +202,7 @@ class CityRetrieveByNameView(APIView):
         except City.DoesNotExist:
             raise Http404
 
+    @method_decorator(cache_page(TIMEOUT))
     def get(self, request, cityName):
         city = self.get_object(cityName)
         serializer = CitySerializer(city)

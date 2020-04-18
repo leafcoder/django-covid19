@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_crontab',
     'rest_framework',
     'django_filters',
-    'ncovapi'
+    'ncovapi.apps.NcovapiConfig'
 ]
 
 MIDDLEWARE = [
@@ -130,15 +131,26 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
 }
 
-# DRF扩展
-REST_FRAMEWORK_EXTENSIONS = {
-    'DEFAULT_USE_CACHE': 'default',
-    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 36000
-}
-
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake'
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'covid19_cache',
+        'TIMEOUT': 600,
+        'OPTIONS': {
+            'MAX_ENTRIES': 2000
+        }
     }
 }
+
+CRONTAB_LOCK_JOBS = True
+
+# 配置 Scrapy 命令完整路径
+SCRAPY_CMD = '/usr/local/bin/scrapy'
+if os.path.exists(SCRAPY_CMD):
+    SCRAPY_CMD = os.popen('which scrapy').read().strip()
+
+# Setting of Crontab
+CRONJOBS = (
+    # 每分钟抓取一次
+    ('*/1 * * * *', 'ncovapi.cron.crawl_dxy', [], {}, '> /home/zhanglei3/Desktop/django-covid19/test.log'),
+)

@@ -8,30 +8,29 @@
 import scrapy
 
 from scrapy_djangoitem import DjangoItem
-from ncovapi.models import Crawler, City, Province, Country
-
-
-class Covid19Item(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+from ncovapi import models
 
 
 class CrawlerItem(DjangoItem):
 
-    django_model = Crawler
+    django_model = models.Crawler
+
+
+class StatisticsItem(DjangoItem):
+
+    django_model = models.Statistics
 
 
 class ProvinceItem(DjangoItem):
 
-    django_model = Province
+    django_model = models.Province
 
 
 class CountryItem(DjangoItem):
 
-    django_model = Country
+    django_model = models.Country
 
 
 class CityItem(DjangoItem):
 
-    django_model = City
+    django_model = models.City

@@ -8,12 +8,14 @@
 import os
 import json
 import sqlite3
-from posixpath import join, exists
-from django.conf import settings
-from django.forms.models import model_to_dict
-from .items import CrawlerItem, CityItem, ProvinceItem, CountryItem
 
-class Covid19Pipeline(object):
+from django.core.cache import cache
+
+from .items import CrawlerItem, StatisticsItem, CityItem, ProvinceItem, \
+                   CountryItem
+
+
+class NcovPipeline(object):
 
     def open_spider(self, spider):
         spider.crawler = CrawlerItem.django_model.objects.create()
@@ -39,3 +41,11 @@ class Covid19Pipeline(object):
                 crawler=spider.crawler, **item
             )
             return item
+        elif isinstance(item, StatisticsItem):
+            StatisticsItem.django_model.objects.create(
+                crawler=spider.crawler, **item
+            )
+            return item
+
+    def close_spider(self, spider):
+        cache.set('crawled', 1)

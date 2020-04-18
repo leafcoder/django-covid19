@@ -18,5 +18,5 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ncov/', include('ncovapi.urls', namespace='ncovapi')),
+    path('api/', include('ncovapi.urls', namespace='ncovapi')),
 ]

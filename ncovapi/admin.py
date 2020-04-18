@@ -7,11 +7,6 @@ from . import models
 # Register your models here.
 
 
-"""city 443
-country 210
-province 34
-"""
-
 class BaseAdmin(admin.ModelAdmin):
 
     list_per_page = 50
@@ -22,6 +17,26 @@ class BaseAdmin(admin.ModelAdmin):
 
     preserve_filters = True
 
+
+@admin.register(models.Crawler)
+class CrawlerAdmin(BaseAdmin):
+
+    list_display = (
+        'id', 'crawlTime', 'createTime', 'modifyTime'
+    )
+
+
+@admin.register(models.Statistics)
+class StatisticsAdmin(BaseAdmin):
+
+    list_display = (
+        'id', 'countryType', 'seriousCount', 'currentConfirmedCount',
+        'confirmedCount', 'suspectedCount', 'curedCount', 'deadCount'
+    )
+    search_fields = ('crawler_id', )
+    list_filter = ('countryType', )
+
+
 @admin.register(models.City)
 class CityAdmin(BaseAdmin):
 
@@ -31,6 +46,7 @@ class CityAdmin(BaseAdmin):
     )
     search_fields = ('locationId', 'cityName', 'province__provinceName')
 
+
 @admin.register(models.Province)
 class ProvinceAdmin(BaseAdmin):
 
@@ -39,6 +55,7 @@ class ProvinceAdmin(BaseAdmin):
         'confirmedCount', 'suspectedCount', 'curedCount', 'deadCount'
     )
     search_fields = ('locationId', 'provinceName')
+
 
 @admin.register(models.Country)
 class CountryAdmin(BaseAdmin):

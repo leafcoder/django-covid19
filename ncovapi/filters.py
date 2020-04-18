@@ -20,6 +20,7 @@ class CityFilter(django_filters.rest_framework.FilterSet):
         model = City
         fields = ['locationId', 'provinceName', 'cityName']
 
+
 class ProvinceFilter(django_filters.rest_framework.FilterSet):
 
     locationId = django_filters.CharFilter(lookup_expr='iexact')
@@ -31,6 +32,7 @@ class ProvinceFilter(django_filters.rest_framework.FilterSet):
     class Meta:
         model = Province
         fields = ['id', 'locationId', 'provinceName', 'provinceShortName']
+
 
 class CountryFilter(django_filters.rest_framework.FilterSet):
 

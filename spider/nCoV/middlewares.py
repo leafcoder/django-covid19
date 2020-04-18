@@ -8,7 +8,7 @@
 from scrapy import signals
 
 
-class Covid19SpiderMiddleware(object):
+class NcovSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
@@ -56,7 +56,7 @@ class Covid19SpiderMiddleware(object):
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
-class Covid19DownloaderMiddleware(object):
+class NcovDownloaderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.

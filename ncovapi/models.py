@@ -1,25 +1,56 @@
 from django.db import models
 from django.utils import timezone
 
+
 class Crawler(models.Model):
 
-    createTime = models.DateTimeField(
+    modifyTime = models.DateTimeField(null=True)
+    createTime = models.DateTimeField(null=True)
+    crawlTime = models.DateTimeField(
         "抓取时间", default=timezone.now, editable=False)
 
     class Meta:
         verbose_name = "抓取版本"
         verbose_name_plural = "抓取版本"
 
+
+class Statistics(models.Model):
+
+    GLOBAL = 0
+    DOMESTIC = 1
+    INTERNATIONAL = 2
+
+    countryType = models.IntegerField(choices=(
+        (GLOBAL, '全球'),
+        (DOMESTIC, '国内'),
+        (INTERNATIONAL, '国外')
+    ))
+    currentConfirmedCount = models.IntegerField(default=0)
+    confirmedCount = models.IntegerField(default=0)
+    suspectedCount = models.IntegerField(default=0)
+    seriousCount = models.IntegerField('现存无症状', default=0)
+    curedCount = models.IntegerField(default=0)
+    deadCount = models.IntegerField(default=0)
+    crawler = models.ForeignKey(
+        "Crawler", on_delete=models.CASCADE, related_name="statistics",
+        db_column="crawlerId"
+    )
+
+    class Meta:
+        verbose_name = '统计数据'
+        verbose_name_plural = '统计数据'
+
+
 class Province(models.Model):
 
     locationId = models.IntegerField()
     provinceName = models.CharField(max_length=50)
     provinceShortName = models.CharField(max_length=20)
-    currentConfirmedCount = models.IntegerField()
-    confirmedCount = models.IntegerField()
-    suspectedCount = models.IntegerField()
-    curedCount = models.IntegerField()
-    deadCount = models.IntegerField()
+    currentConfirmedCount = models.IntegerField(default=0)
+    confirmedCount = models.IntegerField(default=0)
+    suspectedCount = models.IntegerField(default=0)
+    curedCount = models.IntegerField(default=0)
+    deadCount = models.IntegerField(default=0)
     comment = models.CharField(max_length=200)
     statisticsData = models.CharField(max_length=500)
     crawler = models.ForeignKey(
@@ -28,18 +59,19 @@ class Province(models.Model):
     )
 
     class Meta:
-        verbose_name = '省份'
-        verbose_name_plural = '省份'
+        verbose_name = '国内省份'
+        verbose_name_plural = '国内省份'
+
 
 class City(models.Model):
 
     locationId = models.IntegerField()
     cityName = models.CharField(max_length=50)
-    currentConfirmedCount = models.IntegerField()
-    confirmedCount = models.IntegerField()
-    suspectedCount = models.IntegerField()
-    curedCount = models.IntegerField()
-    deadCount = models.IntegerField()
+    currentConfirmedCount = models.IntegerField(default=0)
+    confirmedCount = models.IntegerField(default=0)
+    suspectedCount = models.IntegerField(default=0)
+    curedCount = models.IntegerField(default=0)
+    deadCount = models.IntegerField(default=0)
     province = models.ForeignKey(
         "Province", on_delete=models.CASCADE, related_name="cities",
         db_column="provinceId"
@@ -53,8 +85,9 @@ class City(models.Model):
         return self.province.provinceName
 
     class Meta:
-        verbose_name = "城市"
-        verbose_name_plural = "城市"
+        verbose_name = "国内城市"
+        verbose_name_plural = "国内城市"
+
 
 class Country(models.Model):
 
@@ -64,11 +97,11 @@ class Country(models.Model):
     countryType = models.CharField(max_length=20) # 
     countryName = models.CharField(max_length=50) #
     countryFullName = models.CharField(max_length=50) #
-    currentConfirmedCount = models.IntegerField()
-    confirmedCount = models.IntegerField()
-    suspectedCount = models.IntegerField()
-    curedCount = models.IntegerField()
-    deadCount = models.IntegerField()
+    currentConfirmedCount = models.IntegerField(default=0)
+    confirmedCount = models.IntegerField(default=0)
+    suspectedCount = models.IntegerField(default=0)
+    curedCount = models.IntegerField(default=0)
+    deadCount = models.IntegerField(default=0)
 
     showRank = models.BooleanField(null=True)
     deadRateRank = models.IntegerField(null=True)
@@ -89,5 +122,5 @@ class Country(models.Model):
     )
 
     class Meta:
-        verbose_name = "国家或地区"
-        verbose_name_plural = "国家或地区"
+        verbose_name = "国家地区"
+        verbose_name_plural = "国家地区"

@@ -11,7 +11,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'covid19.settings'
 import django
 django.setup()
 
-# Scrapy settings for COVID19 project
+# Scrapy settings for nCoV project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -20,10 +20,10 @@ django.setup()
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'COVID19'
+BOT_NAME = 'nCoV'
 
-SPIDER_MODULES = ['COVID19.spiders']
-NEWSPIDER_MODULE = 'COVID19.spiders'
+SPIDER_MODULES = ['nCoV.spiders']
+NEWSPIDER_MODULE = 'nCoV.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -58,13 +58,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'COVID19.middlewares.Covid19SpiderMiddleware': 543,
+#    'nCoV.middlewares.NcovSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'COVID19.middlewares.Covid19DownloaderMiddleware': 543,
+#    'nCoV.middlewares.NcovDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -76,7 +76,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'COVID19.pipelines.Covid19Pipeline': 300,
+   'nCoV.pipelines.NcovPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
