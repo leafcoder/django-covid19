@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'jua+&*ti%!$hnt6zxndu09jw&oai1d+wb^znq&$kb&9_j6v60!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -129,23 +129,29 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
 }
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'covid19_cache',
-        'TIMEOUT': 600,
+        'TIMEOUT': 3600,
         'OPTIONS': {
-            'MAX_ENTRIES': 2000
+            'MAX_ENTRIES': 20000
         }
     }
 }
 
 CRONTAB_LOCK_JOBS = True
 
+# 静态文件目录
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # 配置 Scrapy 命令完整路径
-SCRAPY_CMD = '~/.virtualenvs/covid19/bin/scrapy'
+SCRAPY_CMD = '~/.virtualenvs/django-covid19/bin/scrapy'
 
 # Setting of Crontab
 CRONJOBS = (

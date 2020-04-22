@@ -106,3 +106,4 @@ ncovapi/__pycache__/
 ncovapi/migrations/
 *.sqlite3
 *.db
+static/
