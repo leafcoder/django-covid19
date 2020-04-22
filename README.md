@@ -17,6 +17,10 @@
 
     $ ./manage.py createcachetable
 
+## 搜集静态文件
+
+    $ ./manage.py collectstatic
+
 ## 创建自动抓取丁香园新冠数据任务
 
     $ ./manage.py crontab add
