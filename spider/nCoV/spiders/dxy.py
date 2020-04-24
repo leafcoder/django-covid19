@@ -77,7 +77,7 @@ class DXYSpider(scrapy.Spider):
                 'currentConfirmedCount', 'curedCount', 'confirmedCount',
                 'seriousCount', 'suspectedCount', 'deadCount'):
             item[key] = statistics.get(key, 0)
-        item['countryType'] = StatisticsItem.django_model.DOMESTIC
+        item['countryType'] = StatisticsItem.django_model.INTERNATIONAL
         yield StatisticsItem(**item)
 
 
@@ -87,7 +87,7 @@ class DXYSpider(scrapy.Spider):
                 'currentConfirmedCount', 'curedCount', 'confirmedCount',
                 'seriousCount', 'suspectedCount', 'deadCount'):
             item[key] = statistics.get(key, 0)
-        item['countryType'] = StatisticsItem.django_model.INTERNATIONAL
+        item['countryType'] = StatisticsItem.django_model.DOMESTIC
         yield StatisticsItem(**item)
 
         self.crawler.createTime \
