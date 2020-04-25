@@ -9,8 +9,9 @@
 import json
 import scrapy
 from scrapy.selector import Selector
-from ..items import StatisticsItem, NoticeItem, ProvinceItem, \
-                    CountryItem, CityItem
+from ..items import StatisticsItem, NoticeItem, WHOArticleItem, \
+                    RecommendItem, ProvinceItem, CountryItem, CityItem, \
+                    TimelineItem, WikiItem, GoodsGuideItem, RumorItem
 
 from django.utils.timezone import datetime, make_aware
 
@@ -51,6 +52,64 @@ class DXYSpider(scrapy.Spider):
         statistics = self.get_statistics(scripts, '#getStatisticsService')
         for item in statistics:
             yield item
+
+        # 时间线事件，id=“getTimelineService2” 为英文内容
+        timelines = self.get_list(scripts, '#getTimelineService1')
+        for item in timelines:
+            timeline = {}
+            for key in ('title', 'summary', 'infoSource', 'sourceUrl',
+                        'pubDate', 'pubDateStr'):
+                timeline[key] = item.get(key)
+            yield TimelineItem(**timeline)
+
+
+        # 建议，id=“#getIndexRecommendList2” 为英文内容
+        recommends = self.get_list(
+            scripts, '#getIndexRecommendListundefined')
+        for item in recommends:
+            recommend = {
+                'title': item['title'],
+                'linkUrl': item['linkUrl'],
+                'imgUrl': item['imgUrl'],
+                'countryType': item['countryType'],
+                'contentType': item['contentType'],
+                'recordStatus': item['recordStatus'],
+                'sort': item['sort']
+            }
+            yield RecommendItem(**recommend)
+
+        # # WHO 文章
+        article = self.get_dict(scripts, '#fetchWHOArticle')
+        yield WHOArticleItem(
+            title=article['title'], linkUrl=article['linkUrl'],
+            imgUrl=article['imgUrl'])
+
+        # wiki
+        wiki_result = self.get_dict(scripts, '#getWikiList')
+        wikis = wiki_result['result']
+        for item in wikis:
+            wiki = {}
+            for key in ('title', 'linkUrl', 'imgUrl', 'description'):
+                wiki[key] = item.get(key)
+            yield WikiItem(**wiki)
+
+        # 购物指南
+        guides = self.get_list(scripts, '#fetchGoodsGuide')
+        for item in guides:
+            guide = {}
+            for key in ('categoryName', 'title', 'recordStatus',
+                        'contentImgUrls'):
+                guide[key] = item.get(key)
+            yield GoodsGuideItem(**guide)
+
+        # 辟谣与防护
+        rumors = self.get_list(scripts, '#getIndexRumorList')
+        for item in rumors:
+            rumor = {}
+            for key in ('title', 'mainSummary', 'summary', 'body',
+                        'sourceUrl', 'score', 'rumorType'):
+                rumor[key] = item.get(key)
+            yield RumorItem(**rumor)
 
     def get_list(self, scripts, data_id):
         ret = scripts.css(data_id).re(r'(\[.+\])')
@@ -93,8 +152,6 @@ class DXYSpider(scrapy.Spider):
 
 
         # Remark and Note
-        statistics = data
-
         remarks = []
         for key in ('remark1', 'remark2', 'remark3', 'remark4', 'remark5'):
             remark = data.get(key)
@@ -113,6 +170,7 @@ class DXYSpider(scrapy.Spider):
             'generalRemark': data.get('generalRemark')
         }
         yield NoticeItem(**item)
+
 
         self.crawler.createTime \
             = make_aware(datetime.fromtimestamp(data['createTime'] / 1000.0))
