@@ -37,6 +37,13 @@ class StatisticsAdmin(BaseAdmin):
     list_filter = ('countryType', )
 
 
+@admin.register(models.Notice)
+class NoticeAdmin(BaseAdmin):
+
+    list_display = (
+        'id', 'crawler', 'remarks', 'notes', 'generalRemark'
+    )
+
 @admin.register(models.City)
 class CityAdmin(BaseAdmin):
 
