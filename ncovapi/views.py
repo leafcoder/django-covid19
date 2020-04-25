@@ -13,8 +13,10 @@ from rest_framework.views import APIView
 from rest_framework_extensions.cache.decorators import cache_response
 
 from .serializers import StatisticsSerializer, CitySerializer, \
-                         ProvinceSerializer, CountrySerializer
-from .models import Crawler, Statistics, City, Province, Country
+                         ProvinceSerializer, CountrySerializer, \
+                         RecommendSerializer, TimelineSerializer
+from .models import Crawler, Statistics, WHOArticle, Recommend, \
+                    City, Province, Country
 from .filters import CityFilter, ProvinceFilter, CountryFilter
 
 
@@ -55,6 +57,21 @@ class StatisticsView(APIView):
             result['remarks'] = notice.remarks
             result['notes'] = notice.notes
             result['generalRemark'] = notice.generalRemark
+        try:
+            article = crawler.WHO_article
+        except WHOArticle.DoesNotExist:
+            result['WHOArticle'] = None
+        else:
+            result['WHOArticle'] = {
+                'title': article.title,
+                'linkUrl': article.linkUrl,
+                'imgUrl': article.imgUrl
+            }
+        result['recommends'] = crawler.recommends.all()
+        result['timelines'] = crawler.timelines.all()
+        result['wikis'] = crawler.wikis.all()
+        result['goodsGuides'] = crawler.goods_guides.all()
+        result['rumors'] = crawler.rumors.all()
         return result
 
     @method_decorator(cache_page(TIMEOUT))
