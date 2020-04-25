@@ -11,12 +11,18 @@ class StatisticsGroupSerializer(serializers.Serializer):
     curedCount = serializers.IntegerField()
     deadCount = serializers.IntegerField()
 
-
 class StatisticsSerializer(serializers.Serializer):
 
     globalStatistics = StatisticsGroupSerializer()
     domesticStatistics = StatisticsGroupSerializer()
     internationalStatistics = StatisticsGroupSerializer()
+    remarks = serializers.ListField(
+       child=serializers.CharField(max_length=100), max_length=10
+    )
+    notes = serializers.ListField(
+       child=serializers.CharField(max_length=100), max_length=10
+    )
+    generalRemark = serializers.CharField()
     modifyTime = serializers.IntegerField()
     createTime = serializers.IntegerField()
 

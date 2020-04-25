@@ -11,8 +11,8 @@ import sqlite3
 
 from django.core.cache import cache
 
-from .items import CrawlerItem, StatisticsItem, CityItem, ProvinceItem, \
-                   CountryItem
+from .items import CrawlerItem, StatisticsItem, NoticeItem, CityItem, \
+                   ProvinceItem, CountryItem
 
 
 class NcovPipeline(object):
@@ -43,6 +43,11 @@ class NcovPipeline(object):
             return item
         elif isinstance(item, StatisticsItem):
             StatisticsItem.django_model.objects.create(
+                crawler=spider.crawler, **item
+            )
+            return item
+        elif isinstance(item, NoticeItem):
+            NoticeItem.django_model.objects.create(
                 crawler=spider.crawler, **item
             )
             return item

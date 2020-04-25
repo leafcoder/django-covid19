@@ -21,6 +21,10 @@ class StatisticsItem(DjangoItem):
     django_model = models.Statistics
 
 
+class NoticeItem(DjangoItem):
+
+    django_model = models.Notice
+
 class ProvinceItem(DjangoItem):
 
     django_model = models.Province
