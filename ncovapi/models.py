@@ -20,12 +20,13 @@ class Statistics(models.Model):
     GLOBAL = 0
     DOMESTIC = 1
     INTERNATIONAL = 2
-
-    countryType = models.IntegerField(choices=(
+    COUNTRY_TYPES = (
         (GLOBAL, '全球'),
         (DOMESTIC, '国内'),
         (INTERNATIONAL, '国外')
-    ))
+    )
+
+    countryType = models.IntegerField(choices=COUNTRY_TYPES)
     currentConfirmedCount = models.IntegerField(default=0)
     confirmedCount = models.IntegerField(default=0)
     suspectedCount = models.IntegerField(default=0)
@@ -57,6 +58,121 @@ class Notice(models.Model):
         verbose_name = '注意信息'
         verbose_name_plural = '注意信息'
 
+class WHOArticle(models.Model):
+
+    title = models.CharField(max_length=100)
+    linkUrl = models.URLField(max_length=200)
+    imgUrl = models.URLField(max_length=200)
+    crawler = models.OneToOneField(
+        "Crawler", on_delete=models.CASCADE, related_name="WHO_article",
+        db_column="crawlerId"
+    )
+
+    class Meta:
+        verbose_name = 'WHO 文章'
+        verbose_name_plural = 'WHO 文章'
+
+class Recommend(models.Model):
+
+    CONTENT_TYPES = [
+        (1, '我要出行'),
+        (2, '家有小孩'),
+        (3, '未知'),
+        (4, '我宅在家'),
+        (5, '未知'),
+        (6, '未知'),
+        (7, '未知')
+    ]
+    GLOBAL = 0
+    DOMESTIC = 1
+    INTERNATIONAL = 2
+    COUNTRY_TYPES = (
+        (GLOBAL, '全球'),
+        (DOMESTIC, '国内'),
+        (INTERNATIONAL, '国外')
+    )
+
+    title = models.CharField(max_length=100)
+    linkUrl = models.URLField(max_length=200)
+    imgUrl = models.URLField(max_length=200)
+    contentType = models.IntegerField(choices=CONTENT_TYPES)
+    recordStatus = models.IntegerField()
+    countryType = models.IntegerField(choices=COUNTRY_TYPES)
+    sort = models.IntegerField()
+    crawler = models.ForeignKey(
+        "Crawler", on_delete=models.CASCADE, related_name="recommends",
+        db_column="crawlerId"
+    )
+
+    class Meta:
+        verbose_name = '防护知识'
+        verbose_name_plural = '防护知识'
+
+class Timeline(models.Model):
+
+    pubDate = models.IntegerField()
+    pubDateStr = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
+    summary = models.TextField()
+    infoSource = models.CharField(max_length=50)
+    sourceUrl = models.URLField(max_length=200)
+    crawler = models.ForeignKey(
+        "Crawler", on_delete=models.CASCADE, related_name="timelines",
+        db_column="crawlerId"
+    )
+
+    class Meta:
+        verbose_name = '时间线事件'
+        verbose_name_plural = '时间线事件'
+
+class Wiki(models.Model):
+
+    title = models.CharField(max_length=100)
+    linkUrl = models.URLField(max_length=200)
+    imgUrl = models.URLField(max_length=200)
+    description = models.TextField()
+    crawler = models.ForeignKey(
+        "Crawler", on_delete=models.CASCADE, related_name="wikis",
+        db_column="crawlerId"
+    )
+
+    class Meta:
+        verbose_name = 'Wiki'
+        verbose_name_plural = 'Wiki'
+
+class GoodsGuide(models.Model):
+
+    title = models.CharField(max_length=100)
+    categoryName = models.CharField(max_length=50)
+    recordStatus = models.IntegerField()
+    contentImgUrls = ListCharField(
+        models.CharField(max_length=100), size=10, max_length=100*11)
+    crawler = models.ForeignKey(
+        "Crawler", on_delete=models.CASCADE, related_name="goods_guides",
+        db_column="crawlerId"
+    )
+
+    class Meta:
+        verbose_name = '购物指南'
+        verbose_name_plural = '购物指南'
+
+class Rumor(models.Model):
+
+    title = models.CharField(max_length=100)
+    mainSummary = models.TextField()
+    summary = models.TextField()
+    body = models.TextField()
+    sourceUrl = models.URLField(max_length=200)
+    score = models.IntegerField()
+    rumorType = models.IntegerField()
+    crawler = models.ForeignKey(
+        "Crawler", on_delete=models.CASCADE, related_name="rumors",
+        db_column="crawlerId"
+    )
+
+    class Meta:
+        verbose_name = '辟谣与防护'
+        verbose_name_plural = '辟谣与防护'
 
 class Province(models.Model):
 

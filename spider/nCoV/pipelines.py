@@ -11,43 +11,72 @@ import sqlite3
 
 from django.core.cache import cache
 
-from .items import CrawlerItem, StatisticsItem, NoticeItem, CityItem, \
-                   ProvinceItem, CountryItem
+from . import items
 
 
 class NcovPipeline(object):
 
     def open_spider(self, spider):
-        spider.crawler = CrawlerItem.django_model.objects.create()
+        spider.crawler = items.CrawlerItem.django_model.objects.create()
 
     def process_item(self, item, spider):
-        if isinstance(item, ProvinceItem):
-            ProvinceItem.django_model.objects.create(
+        if isinstance(item, items.ProvinceItem):
+            items.ProvinceItem.django_model.objects.create(
                 crawler=spider.crawler, **item
             )
             return item
-        elif isinstance(item, CityItem):
+        elif isinstance(item, items.CityItem):
             provice_location_id = item.pop('province')
-            province = ProvinceItem.django_model.objects.filter(
+            province = items.ProvinceItem.django_model.objects.filter(
                 locationId=provice_location_id,
                 crawler=spider.crawler).first()
             item['province'] = province
-            CityItem.django_model.objects.create(
+            items.CityItem.django_model.objects.create(
                 crawler=spider.crawler, **item
             )
             return item
-        elif isinstance(item, CountryItem):
-            CountryItem.django_model.objects.create(
+        elif isinstance(item, items.CountryItem):
+            items.CountryItem.django_model.objects.create(
                 crawler=spider.crawler, **item
             )
             return item
-        elif isinstance(item, StatisticsItem):
-            StatisticsItem.django_model.objects.create(
+        elif isinstance(item, items.StatisticsItem):
+            items.StatisticsItem.django_model.objects.create(
                 crawler=spider.crawler, **item
             )
             return item
-        elif isinstance(item, NoticeItem):
-            NoticeItem.django_model.objects.create(
+        elif isinstance(item, items.NoticeItem):
+            items.NoticeItem.django_model.objects.create(
+                crawler=spider.crawler, **item
+            )
+            return item
+        elif isinstance(item, items.WHOArticleItem):
+            items.WHOArticleItem.django_model.objects.create(
+                crawler=spider.crawler, **item
+            )
+            return item
+        elif isinstance(item, items.RecommendItem):
+            items.RecommendItem.django_model.objects.create(
+                crawler=spider.crawler, **item
+            )
+            return item
+        elif isinstance(item, items.TimelineItem):
+            items.TimelineItem.django_model.objects.create(
+                crawler=spider.crawler, **item
+            )
+            return item
+        elif isinstance(item, items.WikiItem):
+            items.WikiItem.django_model.objects.create(
+                crawler=spider.crawler, **item
+            )
+            return item
+        elif isinstance(item, items.GoodsGuideItem):
+            items.GoodsGuideItem.django_model.objects.create(
+                crawler=spider.crawler, **item
+            )
+            return item
+        elif isinstance(item, items.RumorItem):
+            items.RumorItem.django_model.objects.create(
                 crawler=spider.crawler, **item
             )
             return item
