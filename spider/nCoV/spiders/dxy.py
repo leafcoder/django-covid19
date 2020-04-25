@@ -9,9 +9,10 @@
 import json
 import scrapy
 from scrapy.selector import Selector
-from ..items import StatisticsItem, ProvinceItem, CountryItem, CityItem
+from ..items import StatisticsItem, NoticeItem, ProvinceItem, \
+                    CountryItem, CityItem
 
-from datetime import datetime
+from django.utils.timezone import datetime, make_aware
 
 class DXYSpider(scrapy.Spider):
 
@@ -90,8 +91,31 @@ class DXYSpider(scrapy.Spider):
         item['countryType'] = StatisticsItem.django_model.DOMESTIC
         yield StatisticsItem(**item)
 
+
+        # Remark and Note
+        statistics = data
+
+        remarks = []
+        for key in ('remark1', 'remark2', 'remark3', 'remark4', 'remark5'):
+            remark = data.get(key)
+            if remark:
+                remarks.append(remark)
+
+        notes = []
+        for key in ('note1', 'note2', 'note3'):
+            note = data.get(key)
+            if note:
+                notes.append(note)
+
+        item = {
+            'remarks': remarks,
+            'notes': notes,
+            'generalRemark': data.get('generalRemark')
+        }
+        yield NoticeItem(**item)
+
         self.crawler.createTime \
-            = datetime.fromtimestamp(data['createTime'] / 1000.0)
+            = make_aware(datetime.fromtimestamp(data['createTime'] / 1000.0))
         self.crawler.modifyTime \
-            = datetime.fromtimestamp(data['modifyTime'] / 1000.0)
+            = make_aware(datetime.fromtimestamp(data['modifyTime'] / 1000.0))
         self.crawler.save()

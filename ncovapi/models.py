@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django_mysql.models import ListCharField
 
 
 class Crawler(models.Model):
@@ -39,6 +40,22 @@ class Statistics(models.Model):
     class Meta:
         verbose_name = '统计数据'
         verbose_name_plural = '统计数据'
+
+class Notice(models.Model):
+
+    remarks = ListCharField(
+        models.CharField(max_length=100), size=10, max_length=100*11)
+    notes = ListCharField(
+        models.CharField(max_length=100), size=10, max_length=100*11)
+    generalRemark = models.TextField(null=True)
+    crawler = models.ForeignKey(
+        "Crawler", on_delete=models.CASCADE, related_name="notices",
+        db_column="crawlerId"
+    )
+
+    class Meta:
+        verbose_name = '注意信息'
+        verbose_name_plural = '注意信息'
 
 
 class Province(models.Model):

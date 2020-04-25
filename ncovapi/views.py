@@ -47,6 +47,14 @@ class StatisticsView(APIView):
                 result['internationalStatistics'] = item
         result['createTime'] = crawler.createTime.timestamp()
         result['modifyTime'] = crawler.modifyTime.timestamp()
+        result['remarks'] = []
+        result['notes'] = []
+        result['generalRemark'] = ''
+        notice = crawler.notices.first()
+        if notice:
+            result['remarks'] = notice.remarks
+            result['notes'] = notice.notes
+            result['generalRemark'] = notice.generalRemark
         return result
 
     @method_decorator(cache_page(TIMEOUT))
