@@ -9,9 +9,7 @@
 import json
 import scrapy
 from scrapy.selector import Selector
-from ..items import StatisticsItem, NoticeItem, WHOArticleItem, \
-                    RecommendItem, ProvinceItem, CountryItem, CityItem, \
-                    TimelineItem, WikiItem, GoodsGuideItem, RumorItem
+from .. import items
 
 from django.utils.timezone import datetime, make_aware
 
@@ -31,13 +29,15 @@ class DXYSpider(scrapy.Spider):
         provinces = self.get_list(scripts, '#getAreaStat')
         for province in provinces:
             cities = province.pop('cities', [])
-            province = ProvinceItem(**province)
+            province = items.ProvinceItem(**province)
             yield province
             for city in cities:
-                yield CityItem(province=province['locationId'], **city)
+                location_id = province['locationId']
+                yield items.CityItem(province=location_id, **city)
 
         # 国外数据
-        countries = self.get_list(scripts, '#getListByCountryTypeService2true')
+        countries = self.get_list(
+            scripts, '#getListByCountryTypeService2true')
         for country in countries:
             country.pop('id', None)
             country['countryName'] = country.pop('provinceName', None)
@@ -46,7 +46,7 @@ class DXYSpider(scrapy.Spider):
             country.pop('provinceId')
             country.pop('provinceName')
             country.pop('provinceShortName')
-            yield CountryItem(**country)
+            yield items.CountryItem(**country)
 
         # 统计信息
         statistics = self.get_statistics(scripts, '#getStatisticsService')
@@ -60,29 +60,24 @@ class DXYSpider(scrapy.Spider):
             for key in ('title', 'summary', 'infoSource', 'sourceUrl',
                         'pubDate', 'pubDateStr'):
                 timeline[key] = item.get(key)
-            yield TimelineItem(**timeline)
-
+            yield items.TimelineItem(**timeline)
 
         # 建议，id=“#getIndexRecommendList2” 为英文内容
         recommends = self.get_list(
             scripts, '#getIndexRecommendListundefined')
         for item in recommends:
-            recommend = {
-                'title': item['title'],
-                'linkUrl': item['linkUrl'],
-                'imgUrl': item['imgUrl'],
-                'countryType': item['countryType'],
-                'contentType': item['contentType'],
-                'recordStatus': item['recordStatus'],
-                'sort': item['sort']
-            }
-            yield RecommendItem(**recommend)
+            recommend = {}
+            for key in ('title', 'linkUrl', 'imgUrl', 'countryType',
+                        'contentType', 'recordStatus', 'sort'):
+                recommend[key] = item.get(key)
+            yield items.RecommendItem(**recommend)
 
-        # # WHO 文章
-        article = self.get_dict(scripts, '#fetchWHOArticle')
-        yield WHOArticleItem(
-            title=article['title'], linkUrl=article['linkUrl'],
-            imgUrl=article['imgUrl'])
+        # WHO 文章
+        item = self.get_dict(scripts, '#fetchWHOArticle')
+        article = {}
+        for key in ('title', 'linkUrl', 'imgUrl'):
+            article[key] = item.get(key)
+        yield items.WHOArticleItem(**article)
 
         # wiki
         wiki_result = self.get_dict(scripts, '#getWikiList')
@@ -91,7 +86,7 @@ class DXYSpider(scrapy.Spider):
             wiki = {}
             for key in ('title', 'linkUrl', 'imgUrl', 'description'):
                 wiki[key] = item.get(key)
-            yield WikiItem(**wiki)
+            yield items.WikiItem(**wiki)
 
         # 购物指南
         guides = self.get_list(scripts, '#fetchGoodsGuide')
@@ -100,7 +95,7 @@ class DXYSpider(scrapy.Spider):
             for key in ('categoryName', 'title', 'recordStatus',
                         'contentImgUrls'):
                 guide[key] = item.get(key)
-            yield GoodsGuideItem(**guide)
+            yield items.GoodsGuideItem(**guide)
 
         # 辟谣与防护
         rumors = self.get_list(scripts, '#getIndexRumorList')
@@ -109,15 +104,7 @@ class DXYSpider(scrapy.Spider):
             for key in ('title', 'mainSummary', 'summary', 'body',
                         'sourceUrl', 'score', 'rumorType'):
                 rumor[key] = item.get(key)
-            yield RumorItem(**rumor)
-
-    def get_list(self, scripts, data_id):
-        ret = scripts.css(data_id).re(r'(\[.+\])')
-        return json.loads(ret[0])
-
-    def get_dict(self, scripts, data_id):
-        ret = scripts.css(data_id).re(r'\=\s*(\{.+\})\}catch\(e\)\{\}')
-        return json.loads(ret[0])
+            yield items.RumorItem(**rumor)
 
     def get_statistics(self, scripts, data_id):
         data = self.get_dict(scripts, data_id)
@@ -127,9 +114,8 @@ class DXYSpider(scrapy.Spider):
                 'currentConfirmedCount', 'curedCount', 'confirmedCount',
                 'seriousCount', 'suspectedCount', 'deadCount'):
             item[key] = statistics.get(key, 0)
-        item['countryType'] = StatisticsItem.django_model.GLOBAL
-        yield StatisticsItem(**item)
-
+        item['countryType'] = items.StatisticsItem.django_model.GLOBAL
+        yield items.StatisticsItem(**item)
 
         statistics = data['foreignStatistics']
         item = {}
@@ -137,9 +123,9 @@ class DXYSpider(scrapy.Spider):
                 'currentConfirmedCount', 'curedCount', 'confirmedCount',
                 'seriousCount', 'suspectedCount', 'deadCount'):
             item[key] = statistics.get(key, 0)
-        item['countryType'] = StatisticsItem.django_model.INTERNATIONAL
-        yield StatisticsItem(**item)
-
+        item['countryType'] \
+            = items.StatisticsItem.django_model.INTERNATIONAL
+        yield items.StatisticsItem(**item)
 
         statistics = data
         item = {}
@@ -147,9 +133,8 @@ class DXYSpider(scrapy.Spider):
                 'currentConfirmedCount', 'curedCount', 'confirmedCount',
                 'seriousCount', 'suspectedCount', 'deadCount'):
             item[key] = statistics.get(key, 0)
-        item['countryType'] = StatisticsItem.django_model.DOMESTIC
-        yield StatisticsItem(**item)
-
+        item['countryType'] = items.StatisticsItem.django_model.DOMESTIC
+        yield items.StatisticsItem(**item)
 
         # Remark and Note
         remarks = []
@@ -169,11 +154,18 @@ class DXYSpider(scrapy.Spider):
             'notes': notes,
             'generalRemark': data.get('generalRemark')
         }
-        yield NoticeItem(**item)
+        yield items.NoticeItem(**item)
 
-
-        self.crawler.createTime \
-            = make_aware(datetime.fromtimestamp(data['createTime'] / 1000.0))
-        self.crawler.modifyTime \
-            = make_aware(datetime.fromtimestamp(data['modifyTime'] / 1000.0))
+        self.crawler.createTime = make_aware(
+            datetime.fromtimestamp(data['createTime'] / 1000.0))
+        self.crawler.modifyTime = make_aware(
+            datetime.fromtimestamp(data['modifyTime'] / 1000.0))
         self.crawler.save()
+
+    def get_list(self, scripts, data_id):
+        ret = scripts.css(data_id).re(r'(\[.+\])')
+        return json.loads(ret[0])
+
+    def get_dict(self, scripts, data_id):
+        ret = scripts.css(data_id).re(r'\=\s*(\{.+\})\}catch\(e\)\{\}')
+        return json.loads(ret[0])

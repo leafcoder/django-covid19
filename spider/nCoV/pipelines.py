@@ -20,12 +20,7 @@ class NcovPipeline(object):
         spider.crawler = items.CrawlerItem.django_model.objects.create()
 
     def process_item(self, item, spider):
-        if isinstance(item, items.ProvinceItem):
-            items.ProvinceItem.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
-            return item
-        elif isinstance(item, items.CityItem):
+        if isinstance(item, items.CityItem):
             provice_location_id = item.pop('province')
             province = items.ProvinceItem.django_model.objects.filter(
                 locationId=provice_location_id,
@@ -35,48 +30,13 @@ class NcovPipeline(object):
                 crawler=spider.crawler, **item
             )
             return item
-        elif isinstance(item, items.CountryItem):
-            items.CountryItem.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
-            return item
-        elif isinstance(item, items.StatisticsItem):
-            items.StatisticsItem.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
-            return item
-        elif isinstance(item, items.NoticeItem):
-            items.NoticeItem.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
-            return item
-        elif isinstance(item, items.WHOArticleItem):
-            items.WHOArticleItem.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
-            return item
-        elif isinstance(item, items.RecommendItem):
-            items.RecommendItem.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
-            return item
-        elif isinstance(item, items.TimelineItem):
-            items.TimelineItem.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
-            return item
-        elif isinstance(item, items.WikiItem):
-            items.WikiItem.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
-            return item
-        elif isinstance(item, items.GoodsGuideItem):
-            items.GoodsGuideItem.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
-            return item
-        elif isinstance(item, items.RumorItem):
-            items.RumorItem.django_model.objects.create(
+        elif isinstance(item, (items.ProvinceItem, items.CountryItem,
+                               items.StatisticsItem, items.NoticeItem,
+                               items.WHOArticleItem, items.RecommendItem,
+                               items.TimelineItem, items.WikiItem,
+                               items.GoodsGuideItem, items.RumorItem)):
+            klass = item.__class__
+            klass.django_model.objects.create(
                 crawler=spider.crawler, **item
             )
             return item
