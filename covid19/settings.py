@@ -136,8 +136,8 @@ REST_FRAMEWORK = {
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'covid19_cache',
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/covid19_cache',
         'TIMEOUT': 3600,
         'OPTIONS': {
             'MAX_ENTRIES': 20000
