@@ -42,4 +42,5 @@ class NcovPipeline(object):
             return item
 
     def close_spider(self, spider):
-        cache.set('crawled', 1)
+        if spider.crawler is not None:
+            cache.set('crawled', 1)
