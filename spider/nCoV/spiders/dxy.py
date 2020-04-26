@@ -8,10 +8,13 @@
 
 import json
 import scrapy
+import logging
 from scrapy.selector import Selector
 from .. import items
 
 from django.utils.timezone import datetime, make_aware
+
+logger = logging.getLogger()
 
 class DXYSpider(scrapy.Spider):
 
@@ -24,6 +27,27 @@ class DXYSpider(scrapy.Spider):
     def parse(self, response):
         sel = Selector(response)
         scripts = sel.xpath('//script')
+
+        # 判断是否需要保存抓取的数据
+        statistics = self.get_dict(scripts, '#getStatisticsService')
+        createTime = make_aware(
+            datetime.fromtimestamp(statistics['createTime'] / 1000.0))
+        modifyTime = make_aware(
+            datetime.fromtimestamp(statistics['modifyTime'] / 1000.0))
+        prev_crawler = items.CrawlerItem.django_model.objects.all().order_by('-id')[1]
+        if prev_crawler.modifyTime == modifyTime:
+            logger.info('Data does not change.')
+            self.crawler.delete()
+            self.crawler = None
+            return
+        self.crawler.createTime = createTime
+        self.crawler.modifyTime = modifyTime
+        self.crawler.save()
+
+        # 统计信息
+        statistics = self.parse_statistics(statistics)
+        for item in statistics:
+            yield item
 
         # 国内数据
         provinces = self.get_list(scripts, '#getAreaStat')
@@ -47,11 +71,6 @@ class DXYSpider(scrapy.Spider):
             country.pop('provinceName')
             country.pop('provinceShortName')
             yield items.CountryItem(**country)
-
-        # 统计信息
-        statistics = self.get_statistics(scripts, '#getStatisticsService')
-        for item in statistics:
-            yield item
 
         # 时间线事件，id=“getTimelineService2” 为英文内容
         timelines = self.get_list(scripts, '#getTimelineService1')
@@ -106,8 +125,7 @@ class DXYSpider(scrapy.Spider):
                 rumor[key] = item.get(key)
             yield items.RumorItem(**rumor)
 
-    def get_statistics(self, scripts, data_id):
-        data = self.get_dict(scripts, data_id)
+    def parse_statistics(self, data):
         statistics = data['globalStatistics']
         item = {}
         for key in (
@@ -155,12 +173,6 @@ class DXYSpider(scrapy.Spider):
             'generalRemark': data.get('generalRemark')
         }
         yield items.NoticeItem(**item)
-
-        self.crawler.createTime = make_aware(
-            datetime.fromtimestamp(data['createTime'] / 1000.0))
-        self.crawler.modifyTime = make_aware(
-            datetime.fromtimestamp(data['modifyTime'] / 1000.0))
-        self.crawler.save()
 
     def get_list(self, scripts, data_id):
         ret = scripts.css(data_id).re(r'(\[.+\])')
