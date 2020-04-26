@@ -13,10 +13,6 @@
     $ ./manage.py makemigrations ncovapi
     $ ./manage.py migrate
 
-## 创建缓存表
-
-    $ ./manage.py createcachetable
-
 ## 搜集静态文件
 
     $ ./manage.py collectstatic
