@@ -19,8 +19,17 @@ from django.views.static import serve
 from django.conf import settings
 from django.conf.urls import url
 
+import os
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('ncovapi.urls', namespace='ncovapi')),
-    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    url(r'^docs/$', serve, {
+        'document_root': os.path.join(settings.BASE_DIR, 'docs'),
+        'path': 'index.html'
+    }),
+    url(r'^docs/(?P<path>.*)$', serve, {
+        'document_root': os.path.join(settings.BASE_DIR, 'docs')
+    })
 ]
