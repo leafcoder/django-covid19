@@ -150,12 +150,17 @@ CRONTAB_LOCK_JOBS = True
 # 静态文件目录
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+# 日志文件目录
+LOGS_DIR = os.path.join(BASE_DIR, 'var', 'logs')
+if not os.path.exists(LOGS_DIR):
+    os.makedirs(LOGS_DIR)
+
 # 配置 Scrapy 命令完整路径
 SCRAPY_CMD = '~/.virtualenvs/django-covid19/bin/scrapy'
 
 # Setting of Crontab
 CRONJOBS = (
     # 每分钟抓取一次
-    ('*/1 * * * *', 'ncovapi.cron.crawl_dxy', [], {}, '>> %s/var/logs/crontab.log' % BASE_DIR),
+    ('*/1 * * * *', 'ncovapi.cron.crawl_dxy', [], {}, '>> %s/crontab.log' % LOGS_DIR),
 )
 

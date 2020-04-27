@@ -47,8 +47,8 @@ class StatisticsView(APIView):
                 result['domesticStatistics'] = item
             elif countryType == Statistics.INTERNATIONAL:
                 result['internationalStatistics'] = item
-        result['createTime'] = crawler.createTime.timestamp()
-        result['modifyTime'] = crawler.modifyTime.timestamp()
+        result['createTime'] = crawler.createTime
+        result['modifyTime'] = crawler.modifyTime
         result['remarks'] = []
         result['notes'] = []
         result['generalRemark'] = ''
