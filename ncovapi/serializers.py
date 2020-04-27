@@ -81,8 +81,8 @@ class StatisticsSerializer(serializers.Serializer):
     wikis = WikiSerializer(many=True)
     goodsGuides = GoodsGuideSerializer(many=True)
     rumors = RumorSerializer(many=True)
-    modifyTime = serializers.IntegerField()
-    createTime = serializers.IntegerField()
+    modifyTime = serializers.DateTimeField()
+    createTime = serializers.DateTimeField()
 
 
 class ProvinceSerializer(serializers.HyperlinkedModelSerializer):
