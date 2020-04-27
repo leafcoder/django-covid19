@@ -12,18 +12,21 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework_extensions.cache.decorators import cache_response
 
-from .serializers import StatisticsSerializer, CitySerializer, \
-                         ProvinceSerializer, CountrySerializer, \
-                         RecommendSerializer, TimelineSerializer
+from .serializers import LatestStatisticsSerializer, StatisticsSerializer, \
+                         CitySerializer, ProvinceSerializer, \
+                         CountrySerializer, RecommendSerializer, \
+                         TimelineSerializer
 from .models import Crawler, Statistics, WHOArticle, Recommend, \
                     City, Province, Country
 from .filters import CityFilter, ProvinceFilter, CountryFilter
 
+from collections import OrderedDict
 
 TIMEOUT = 60 * 60
 
-class StatisticsView(APIView):
-    """统计信息"""
+class LatestStatisticsView(APIView):
+
+    """最新统计信息"""
 
     def get_object(self):
         try:
@@ -77,9 +80,37 @@ class StatisticsView(APIView):
     @method_decorator(cache_page(TIMEOUT))
     def get(self, request):
         data = self.get_object()
-        serializer = StatisticsSerializer(data)
+        serializer = LatestStatisticsSerializer(data)
         return Response(serializer.data)
 
+class StatisticsListView(ListAPIView):
+
+    """统计信息列表"""
+
+    serializer_class = StatisticsSerializer
+
+    def get_queryset(self):
+        result = OrderedDict()
+        for inst in Statistics.objects.all():
+            crawler_id = inst.crawler_id
+            country_type = inst.countryType
+            if country_type == Statistics.GLOBAL:
+                statistics = result.setdefault(crawler_id, {})
+                statistics['globalStatistics'] = inst
+            elif country_type == Statistics.DOMESTIC:
+                statistics = result.setdefault(crawler_id, {})
+                statistics['domesticStatistics'] = inst
+            elif country_type == Statistics.INTERNATIONAL:
+                statistics = result.setdefault(crawler_id, {})
+                statistics['internationalStatistics'] = inst
+            statistics = result.setdefault(crawler_id, {})
+            statistics['modifyTime'] = inst.crawler.modifyTime
+            statistics['createTime'] = inst.crawler.createTime
+        return reversed(result.values())
+
+    @method_decorator(cache_page(TIMEOUT))
+    def dispatch(self, *args, **kwargs):
+        return super(StatisticsListView, self).dispatch(*args, **kwargs)
 
 class ProvinceListView(ListAPIView):
 

@@ -75,13 +75,17 @@
 
 本系统主要是将从`丁香园`获取的数据重新整合成接口返回出来。
 
-## 全球疫情 :id=statistics
+## 最新全球疫情 :id=statistics
 
-获取全球整体疫情统计数据、相关文章、日常建议、推荐信息等；
+获取最新获取到的全球整体疫情统计数据、相关文章、日常建议、推荐信息等；
 
-接口地址：/api/statistics/
+接口地址：/api/statistics/latest
 
 请求方法：GET
+
+请求示例：
+
+http://111.231.75.86:8000/api/statistics/latest
 
 返回结果：
 
@@ -183,7 +187,52 @@
 }
 ```
 
-## 国家疫情统计
+## 全球疫情列表 :id=statistics
+
+获取项目从启动到当前获取到的全部疫情统计数据，分为全球、国内、国际三部分；
+
+接口地址：/api/statistics/
+
+请求方法：GET
+
+请求示例：
+
+http://111.231.75.86:8000/api/statistics/
+
+返回结果：
+
+```
+[
+    {
+        "globalStatistics": {
+            "confirmedCount": 2913206,
+            "curedCount": 826309,
+            "deadCount": 206245,
+            "seriousCount": 0,
+            "currentConfirmedCount": 1880652,
+            "suspectedCount": 0
+        },
+        "domesticStatistics": {
+            "confirmedCount": 84341,
+            "curedCount": 78558,
+            "deadCount": 4643,
+            "seriousCount": 974,
+            "currentConfirmedCount": 1140,
+            "suspectedCount": 1636
+        },
+        "internationalStatistics": {
+            "confirmedCount": 2828865,
+            "curedCount": 747751,
+            "deadCount": 201602,
+            "seriousCount": 0,
+            "currentConfirmedCount": 1879512,
+            "suspectedCount": 4
+        }
+    }
+]
+```
+
+## 所有国家疫情
 
 获取各个国家的疫情统计数据；
 
@@ -221,7 +270,7 @@ http://111.231.75.86:8000/api/countries/?continents=南美洲,北美洲&countryN
 ]
 ```
 
-## 某个国家疫情统计
+## 某国家疫情
 
 根据国家名称获取某个国家的疫情统计数据；
 
@@ -252,7 +301,7 @@ http://111.231.75.86:8000/api/countries/巴西/
 ```
 
 
-## 中国省份（自治区、直辖市）疫情
+## 国内省份（自治区、直辖市）疫情
 
 获取中国各中国省份（自治区、直辖市）的疫情统计数据；
 
@@ -288,7 +337,7 @@ http://111.231.75.86:8000/api/provinces/?provinceShortNames=四川,香港
 ]
 ```
 
-## 某个中国省份（自治区、直辖市）疫情
+## 某国内省份（自治区、直辖市）疫情
 
 通过`短省份名`获取某个中国省份（自治区、直辖市）的疫情统计数据；
 
@@ -320,7 +369,7 @@ http://111.231.75.86:8000/api/provinces/澳门/
 }
 ```
 
-## 中国城市或直辖市某个区疫情
+## 国内城市或直辖市某区疫情
 
 获取中国各个城市或直辖市某个区的疫情数据。
 
@@ -355,7 +404,7 @@ http://111.231.75.86:8000/api/cities/?cityNames=大庆,万州区
 ]
 ```
 
-## 某个中国城市或直辖市某个区疫情
+## 某国内城市或直辖市某区疫情
 
 
 接口地址：/api/cities/\<CITY_NAME\>/

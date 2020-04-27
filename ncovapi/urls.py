@@ -8,7 +8,8 @@ from . import views
 app_name = 'ncovapi'
 
 urlpatterns = [
-    path('statistics/', views.StatisticsView.as_view(), name='statistics'),
+    path('statistics/', views.StatisticsListView.as_view(), name='statistics-list'),
+    path('statistics/latest', views.LatestStatisticsView.as_view(), name='latest_statistics'),
     path('cities/', views.CityListView.as_view(), name='city-list'),
     path('cities/<int:pk>/', views.CityRetrieveView.as_view(), name='city-detail'),
     path('cities/<str:cityName>/', views.CityRetrieveByNameView.as_view(), name='city-detail-by-name'),
