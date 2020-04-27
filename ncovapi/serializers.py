@@ -63,7 +63,7 @@ class RumorSerializer(serializers.Serializer):
     score = serializers.IntegerField()
     rumorType = serializers.IntegerField()
 
-class StatisticsSerializer(serializers.Serializer):
+class LatestStatisticsSerializer(serializers.Serializer):
 
     globalStatistics = StatisticsGroupSerializer()
     domesticStatistics = StatisticsGroupSerializer()
@@ -81,6 +81,15 @@ class StatisticsSerializer(serializers.Serializer):
     wikis = WikiSerializer(many=True)
     goodsGuides = GoodsGuideSerializer(many=True)
     rumors = RumorSerializer(many=True)
+    modifyTime = serializers.DateTimeField()
+    createTime = serializers.DateTimeField()
+
+
+class StatisticsSerializer(serializers.Serializer):
+
+    globalStatistics = StatisticsGroupSerializer()
+    domesticStatistics = StatisticsGroupSerializer()
+    internationalStatistics = StatisticsGroupSerializer()
     modifyTime = serializers.DateTimeField()
     createTime = serializers.DateTimeField()
 
