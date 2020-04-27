@@ -84,31 +84,30 @@ class RumorAdmin(BaseAdmin):
 class CityAdmin(BaseAdmin):
 
     list_display = (
-        'locationId', 'province', 'cityName', 'currentConfirmedCount',
+        'province', 'cityName', 'currentConfirmedCount',
         'confirmedCount', 'suspectedCount', 'curedCount', 'deadCount'
     )
-    search_fields = ('locationId', 'cityName', 'province__provinceName')
+    search_fields = ('cityName', 'province__provinceName')
 
 
 @admin.register(models.Province)
 class ProvinceAdmin(BaseAdmin):
 
     list_display = (
-        'locationId', 'provinceName', 'currentConfirmedCount',
+        'provinceName', 'currentConfirmedCount',
         'confirmedCount', 'suspectedCount', 'curedCount', 'deadCount'
     )
-    search_fields = ('locationId', 'provinceName')
+    search_fields = ('provinceName', )
 
 
 @admin.register(models.Country)
 class CountryAdmin(BaseAdmin):
 
     list_display = (
-        'locationId', 'continents', 'countryName', 'countryFullName',
+        'continents', 'countryName', 'countryFullName',
         'currentConfirmedCount', 'confirmedCount',
         'suspectedCount', 'curedCount', 'deadCount'
     )
     search_fields = (
-        'locationId', 'continents', 'countryFullName', 'countryShortCode',
-        'countryName'
+        'continents', 'countryFullName', 'countryShortCode', 'countryName'
     )

@@ -101,20 +101,21 @@ class ProvinceListView(ListAPIView):
 class ProvinceRetrieveByNameView(APIView):
     """通过省名获取数据"""
 
-    def get_object(self, provinceName):
+    def get_object(self, provinceShortName):
         try:
             crawler = Crawler.objects.order_by('-id').first()
         except Crawler.DoesNotExist:
             raise Http404
         try:
             return Province.objects.filter(
-                crawler=crawler, provinceName=provinceName).first()
+                crawler=crawler,
+                provinceShortName=provinceShortName).first()
         except Province.DoesNotExist:
             raise Http404
 
     @method_decorator(cache_page(TIMEOUT))
-    def get(self, request, provinceName):
-        province = self.get_object(provinceName)
+    def get(self, request, provinceShortName):
+        province = self.get_object(provinceShortName)
         serializer = ProvinceSerializer(province)
         return Response(serializer.data)
 

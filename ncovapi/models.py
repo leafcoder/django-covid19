@@ -225,11 +225,10 @@ class City(models.Model):
 class Country(models.Model):
 
     locationId = models.IntegerField()
-    continents = models.CharField(max_length=50) # 
-    countryShortCode = models.CharField(max_length=20) #
-    countryType = models.CharField(max_length=20) # 
-    countryName = models.CharField(max_length=50) #
-    countryFullName = models.CharField(max_length=50) #
+    continents = models.CharField(max_length=50)
+    countryShortCode = models.CharField(max_length=20)
+    countryName = models.CharField(max_length=50)
+    countryFullName = models.CharField(max_length=50)
     currentConfirmedCount = models.IntegerField(default=0)
     confirmedCount = models.IntegerField(default=0)
     suspectedCount = models.IntegerField(default=0)
