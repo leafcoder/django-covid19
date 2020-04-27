@@ -2,7 +2,7 @@
 # @Author: zhanglei3
 # @Date:   2020-04-08 09:08:13
 # @Last Modified by:   leafcoder
-# @Last Modified time: 2020-04-17 22:51:26
+# @Last Modified time: 2020-04-27 21:05:52
 
 """丁香园数据源"""
 
@@ -34,8 +34,8 @@ class DXYSpider(scrapy.Spider):
             datetime.fromtimestamp(statistics['createTime'] / 1000.0))
         modifyTime = make_aware(
             datetime.fromtimestamp(statistics['modifyTime'] / 1000.0))
-        prev_crawler = items.CrawlerItem.django_model.objects.all().order_by('-id')[1]
-        if prev_crawler.modifyTime == modifyTime:
+        qs = items.CrawlerItem.django_model.objects.all().order_by('-id')
+        if qs.count() > 1 and qs[1].modifyTime == modifyTime:
             logger.info('Data does not change.')
             self.crawler.delete()
             self.crawler = None
@@ -66,6 +66,7 @@ class DXYSpider(scrapy.Spider):
             country.pop('id', None)
             country['countryName'] = country.pop('provinceName', None)
             country['provinceName'] = ''
+            country.pop('countryType')
             country.pop('cityName')
             country.pop('provinceId')
             country.pop('provinceName')
