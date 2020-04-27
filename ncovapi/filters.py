@@ -9,45 +9,39 @@ class CharInFilter(django_filters.BaseInFilter, django_filters.CharFilter):
 
 class CityFilter(django_filters.rest_framework.FilterSet):
 
-    locationId = django_filters.CharFilter(lookup_expr='iexact')
-    provinceName = django_filters.CharFilter(
-        field_name='province__provinceName', lookup_expr='iexact')
-    cityName = django_filters.CharFilter(lookup_expr='iexact')
+    provinceShortNames = CharInFilter(
+        field_name='province__provinceShortName', lookup_expr='in')
     cityNames = CharInFilter(
         field_name='cityName', lookup_expr='in')
 
     class Meta:
         model = City
-        fields = ['locationId', 'provinceName', 'cityName']
+        fields = ['provinceShortNames', 'cityName']
 
 
 class ProvinceFilter(django_filters.rest_framework.FilterSet):
 
-    locationId = django_filters.CharFilter(lookup_expr='iexact')
-    provinceName = django_filters.CharFilter(lookup_expr='iexact')
-    provinceShortName = django_filters.CharFilter(lookup_expr='iexact')
+    provinceShortNames = CharInFilter(
+        field_name='provinceyName', lookup_expr='in')
     provinceNames = CharInFilter(
         field_name='provinceyName', lookup_expr='in')
 
     class Meta:
         model = Province
-        fields = ['id', 'locationId', 'provinceName', 'provinceShortName']
+        fields = ['provinceName', 'provinceShortName']
 
 
 class CountryFilter(django_filters.rest_framework.FilterSet):
 
-    locationId = django_filters.CharFilter(lookup_expr='iexact')
-    continents = django_filters.CharFilter(lookup_expr='iexact')
-    countryShortCode = django_filters.CharFilter(lookup_expr='iexact')
-    countryType = django_filters.CharFilter(lookup_expr='iexact')
-    countryName = django_filters.CharFilter(lookup_expr='iexact')
-    countryFullName = django_filters.CharFilter(lookup_expr='iexact')
+    continents = CharInFilter(
+        field_name='continents', lookup_expr='in')
+    countryShortCodes = CharInFilter(
+        field_name='countryShortCode', lookup_expr='in')
     countryNames = CharInFilter(
         field_name='countryName', lookup_expr='in')
 
     class Meta:
         model = Country
         fields = [
-            'locationId', 'continents', 'countryShortCode', 'countryType',
-            'countryName', 'countryFullName'
+            'continents', 'countryShortCode', 'countryName'
         ]

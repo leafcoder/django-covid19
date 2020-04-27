@@ -92,7 +92,7 @@ class ProvinceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Province
         fields = [
-            'locationId', 'provinceName', 'provinceShortName',
+            'provinceName', 'provinceShortName',
             'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
             'curedCount', 'deadCount'
         ]
@@ -103,7 +103,7 @@ class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = [
-            'locationId', 'provinceName', 'cityName',
+            'provinceName', 'cityName',
             'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
             'curedCount', 'deadCount'
         ]
@@ -113,8 +113,7 @@ class CountrySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Country
         fields = [
-            'locationId', 'continents', 'countryShortCode',
-            'countryType', 'countryName', 'countryFullName',
-            'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
-            'curedCount', 'deadCount'
+            'continents', 'countryShortCode', 'countryName',
+            'countryFullName', 'currentConfirmedCount', 'confirmedCount',
+            'suspectedCount', 'curedCount', 'deadCount'
         ]
