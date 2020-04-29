@@ -2,7 +2,7 @@
 # @Author: zhanglei3
 # @Date:   2020-04-08 09:08:13
 # @Last Modified by:   leafcoder
-# @Last Modified time: 2020-04-27 21:05:52
+# @Last Modified time: 2020-04-29 13:51:25
 
 """丁香园数据源"""
 
@@ -71,6 +71,7 @@ class DXYSpider(scrapy.Spider):
             country.pop('provinceId')
             country.pop('provinceName')
             country.pop('provinceShortName')
+            country['incrVo'] = json.dumps(country['incrVo'])
             yield items.CountryItem(**country)
 
         # 时间线事件，id=“getTimelineService2” 为英文内容

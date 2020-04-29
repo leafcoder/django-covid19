@@ -42,6 +42,7 @@ class Statistics(models.Model):
         verbose_name = '统计数据'
         verbose_name_plural = '统计数据'
 
+
 class Notice(models.Model):
 
     remarks = ListCharField(
@@ -58,6 +59,7 @@ class Notice(models.Model):
         verbose_name = '注意信息'
         verbose_name_plural = '注意信息'
 
+
 class WHOArticle(models.Model):
 
     title = models.CharField(max_length=100)
@@ -71,6 +73,7 @@ class WHOArticle(models.Model):
     class Meta:
         verbose_name = 'WHO 文章'
         verbose_name_plural = 'WHO 文章'
+
 
 class Recommend(models.Model):
 
@@ -108,6 +111,7 @@ class Recommend(models.Model):
         verbose_name = '防护知识'
         verbose_name_plural = '防护知识'
 
+
 class Timeline(models.Model):
 
     pubDate = models.IntegerField()
@@ -125,6 +129,7 @@ class Timeline(models.Model):
         verbose_name = '时间线事件'
         verbose_name_plural = '时间线事件'
 
+
 class Wiki(models.Model):
 
     title = models.CharField(max_length=100)
@@ -139,6 +144,7 @@ class Wiki(models.Model):
     class Meta:
         verbose_name = 'Wiki'
         verbose_name_plural = 'Wiki'
+
 
 class GoodsGuide(models.Model):
 
@@ -155,6 +161,7 @@ class GoodsGuide(models.Model):
     class Meta:
         verbose_name = '购物指南'
         verbose_name_plural = '购物指南'
+
 
 class Rumor(models.Model):
 
@@ -173,6 +180,7 @@ class Rumor(models.Model):
     class Meta:
         verbose_name = '辟谣与防护'
         verbose_name_plural = '辟谣与防护'
+
 
 class Province(models.Model):
 
