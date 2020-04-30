@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'jua+&*ti%!$hnt6zxndu09jw&oai1d+wb^znq&$kb&9_j6v60!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -161,6 +161,6 @@ SCRAPY_CMD = '~/.virtualenvs/django-covid19/bin/scrapy'
 # Setting of Crontab
 CRONJOBS = (
     # 每分钟抓取一次
-    ('*/1 * * * *', 'ncovapi.cron.crawl_dxy', [], {}, '>> %s/crontab.log' % LOGS_DIR),
+    ('*/1 * * * *', 'ncovapi.cron.crawl_dxy', [], {}, '>> %s/crontab.log' % LOGS_DIR)
 )
 

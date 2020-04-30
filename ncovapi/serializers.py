@@ -1,6 +1,8 @@
 from .models import City, Province, Country
 from rest_framework import serializers
 
+import json
+
 
 class StatisticsGroupSerializer(serializers.Serializer):
 
@@ -119,10 +121,18 @@ class CitySerializer(serializers.ModelSerializer):
 
 class CountrySerializer(serializers.HyperlinkedModelSerializer):
 
+    def to_representation(self, inst):
+        data = super().to_representation(inst)
+        incrVo = data.get('incrVo')
+        print(incrVo)
+        if incrVo:
+            data['incrVo'] = json.loads(incrVo)
+        return data
+
     class Meta:
         model = Country
         fields = [
             'continents', 'countryShortCode', 'countryName',
             'countryFullName', 'currentConfirmedCount', 'confirmedCount',
-            'suspectedCount', 'curedCount', 'deadCount'
+            'suspectedCount', 'curedCount', 'deadCount', 'incrVo'
         ]
