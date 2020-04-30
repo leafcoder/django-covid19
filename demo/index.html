@@ -11,8 +11,8 @@
 	<body>
 		<header id="header">
 			<h3 class="header-title">新冠肺炎（2019-nCov）疫情</h3>
-			<div class="header-info header-info-l">数据来源：丁香园（<small>前往 <a href="https://github.com/leafcoder" target="_blank" style="color: #FFFFFF;">leafcoder/django-covid19</a></small>）</div>
-			<div class="header-info header-info-r">数据日期：<span id="nowDate"></span></div>
+			<div class="header-info header-info-l">数据来源：丁香园<small>（前往 <a href="https://github.com/leafcoder" target="_blank" style="color: #FFFFFF;">leafcoder/django-covid19</a>）</small></div>
+			<div class="header-info header-info-r">时间：<span id="nowDate"></span><small>（每隔1分钟自动刷新）</small></div>
 		</header>
 		
 		<footer id="footer"></footer>
@@ -94,7 +94,7 @@
 					<div class="flex-cell flex-cell-r" style="padding-bottom:0;">
 						<div class="chart-wrapper">
 							<h3 class="chart-title">各国累计确诊占比</h3>
-							<div class="chart-div" id="csrcChart">
+							<div class="chart-div" id="countrysChart">
 								<div class="chart-loader"><div class="loader"></div></div>
 							</div>
 						</div>
@@ -109,34 +109,40 @@
 		<script type="text/javascript" src="js/echarts-theme-shine.js"></script>
 		<script type="text/javascript" src="js/countUp.min.js"></script>
 		<script type="text/javascript">
+			$.ajaxSetup({cache:false});
 			$(function() {
 				//获取当天日期
-				(function() {
+				function load_date() {
 					const now = new Date();
 					const year = now.getFullYear();
 					const month = now.getMonth()+1;
 					const day = now.getDate();
-					$("#nowDate").html(year+"年"+month+"月"+day+"日");
-				})();
-				
-				//获取统计数据
-				$.ajax({
-					url: "http://111.231.75.86:8000/api/statistics/latest",
-					dataType: "json"
-				}).done(function(data) {
-					//console.log('Data: ', data);
-					rollNum("internationalConfirmedCount", 0, data.internationalStatistics.confirmedCount);
-					rollNum("internationalDeadCount", 0, data.internationalStatistics.deadCount);
-					rollNum("internationalCurrentConfirmedCount", 0, data.internationalStatistics.currentConfirmedCount);
-					rollNum("domesticConfirmedCount", 0, data.domesticStatistics.confirmedCount);
-					rollNum("domesticDeadCount", 0, data.domesticStatistics.deadCount);
-					rollNum("domesticCurrentConfirmedCount", 0, data.domesticStatistics.currentConfirmedCount);
-				}).fail(function(jqXHR, textStatus) {
-					console.log("Ajax Error: ", textStatus);
-				});
-				
-				//获取排行数据
+					const hours = now.getHours();
+					const minutes = now.getMinutes();
+					const seconds = now.getSeconds();
+					$("#nowDate").html(year+"年"+month+"月"+day+"日" + " " + hours + ":" + minutes + ":" + seconds);
+				}
 
+				function load_statistics() {
+					//获取统计数据
+					$.ajax({
+						url: "http://111.231.75.86:8000/api/statistics/latest",
+						dataType: "json"
+					}).done(function(data) {
+						//console.log('Data: ', data);
+						rollNum("internationalConfirmedCount", 0, data.internationalStatistics.confirmedCount);
+						rollNum("internationalDeadCount", 0, data.internationalStatistics.deadCount);
+						rollNum("internationalCurrentConfirmedCount", 0, data.internationalStatistics.currentConfirmedCount);
+						rollNum("domesticConfirmedCount", 0, data.domesticStatistics.confirmedCount);
+						rollNum("domesticDeadCount", 0, data.domesticStatistics.deadCount);
+						rollNum("domesticCurrentConfirmedCount", 0, data.domesticStatistics.currentConfirmedCount);
+					}).fail(function(jqXHR, textStatus) {
+						console.log("Ajax Error: ", textStatus);
+					});
+				}
+
+
+				//获取排行数据
 				const rankChart = echarts.init(document.getElementById("rankChart"), "shine");
 				const rankChartOpt = {
 					tooltip: {
@@ -211,40 +217,41 @@
 				};
 				rankChart.setOption(rankChartOpt);
 
+				function load_country_rank_list() {
+					$.ajax({
+						url: "http://111.231.75.86:8000/api/countries/",
+						dataType: "json"
+					}).done(function() {
+						$("#rankChart").addClass("chart-done");
+					}).done(function(data) {
+						var sortable = [];
+						for (var i in data) {
+							sortable.push([data[i], data[i].currentConfirmedCount]);
+						}
+						data = sortable.sort(function(a, b) {
+							return b[1] - a[1];
+						});
+						data = data.slice(0, 10)
+						const xData = [];
+						const yData = [];
+						for(let i in data) {
+							xData.push(data[i][0].currentConfirmedCount);
+							yData.push(data[i][0].countryName);
+						}
+						rankChart.setOption({
+							yAxis: {
+								data: yData
+							},
+							series: [{
+								name: "现存确认排行",
+								data: xData
+							}]
+						});
+					}).fail(function(jqXHR) {
+						console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
+					});
+				}
 
-				$.ajax({
-					url: "http://111.231.75.86:8000/api/countries/",
-					dataType: "json"
-				}).done(function() {
-					$("#rankChart").addClass("chart-done");
-				}).done(function(data) {
-					var sortable = [];
-					for (var i in data) {
-						sortable.push([data[i], data[i].currentConfirmedCount]);
-					}
-					data = sortable.sort(function(a, b) {
-						return b[1] - a[1];
-					});
-					data = data.slice(0, 10)
-					const xData = [];
-					const yData = [];
-					for(let i in data) {
-						xData.push(data[i][0].currentConfirmedCount);
-						yData.push(data[i][0].countryName);
-					}
-					rankChart.setOption({
-						yAxis: {
-							data: yData
-						},
-						series: [{
-							name: "现存确认排行",
-							data: xData
-						}]
-					});
-				}).fail(function(jqXHR) {
-					console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
-				});
-				
 				//获取地域分布数据
 				const mapChart = echarts.init(document.getElementById("mapChart"), "shine");
 				const mapChartOpt = {
@@ -296,29 +303,32 @@
 					}]
 				};
 				mapChart.setOption(mapChartOpt);
-				$.ajax({
-					url: "http://111.231.75.86:8000/api/provinces/",
-					dataType: "json"
-				}).done(function() {
-					$("#mapChart").addClass("chart-done");
-				}).done(function(data) {
-					const chartData = [];
-					for(let i in data) {
-						chartData.push({
-							name: data[i].provinceShortName,
-							value: data[i].currentConfirmedCount,
-							source: data[i]
+
+				function load_province_map() {
+					$.ajax({
+						url: "http://111.231.75.86:8000/api/provinces/",
+						dataType: "json"
+					}).done(function() {
+						$("#mapChart").addClass("chart-done");
+					}).done(function(data) {
+						const chartData = [];
+						for(let i in data) {
+							chartData.push({
+								name: data[i].provinceShortName,
+								value: data[i].currentConfirmedCount,
+								source: data[i]
+							});
+						}
+						mapChart.setOption({
+							series: [{
+								name: "地域分布",
+								data: chartData
+							}]
 						});
-					}
-					mapChart.setOption({
-						series: [{
-							name: "地域分布",
-							data: chartData
-						}]
+					}).fail(function(jqXHR) {
+						console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
 					});
-				}).fail(function(jqXHR) {
-					console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
-				});
+				}
 				
 				//获取月度股票情况数据
 				const trendChart = echarts.init(document.getElementById("trendChart"), "shine");
@@ -424,45 +434,48 @@
 					}]
 				};
 				trendChart.setOption(trendChartOpt);
-				$.ajax({
-					url: "http://111.231.75.86:8000/api/countries/美国/daily/",
-					dataType: "json"
-				}).done(function() {
-					$("#trendChart").addClass("chart-done");
-				}).done(function(data) {
-					//console.log('Data: ', data);
-					const xData = [];
-					const yData1 = [];
-					const yData2 = [];
-					const yData3 = [];
-					for(let i in data) {
-						xData.push(data[i].dateId);
-						yData1.push(data[i].currentConfirmedCount);
-						yData2.push(data[i].confirmedCount);
-						yData3.push(data[i].deadCount);
-					}
-					trendChart.setOption({
-						xAxis: {
-							data: xData,
-						},
-						series: [{
-							name: "现存确诊",
-							data: yData1
-						}, {
-							name: "累计确诊",
-							data: yData2
-						}, {
-							name: "死亡人数",
-							data: yData3
-						}]
+
+				function load_usa_daily_list() {
+					$.ajax({
+						url: "http://111.231.75.86:8000/api/countries/美国/daily/",
+						dataType: "json"
+					}).done(function() {
+						$("#trendChart").addClass("chart-done");
+					}).done(function(data) {
+						//console.log('Data: ', data);
+						const xData = [];
+						const yData1 = [];
+						const yData2 = [];
+						const yData3 = [];
+						for(let i in data) {
+							xData.push(data[i].dateId);
+							yData1.push(data[i].currentConfirmedCount);
+							yData2.push(data[i].confirmedCount);
+							yData3.push(data[i].deadCount);
+						}
+						trendChart.setOption({
+							xAxis: {
+								data: xData,
+							},
+							series: [{
+								name: "现存确诊",
+								data: yData1
+							}, {
+								name: "累计确诊",
+								data: yData2
+							}, {
+								name: "死亡人数",
+								data: yData3
+							}]
+						});
+					}).fail(function(jqXHR) {
+						console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
 					});
-				}).fail(function(jqXHR) {
-					console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
-				});
-				
-				//获取CSRC行业分类数据
-				const csrcChart = echarts.init(document.getElementById("csrcChart"), "shine");
-				const csrcChartOpt = {
+				}
+
+				//获取分类数据
+				const countrysChart = echarts.init(document.getElementById("countrysChart"), "shine");
+				const countrysChartOpt = {
 					tooltip: {
 						trigger: "item",
 						formatter: "{b0}<br />累计确诊：{c0}人<br />占比：{d0}%"
@@ -488,36 +501,66 @@
 						radius: ["30%", "85%"]
 					}]
 				};
-				csrcChart.setOption(csrcChartOpt);
-				$.ajax({
-					url: "http://111.231.75.86:8000/api/countries/",
-					dataType: "json"
-				}).done(function() {
-					$("#csrcChart").addClass("chart-done");
-				}).done(function(data) {
-					const chartData = [];
-					for(let i in data) {
-						chartData.push({
-							name: data[i].countryName,
-							value: data[i].confirmedCount
+				countrysChart.setOption(countrysChartOpt);
+
+				function load_countries() {
+					$.ajax({
+						url: "http://111.231.75.86:8000/api/countries/",
+						dataType: "json"
+					}).done(function() {
+						$("#countrysChart").addClass("chart-done");
+					}).done(function(data) {
+						const chartData = [];
+						for(let i in data) {
+							chartData.push({
+								name: data[i].countryName,
+								value: data[i].confirmedCount
+							});
+						}
+						countrysChart.setOption({
+							series: [{
+								name: "各国累计确诊占比",
+								data: chartData
+							}]
 						});
-					}
-					csrcChart.setOption({
-						series: [{
-							name: "各国累计确诊占比",
-							data: chartData
-						}]
+					}).fail(function(jqXHR) {
+						console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
 					});
-				}).fail(function(jqXHR) {
-					console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
-				});
+				}
 				
+
+				function load_page() {
+					load_date();
+					load_statistics();
+					load_country_rank_list();
+					load_province_map();
+					load_usa_daily_list();
+					load_countries();
+				}
+
+				var _timerPie1;
+				var seconds = new Date().getSeconds();
+				window.setTimeout(function () {
+					_timerPie1 = window.setInterval(function () { //数据动态展现
+						load_page();
+					}, 60000);
+					load_page();
+				}, 60000 - seconds * 1000);
+				console.log(60000 - seconds * 1000)
+
+				var _timerPie2;
+				_timerPie2 = window.setInterval(function () { //数据动态展现
+					load_date();
+				}, 1000);
+
+				load_page();
+
 				//浏览器窗口大小变化时，重置报表大小
 				$(window).resize(function() {
 					rankChart.resize();
 					mapChart.resize();
 					trendChart.resize();
-					csrcChart.resize();
+					countrysChart.resize();
 				});
 			});
 			
