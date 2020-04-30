@@ -75,7 +75,9 @@
 
 本系统主要是将从`丁香园`获取的数据重新整合成接口返回出来。
 
-## 最新全球疫情 :id=statistics
+## 全球疫情 :id=statistics
+
+### Latest :id=statistics-latest
 
 获取最新获取到的全球整体疫情统计数据、相关文章、日常建议、推荐信息等；
 
@@ -187,7 +189,7 @@ http://111.231.75.86:8000/api/statistics/latest
 }
 ```
 
-## 全球疫情列表 :id=statistics
+### List :id=statistics-list
 
 获取项目从启动到当前获取到的全部疫情统计数据，分为全球、国内、国际三部分；
 
@@ -227,12 +229,64 @@ http://111.231.75.86:8000/api/statistics/
             "seriousCount": 0,
             "currentConfirmedCount": 1879512,
             "suspectedCount": 4
-        }
+        },
+        "modifyTime": "2020-04-30T01:12:33Z",
+        "createTime": "2020-01-20T16:31:39Z"
     }
 ]
 ```
 
-## 所有国家疫情
+## 国家疫情 :id=country
+
+### Daily List（Chart Data） :id=country-daily
+
+根据国家名称获取某个国家的疫情从 2020-01-19 到目前的疫情列表数据；
+
+接口地址：/api/countries/\<COUNTRY_NAME\>/daily/
+
+请求方法：GET
+
+示例链接：
+
+http://111.231.75.86:8000/api/countries/美国/daily/
+
+http://111.231.75.86:8000/api/countries/巴西/daily/
+
+返回结果：
+
+```
+[
+    {
+        "dateId": 20200119,
+        "currentConfirmedCount": 188,
+        "confirmedCount": 217,
+        "suspectedCount": 0,
+        "curedCount": 25,
+        "deadCount": 4,
+        "currentConfirmedIncr": 188,
+        "confirmedIncr": 217,
+        "suspectedCountIncr": 0,
+        "curedIncr": 25,
+        "deadIncr": 4
+    },
+    {
+        "dateId": 20200120,
+        "currentConfirmedCount": 188,
+        "confirmedCount": 217,
+        "suspectedCount": 0,
+        "curedCount": 25,
+        "deadCount": 4,
+        "currentConfirmedIncr": 188,
+        "confirmedIncr": 217,
+        "suspectedCountIncr": 0,
+        "curedIncr": 25,
+        "deadIncr": 4
+    },
+    ...
+]
+```
+
+### List :id=country-list
 
 获取各个国家的疫情统计数据；
 
@@ -265,12 +319,18 @@ http://111.231.75.86:8000/api/countries/?continents=南美洲,北美洲&countryN
         "confirmedCount": 965785,
         "suspectedCount": 0,
         "curedCount": 106988,
-        "deadCount": 54881
+        "deadCount": 54881,
+        "incrVo": {
+            "confirmedIncr": 0,
+            "currentConfirmedIncr": 0,
+            "curedIncr": 0,
+            "deadIncr": 0
+        }
     }
 ]
 ```
 
-## 某国家疫情
+### Detail :id=country-detail
 
 根据国家名称获取某个国家的疫情统计数据；
 
@@ -296,14 +356,73 @@ http://111.231.75.86:8000/api/countries/巴西/
     "confirmedCount": 965785,
     "suspectedCount": 0,
     "curedCount": 106988,
-    "deadCount": 54881
+    "deadCount": 54881,
+    "incrVo": {
+        "confirmedIncr": 0,
+        "currentConfirmedIncr": 0,
+        "curedIncr": 0,
+        "deadIncr": 0
+    }
 }
 ```
 
+## 省/自治区/直辖市
 
-## 国内省份（自治区、直辖市）疫情
+### Daily List（Chart Data）
 
-获取中国各中国省份（自治区、直辖市）的疫情统计数据；
+通过`短省份名`获取某个中国省份（自治区、直辖市）的疫情从 2020-01-19 到目前的疫情列表数据；
+
+接口地址：/api/provinces/\<PROVINCE_SHORT_NAME\>/daily/
+
+请求方法：GET
+
+示例链接：
+
+http://111.231.75.86:8000/api/provinces/四川/daily/
+
+http://111.231.75.86:8000/api/provinces/台湾/daily/
+
+http://111.231.75.86:8000/api/provinces/香港/daily/
+
+http://111.231.75.86:8000/api/provinces/澳门/daily/
+
+返回结果：
+
+```
+[
+    {
+        "dateId": 20200119,
+        "currentConfirmedCount": 188,
+        "confirmedCount": 217,
+        "suspectedCount": 0,
+        "curedCount": 25,
+        "deadCount": 4,
+        "currentConfirmedIncr": 188,
+        "confirmedIncr": 217,
+        "suspectedCountIncr": 0,
+        "curedIncr": 25,
+        "deadIncr": 4
+    },
+    {
+        "dateId": 20200120,
+        "currentConfirmedCount": 188,
+        "confirmedCount": 217,
+        "suspectedCount": 0,
+        "curedCount": 25,
+        "deadCount": 4,
+        "currentConfirmedIncr": 188,
+        "confirmedIncr": 217,
+        "suspectedCountIncr": 0,
+        "curedIncr": 25,
+        "deadIncr": 4
+    },
+    ...
+]
+```
+
+### List
+
+获取中国各中国省/自治区/直辖市的疫情统计数据；
 
 接口地址：/api/provinces/
 
@@ -337,7 +456,7 @@ http://111.231.75.86:8000/api/provinces/?provinceShortNames=四川,香港
 ]
 ```
 
-## 某国内省份（自治区、直辖市）疫情
+### Detail
 
 通过`短省份名`获取某个中国省份（自治区、直辖市）的疫情统计数据；
 
@@ -369,7 +488,9 @@ http://111.231.75.86:8000/api/provinces/澳门/
 }
 ```
 
-## 国内城市或直辖市某区疫情
+## 城市或直辖市某区
+
+### List
 
 获取中国各个城市或直辖市某个区的疫情数据。
 
@@ -404,7 +525,7 @@ http://111.231.75.86:8000/api/cities/?cityNames=大庆,万州区
 ]
 ```
 
-## 某国内城市或直辖市某区疫情
+### Detail
 
 
 接口地址：/api/cities/\<CITY_NAME\>/
