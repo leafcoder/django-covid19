@@ -138,12 +138,12 @@ class ProvinceDailyListView(APIView):
     def get_object(self, provinceShortName):
         crawler = Crawler.objects.exclude(
             modifyTime__isnull=True).order_by('-id').first()
-        try:
-            return Province.objects.filter(
-                crawler=crawler,
-                provinceShortName=provinceShortName).first()
-        except Province.DoesNotExist:
+        province = Province.objects.filter(
+            crawler=crawler,
+            provinceShortName=provinceShortName).first()
+        if province is None:
             raise Http404
+        return province
 
     @method_decorator(cache_page(TIMEOUT))
     def get(self, request, provinceShortName):
@@ -159,12 +159,12 @@ class ProvinceRetrieveByNameView(APIView):
     def get_object(self, provinceShortName):
         crawler = Crawler.objects.exclude(
             modifyTime__isnull=True).order_by('-id').first()
-        try:
-            return Province.objects.filter(
-                crawler=crawler,
-                provinceShortName=provinceShortName).first()
-        except Province.DoesNotExist:
+        province = Province.objects.filter(
+            crawler=crawler,
+            provinceShortName=provinceShortName).first()
+        if province is None:
             raise Http404
+        return province
 
     @method_decorator(cache_page(TIMEOUT))
     def get(self, request, provinceShortName):
@@ -224,11 +224,11 @@ class CountryDailyListView(APIView):
     def get_object(self, countryName):
         crawler = Crawler.objects.exclude(
             modifyTime__isnull=True).order_by('-id').first()
-        try:
-            return Country.objects.filter(
-                crawler=crawler, countryName=countryName).first()
-        except Country.DoesNotExist:
+        country = Country.objects.filter(
+            crawler=crawler, countryName=countryName).first()
+        if country is None:
             raise Http404
+        return country
 
     @method_decorator(cache_page(TIMEOUT))
     def get(self, request, countryName):
@@ -243,11 +243,11 @@ class CountryRetrieveByNameView(APIView):
     def get_object(self, countryName):
         crawler = Crawler.objects.exclude(
             modifyTime__isnull=True).order_by('-id').first()
-        try:
-            return Country.objects.filter(
-                crawler=crawler, countryName=countryName).first()
-        except Country.DoesNotExist:
+        country = Country.objects.filter(
+            crawler=crawler, countryName=countryName).first()
+        if country is None:
             raise Http404
+        return country
 
     @method_decorator(cache_page(TIMEOUT))
     def get(self, request, countryName):
@@ -292,11 +292,11 @@ class CityRetrieveByNameView(APIView):
     def get_object(self, cityName):
         crawler = Crawler.objects.exclude(
             modifyTime__isnull=True).order_by('-id').first()
-        try:
-            return City.objects.filter(
-                crawler=crawler, cityName=cityName).first()
-        except City.DoesNotExist:
+        city = City.objects.filter(
+            crawler=crawler, cityName=cityName).first()
+        if city is None:
             raise Http404
+        return city
 
     @method_decorator(cache_page(TIMEOUT))
     def get(self, request, cityName):
