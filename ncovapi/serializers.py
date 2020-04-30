@@ -124,7 +124,6 @@ class CountrySerializer(serializers.HyperlinkedModelSerializer):
     def to_representation(self, inst):
         data = super().to_representation(inst)
         incrVo = data.get('incrVo')
-        print(incrVo)
         if incrVo:
             data['incrVo'] = json.loads(incrVo)
         return data

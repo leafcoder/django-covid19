@@ -161,6 +161,6 @@ SCRAPY_CMD = '~/.virtualenvs/django-covid19/bin/scrapy'
 # Setting of Crontab
 CRONJOBS = (
     # 每分钟抓取一次
-    ('*/1 * * * *', 'ncovapi.cron.crawl_dxy', [], {}, '>> %s/crontab.log' % LOGS_DIR)
+    ('*/1 * * * *', 'ncovapi.cron.crawl_dxy', [], {}, '>> %s/crontab.log' % LOGS_DIR),
 )
 
