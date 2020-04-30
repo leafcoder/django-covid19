@@ -16,7 +16,9 @@ urlpatterns = [
     path('provinces/', views.ProvinceListView.as_view(), name='province-list'),
     path('provinces/<int:pk>/', views.ProvinceRetrieveView.as_view(), name='province-detail'),
     path('provinces/<str:provinceShortName>/', views.ProvinceRetrieveByNameView.as_view(), name='province-detail-by-name'),
+    path('provinces/<str:provinceShortName>/daily', views.ProvinceDailyListView.as_view(), name='province-daily-list'),
     path('countries/', views.CountryListView.as_view(), name='country-list'),
     path('countries/<int:pk>/', views.CountryRetrieveView.as_view(), name='country-detail'),
     path('countries/<str:countryName>/', views.CountryRetrieveByNameView.as_view(), name='country-detail-by-name'),
+    path('countries/<str:countryName>/daily', views.CountryDailyListView.as_view(), name='country-daily-list'),
 ]

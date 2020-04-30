@@ -2,7 +2,7 @@
 # @Author: zhanglei3
 # @Date:   2020-04-08 09:08:13
 # @Last Modified by:   leafcoder
-# @Last Modified time: 2020-04-29 13:51:25
+# @Last Modified time: 2020-04-30 10:09:06
 
 """丁香园数据源"""
 
@@ -19,7 +19,7 @@ logger = logging.getLogger()
 class DXYSpider(scrapy.Spider):
 
     name = "dxy"
-    allowed_domains = ["ncov.dxy.cn"]
+    allowed_domains = ["ncov.dxy.cn", "file1.dxycdn.com"]
     start_urls = [
         "http://ncov.dxy.cn/ncovh5/view/pneumonia",
     ]
@@ -45,7 +45,7 @@ class DXYSpider(scrapy.Spider):
         self.crawler.save()
 
         # 统计信息
-        statistics = self.parse_statistics(statistics)
+        statistics = self.explain_statistics(statistics)
         for item in statistics:
             yield item
 
@@ -53,11 +53,14 @@ class DXYSpider(scrapy.Spider):
         provinces = self.get_list(scripts, '#getAreaStat')
         for province in provinces:
             cities = province.pop('cities', [])
-            province = items.ProvinceItem(**province)
-            yield province
-            for city in cities:
-                location_id = province['locationId']
-                yield items.CityItem(province=location_id, **city)
+            yield scrapy.Request(
+                province['statisticsData'],
+                callback=self.parse_province_statistics_data,
+                meta={
+                    'province': province,
+                    'cities': cities
+                }
+            )
 
         # 国外数据
         countries = self.get_list(
@@ -71,8 +74,16 @@ class DXYSpider(scrapy.Spider):
             country.pop('provinceId')
             country.pop('provinceName')
             country.pop('provinceShortName')
+            country.pop('modifyTime', None)
+            country.pop('createTime', None)
             country['incrVo'] = json.dumps(country['incrVo'])
-            yield items.CountryItem(**country)
+            yield scrapy.Request(
+                country['statisticsData'],
+                callback=self.parse_country_statistics_data,
+                meta={
+                    'country': country
+                }
+            )
 
         # 时间线事件，id=“getTimelineService2” 为英文内容
         timelines = self.get_list(scripts, '#getTimelineService1')
@@ -127,7 +138,25 @@ class DXYSpider(scrapy.Spider):
                 rumor[key] = item.get(key)
             yield items.RumorItem(**rumor)
 
-    def parse_statistics(self, data):
+    def parse_province_statistics_data(self, response):
+        result = json.loads(response.text)
+        data = json.dumps(result['data'])
+        meta = response.meta
+        cities = meta['cities']
+        province = meta['province']
+        yield items.ProvinceItem(dailyData=data, **province)
+        for city in cities:
+            location_id = province['locationId']
+            yield items.CityItem(province=location_id, **city)
+
+    def parse_country_statistics_data(self, response):
+        result = json.loads(response.text)
+        data = json.dumps(result['data'])
+        meta = response.meta
+        country = meta['country']
+        yield items.CountryItem(dailyData=data, **country)
+
+    def explain_statistics(self, data):
         statistics = data['globalStatistics']
         item = {}
         for key in (

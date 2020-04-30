@@ -194,6 +194,11 @@ class Province(models.Model):
     deadCount = models.IntegerField(default=0)
     comment = models.CharField(max_length=200)
     statisticsData = models.CharField(max_length=500)
+    dailyData = models.TextField()
+    created = models.DateTimeField(
+        '创建时间', auto_now_add=True, editable=False)
+    updated = models.DateTimeField(
+        '更新时间', auto_now=True, editable=False)
     crawler = models.ForeignKey(
         "Crawler", on_delete=models.CASCADE, related_name="provinces",
         db_column="crawlerId"
@@ -213,6 +218,10 @@ class City(models.Model):
     suspectedCount = models.IntegerField(default=0)
     curedCount = models.IntegerField(default=0)
     deadCount = models.IntegerField(default=0)
+    created = models.DateTimeField(
+        '创建时间', auto_now_add=True, editable=False)
+    updated = models.DateTimeField(
+        '更新时间', auto_now=True, editable=False)
     province = models.ForeignKey(
         "Province", on_delete=models.CASCADE, related_name="cities",
         db_column="provinceId"
@@ -254,8 +263,11 @@ class Country(models.Model):
     incrVo = models.TextField(null=True)
     sort = models.IntegerField(null=True)
     operator = models.CharField(max_length=50, null=True)
-    modifyTime = models.IntegerField(null=True)
-    createTime = models.IntegerField(null=True)
+    dailyData = models.TextField()
+    created = models.DateTimeField(
+        '创建时间', auto_now_add=True, editable=False)
+    updated = models.DateTimeField(
+        '更新时间', auto_now=True, editable=False)
     crawler = models.ForeignKey(
         "Crawler", on_delete=models.CASCADE, related_name="countries",
         db_column="countryId"
