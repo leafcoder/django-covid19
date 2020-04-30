@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>新冠肺炎（2019-nCoV）疫情大屏</title>
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+	</head>
+	
+	<body>
+		<header id="header">
+			<h3 class="header-title">新冠肺炎（2019-nCov）疫情</h3>
+			<div class="header-info header-info-l">数据来源：丁香园（<small>前往开源项目 <a href="https://github.com/leafcoder" target="_blank" style="color: #FFFFFF;">https://github.com/leafcoder</a></small>）</div>
+			<div class="header-info header-info-r">数据日期：<span id="nowDate"></span></div>
+		</header>
+		
+		<footer id="footer"></footer>
+		
+		<div id="container">
+			<div id="flexCon">
+				<div class="flex-row">
+					<div class="flex-cell flex-cell-l">
+						<div class="chart-wrapper">
+							<h3 class="chart-title">现存确诊数排行前 10 位的国家</h3>
+							<div class="chart-div" id="rankChart">
+								<div class="chart-loader"><div class="loader"></div></div>
+							</div>
+						</div>
+					</div>
+					<div class="flex-cell flex-cell-c" style="padding-right:0;">
+						<div class="chart-wrapper">
+							<h3 class="chart-title">统计数据</h3>
+							<div class="chart-div chart-done">
+								<table class="data-t">
+									<tr>
+										<th><img src="img/icon-01.png" /></th>
+										<td>
+											<p><span id="internationalCurrentConfirmedCount">0</span></p>
+											<p>国外现存确认</p>
+										</td>
+										<th><img src="img/icon-02.png" /></th>
+										<td>
+											<p><span id="domesticCurrentConfirmedCount">0</span></p>
+											<p>中国现存确认</p>
+										</td>
+									</tr>
+									<tr>
+										<th><img src="img/icon-03.png" /></th>
+										<td>
+											<p><span id="internationalConfirmedCount">0</span></p>
+											<p>国外累计确诊</p>
+										</td>
+										<th><img src="img/icon-04.png" /></th>
+										<td>
+											<p><span id="domesticConfirmedCount">0</span></p>
+											<p>中国累计确诊</p>
+										</td>
+									</tr>
+									<tr>
+										<th><img src="img/icon-05.png" /></th>
+										<td>
+											<p><span id="internationalDeadCount">0</span></p>
+											<p>国外死亡人数</p>
+										</td>
+										<th><img src="img/icon-06.png" /></th>
+										<td>
+											<p><span id="domesticDeadCount">0</span></p>
+											<p>中国死亡人数</p>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="flex-cell flex-cell-r" style="padding-left:0;">
+						<div class="chart-wrapper">
+							<h3 class="chart-title">国内各省、自治区、直辖市疫情</h3>
+							<div class="chart-div" id="mapChart">
+								<div class="chart-loader"><div class="loader"></div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="flex-row">
+					<div class="flex-cell flex-cell-lc" style="padding-bottom:0;">
+						<div class="chart-wrapper">
+							<h3 class="chart-title">美国疫情趋势图</h3>
+							<div class="chart-div" id="trendChart">
+								<div class="chart-loader"><div class="loader"></div></div>
+							</div>
+						</div>
+					</div>
+					<div class="flex-cell flex-cell-r" style="padding-bottom:0;">
+						<div class="chart-wrapper">
+							<h3 class="chart-title">各国累计确诊占比</h3>
+							<div class="chart-div" id="csrcChart">
+								<div class="chart-loader"><div class="loader"></div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/countUp.min.js"></script>
+		<script type="text/javascript" src="js/echarts.min.js"></script>
+		<script type="text/javascript" src="js/echarts-map-china.js"></script>
+		<script type="text/javascript" src="js/echarts-theme-shine.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				//获取当天日期
+				(function() {
+					const now = new Date();
+					const year = now.getFullYear();
+					const month = now.getMonth()+1;
+					const day = now.getDate();
+					$("#nowDate").html(year+"年"+month+"月"+day+"日");
+				})();
+				
+				//获取统计数据
+				$.ajax({
+					url: "http://111.231.75.86:8000/api/statistics/latest",
+					dataType: "json"
+				}).done(function(data) {
+					//console.log('Data: ', data);
+					rollNum("internationalConfirmedCount", 0, data.internationalStatistics.confirmedCount);
+					rollNum("internationalDeadCount", 0, data.internationalStatistics.deadCount);
+					rollNum("internationalCurrentConfirmedCount", 0, data.internationalStatistics.currentConfirmedCount);
+					rollNum("domesticConfirmedCount", 0, data.domesticStatistics.confirmedCount);
+					rollNum("domesticDeadCount", 0, data.domesticStatistics.deadCount);
+					rollNum("domesticCurrentConfirmedCount", 0, data.domesticStatistics.currentConfirmedCount);
+				}).fail(function(jqXHR, textStatus) {
+					console.log("Ajax Error: ", textStatus);
+				});
+				
+				//获取排行数据
+
+				const rankChart = echarts.init(document.getElementById("rankChart"), "shine");
+				const rankChartOpt = {
+					tooltip: {
+						trigger: "axis",
+						axisPointer: {
+							type: "shadow"
+						},
+						formatter: function(params) {
+							const param = params[0];
+							const marker = '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#e6b600;"></span>';
+							const suffix = '<span style="margin-left:5px;font-size:12px;">亿元</span>';
+							return param.name + "<br />" +
+								marker + "排名：" + (param.dataIndex+1) + "<br />" +
+								marker + "现存确诊：" + param.value;
+						}
+					},
+					grid: {
+						top: 10,
+						bottom: 10,
+						left: 60
+					},
+					xAxis: {
+						show: false,
+						type: "value"
+					},
+					yAxis: {
+						type: "category",
+						inverse: true,
+						axisLine: {show: false},
+						axisTick: {show: false},
+						axisLabel: {
+							fontSize: 12,
+							color: "#b0c2f9"
+						}
+					},
+					series: [{
+						name: "各国确诊人数排行",
+						type: "bar",
+						barCategoryGap: "60%",
+						label: {
+							show: true,
+							position: "right",
+							fontSize: 12,
+							color: "#188df0",
+							emphasis: {
+								color: "#e6b600"
+							}
+						},
+						itemStyle: {
+			                normal: {
+			                    color: new echarts.graphic.LinearGradient(
+			                        0, 1, 1, 1,
+			                        [
+			                            {offset: 0, color: '#b0c2f9'},
+			                            {offset: 0.5, color: '#188df0'},
+			                            {offset: 1, color: '#185bff'}
+			                        ]
+			                    )
+			                },
+			                emphasis: {
+			                    color: new echarts.graphic.LinearGradient(
+			                        0, 1, 1, 1,
+			                        [
+			                            {offset: 0, color: '#b0c2f9'},
+			                            {offset: 0.7, color: '#e6b600'},
+			                            {offset: 1, color: '#ceac09'}
+			                        ]
+			                    )
+			                }
+			            }
+					}]
+				};
+				rankChart.setOption(rankChartOpt);
+
+
+				$.ajax({
+					url: "http://111.231.75.86:8000/api/countries/",
+					dataType: "json"
+				}).done(function() {
+					$("#rankChart").addClass("chart-done");
+				}).done(function(data) {
+					var sortable = [];
+					for (var i in data) {
+						sortable.push([data[i], data[i].currentConfirmedCount]);
+					}
+					data = sortable.sort(function(a, b) {
+						return b[1] - a[1];
+					});
+					data = data.slice(0, 10)
+					const xData = [];
+					const yData = [];
+					for(let i in data) {
+						xData.push(data[i][0].currentConfirmedCount);
+						yData.push(data[i][0].countryName);
+					}
+					rankChart.setOption({
+						yAxis: {
+							data: yData
+						},
+						series: [{
+							name: "现存确认排行",
+							data: xData
+						}]
+					});
+				}).fail(function(jqXHR) {
+					console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
+				});
+				
+				//获取地域分布数据
+				const mapChart = echarts.init(document.getElementById("mapChart"), "shine");
+				const mapChartOpt = {
+					tooltip: {
+						formatter: function(params) {
+							const data = params.data;
+							const source = data.source;
+							return data.name + "<br />现存确诊人数：" + data.value
+								+ '<br />累计确诊：' + source.confirmedCount
+								+ '<br />治愈人数：' + source.curedCount
+								+ '<br />死亡人数：' + source.deadCount;
+						}
+					},
+					visualMap: {
+						type: "piecewise",
+						splitNumber: 6,
+						itemWidth: 10,
+						itemHeight: 10,
+						itemGap: 5,
+						textGap: 5,
+						textStyle: {
+							fontSize: 10,
+							color: "#b0c2f9"
+						},
+						min: 0,
+						max: 600,
+						calculable: true,
+						seriesIndex: [0]
+					},
+					geo: {
+						map: "china",
+						roam: true, //开启鼠标缩放和漫游
+						zoom: 1, //地图缩放级别
+						selectedMode: "single",
+						top: 10,
+						bottom: 10,
+						layoutCenter: ["50%", "50%"],
+						//layoutSize: "100%", //保持地图宽高比
+						label: {
+							show: true,
+							fontSize: 10,
+							color: "#ceac09"
+						}
+					},
+					series: [{
+						name: "各省、自治区、直辖市疫情分布",
+						type: "map",
+						geoIndex: 0
+					}]
+				};
+				mapChart.setOption(mapChartOpt);
+				$.ajax({
+					url: "http://111.231.75.86:8000/api/provinces/",
+					dataType: "json"
+				}).done(function() {
+					$("#mapChart").addClass("chart-done");
+				}).done(function(data) {
+					const chartData = [];
+					for(let i in data) {
+						chartData.push({
+							name: data[i].provinceShortName,
+							value: data[i].currentConfirmedCount,
+							source: data[i]
+						});
+					}
+					mapChart.setOption({
+						series: [{
+							name: "地域分布",
+							data: chartData
+						}]
+					});
+				}).fail(function(jqXHR) {
+					console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
+				});
+				
+				//获取月度股票情况数据
+				const trendChart = echarts.init(document.getElementById("trendChart"), "shine");
+				const trendChartOpt = {
+					tooltip: {
+						trigger: "axis",
+						axisPointer: {
+							type: "none"
+						}
+					},
+					legend: {
+						left: "center",
+						bottom: 3,
+						itemWidth: 15,
+						itemHeight: 10,
+						textStyle: {
+							fontSize: 12,
+							color: "#b0c2f9"
+						},
+						data: ["现存确诊", "累计确诊", "死亡人数"]
+					},
+					grid: {
+						top: 40,
+						bottom: 50,
+						left: 60,
+						right: 60
+					},
+					xAxis: {
+						type: "category",
+						axisLine: {
+							lineStyle: {color: "#b0c2f9"}
+						},
+						axisTick: {show: false},
+						axisLabel: {
+							fontSize: 12,
+							color: "#b0c2f9"
+						}
+					},
+					yAxis: [{
+						name: "人数",
+						type: "value",
+						axisLine: {
+							lineStyle: {color: "#b0c2f9"}
+						},
+						splitLine: {show: false},
+						axisTick: {color: "#b0c2f9"},
+						axisLabel: {
+							fontSize: 12,
+							color: "#b0c2f9",
+							formatter: (value, index) => {
+								return parseInt(value / 10000) + "万";
+							}
+						}
+					}],
+					visualMap: {
+				        show: false,
+				        seriesIndex: 2,
+				        dimension: 0,
+				        pieces: [{
+				            lte: 9,
+				            color: "rgba(176, 58, 91, 1)"
+				        }, {
+				            gt: 9,
+				            lte: 11,
+				            color: "rgba(176, 58, 91, 0.5)"
+				        }]
+				    },
+					series: [{
+						name: "现存确诊",
+						type: "line",
+						markPoint: {
+							itemStyle: {
+								color: "rgba(119, 96, 246, 1)"
+							},
+							data: [{
+								name: "最大值",
+								type: "max"
+							}]
+						}
+					}, {
+						name: "累计确诊",
+						type: "line",
+						itemStyle: {
+							color: function(params) {
+								if(params.dataIndex >= 10) {
+									return "rgba(230, 182, 0, 0.5)";
+								}
+								return "rgba(230, 182, 0, 1)";
+							}
+						}
+					}, {
+						name: "死亡人数",
+						type: "line",
+						markPoint: {
+							itemStyle: {
+								color: "rgba(230, 182, 0, 1)"
+							},
+							data: [{
+								name: "最大值",
+								type: "max"
+							}]
+						}
+					}]
+				};
+				trendChart.setOption(trendChartOpt);
+				$.ajax({
+					url: "http://111.231.75.86:8000/api/countries/美国/daily/",
+					dataType: "json"
+				}).done(function() {
+					$("#trendChart").addClass("chart-done");
+				}).done(function(data) {
+					//console.log('Data: ', data);
+					const xData = [];
+					const yData1 = [];
+					const yData2 = [];
+					const yData3 = [];
+					for(let i in data) {
+						xData.push(data[i].dateId);
+						yData1.push(data[i].currentConfirmedCount);
+						yData2.push(data[i].confirmedCount);
+						yData3.push(data[i].deadCount);
+					}
+					trendChart.setOption({
+						xAxis: {
+							data: xData,
+						},
+						series: [{
+							name: "现存确诊",
+							data: yData1
+						}, {
+							name: "累计确诊",
+							data: yData2
+						}, {
+							name: "死亡人数",
+							data: yData3
+						}]
+					});
+				}).fail(function(jqXHR) {
+					console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
+				});
+				
+				//获取CSRC行业分类数据
+				const csrcChart = echarts.init(document.getElementById("csrcChart"), "shine");
+				const csrcChartOpt = {
+					tooltip: {
+						trigger: "item",
+						formatter: "{b0}<br />累计确诊：{c0}人<br />占比：{d0}%"
+					},
+					legend: {
+						type: "scroll",
+						orient: "vertical",
+						padding: 0,
+						top: 15,
+						right: 0,
+						itemGap: 5,
+						itemWidth: 10,
+						itemHeight: 10,
+						textStyle: {
+							fontSize: 10,
+							color: "#b0c2f9"
+						}
+					},
+					series: [{
+						name: "各国累计确诊占比",
+						type: "pie",
+						center: ["47%", "55%"],
+						radius: ["30%", "85%"]
+					}]
+				};
+				csrcChart.setOption(csrcChartOpt);
+				$.ajax({
+					url: "http://111.231.75.86:8000/api/countries/",
+					dataType: "json"
+				}).done(function() {
+					$("#csrcChart").addClass("chart-done");
+				}).done(function(data) {
+					const chartData = [];
+					for(let i in data) {
+						chartData.push({
+							name: data[i].countryName,
+							value: data[i].confirmedCount
+						});
+					}
+					csrcChart.setOption({
+						series: [{
+							name: "各国累计确诊占比",
+							data: chartData
+						}]
+					});
+				}).fail(function(jqXHR) {
+					console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
+				});
+				
+				//浏览器窗口大小变化时，重置报表大小
+				$(window).resize(function() {
+					rankChart.resize();
+					mapChart.resize();
+					trendChart.resize();
+					csrcChart.resize();
+				});
+			});
+			
+			//数字变化特效
+			function rollNum(elId, startVal, endVal, decimalNum) {
+				let n = decimalNum || 0;
+				let countUp = new CountUp(elId, startVal, endVal, n, 2.5, {
+					useEasing: true, 
+					useGrouping: true, 
+					separator: ',', 
+					decimal: '.'
+				});
+				if(!countUp.error) {
+				    countUp.start();
+				}else {
+				    console.error(countUp.error);
+				}
+			}
+		</script>
+	</body>
+</html>
