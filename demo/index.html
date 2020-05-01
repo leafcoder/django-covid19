@@ -226,27 +226,27 @@
 							}
 						},
 						itemStyle: {
-			                normal: {
-			                    color: new echarts.graphic.LinearGradient(
-			                        0, 1, 1, 1,
-			                        [
-			                            {offset: 0, color: '#b0c2f9'},
-			                            {offset: 0.5, color: '#188df0'},
-			                            {offset: 1, color: '#185bff'}
-			                        ]
-			                    )
-			                },
-			                emphasis: {
-			                    color: new echarts.graphic.LinearGradient(
-			                        0, 1, 1, 1,
-			                        [
-			                            {offset: 0, color: '#b0c2f9'},
-			                            {offset: 0.7, color: '#e6b600'},
-			                            {offset: 1, color: '#ceac09'}
-			                        ]
-			                    )
-			                }
-			            }
+							normal: {
+								color: new echarts.graphic.LinearGradient(
+									0, 1, 1, 1,
+									[
+										{offset: 0, color: '#b0c2f9'},
+										{offset: 0.5, color: '#188df0'},
+										{offset: 1, color: '#185bff'}
+									]
+								)
+							},
+							emphasis: {
+								color: new echarts.graphic.LinearGradient(
+									0, 1, 1, 1,
+									[
+										{offset: 0, color: '#b0c2f9'},
+										{offset: 0.7, color: '#e6b600'},
+										{offset: 1, color: '#ceac09'}
+									]
+								)
+							}
+						}
 					}]
 				};
 				rankChart.setOption(rankChartOpt);
@@ -277,7 +277,7 @@
 								data: yData
 							},
 							series: [{
-								name: "现存确认排行",
+								name: "现存确诊排行",
 								data: xData
 							}]
 						});
@@ -364,7 +364,7 @@
 					});
 				}
 				
-				//获取月度股票情况数据
+				//获取美国疫情发展情况
 				const trendChart = echarts.init(document.getElementById("trendChart"), "shine");
 				const trendChartOpt = {
 					tooltip: {
@@ -375,7 +375,7 @@
 					},
 					legend: {
 						left: "center",
-						bottom: 3,
+						top: 3,
 						itemWidth: 15,
 						itemHeight: 10,
 						textStyle: {
@@ -386,10 +386,16 @@
 					},
 					grid: {
 						top: 40,
-						bottom: 50,
+						bottom: 70,
 						left: 60,
 						right: 60
 					},
+
+					dataZoom: [{
+						startValue: 20200123
+					}, {
+						type: 'inside'
+					}],
 					xAxis: {
 						type: "category",
 						axisLine: {
@@ -417,22 +423,10 @@
 							}
 						}
 					}],
-					visualMap: {
-				        show: false,
-				        seriesIndex: 2,
-				        dimension: 0,
-				        pieces: [{
-				            lte: 9,
-				            color: "rgba(176, 58, 91, 1)"
-				        }, {
-				            gt: 9,
-				            lte: 11,
-				            color: "rgba(176, 58, 91, 0.5)"
-				        }]
-				    },
 					series: [{
 						name: "现存确诊",
 						type: "line",
+						smooth: true,
 						markPoint: {
 							itemStyle: {
 								color: "rgba(119, 96, 246, 1)"
@@ -445,6 +439,7 @@
 					}, {
 						name: "累计确诊",
 						type: "line",
+						smooth: true,
 						itemStyle: {
 							color: function(params) {
 								if(params.dataIndex >= 10) {
@@ -456,6 +451,7 @@
 					}, {
 						name: "死亡人数",
 						type: "line",
+						smooth: true,
 						markPoint: {
 							itemStyle: {
 								color: "rgba(230, 182, 0, 1)"
@@ -512,7 +508,7 @@
 				const countrysChartOpt = {
 					tooltip: {
 						trigger: "item",
-						formatter: "{b0}<br />累计确诊：{c0}人<br />占比：{d0}%"
+						formatter: "{b0}<br />累计确诊：{c0}人<br />全球占比：{d0}%"
 					},
 					legend: {
 						type: "scroll",
@@ -531,8 +527,23 @@
 					series: [{
 						name: "各国累计确诊占比",
 						type: "pie",
-						center: ["47%", "55%"],
-						radius: ["30%", "85%"]
+						center: ["30%", "55%"],
+						radius: ['50%', '80%'],
+						avoidLabelOverlap: true,
+						label: {
+							show: false,
+							position: 'center'
+						},
+						labelLine: {
+							show: false
+						},
+						emphasis: {
+							label: {
+								show: true,
+								fontSize: '30',
+								fontWeight: 'bold'
+							}
+						},
 					}]
 				};
 				countrysChart.setOption(countrysChartOpt);
@@ -544,11 +555,18 @@
 					}).done(function() {
 						$("#countrysChart").addClass("chart-done");
 					}).done(function(data) {
+						var sortable = [];
+						for (var i in data) {
+							sortable.push([data[i], data[i].confirmedCount]);
+						}
+						data = sortable.sort(function(a, b) {
+							return b[1] - a[1];
+						});
 						const chartData = [];
 						for(let i in data) {
 							chartData.push({
-								name: data[i].countryName,
-								value: data[i].confirmedCount
+								name: data[i][0].countryName,
+								value: data[i][0].confirmedCount
 							});
 						}
 						countrysChart.setOption({
@@ -608,9 +626,9 @@
 					decimal: '.'
 				});
 				if(!countUp.error) {
-				    countUp.start();
+					countUp.start();
 				}else {
-				    console.error(countUp.error);
+					console.error(countUp.error);
 				}
 			}
 		</script>
