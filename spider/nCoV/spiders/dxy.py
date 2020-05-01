@@ -2,7 +2,7 @@
 # @Author: zhanglei3
 # @Date:   2020-04-08 09:08:13
 # @Last Modified by:   leafcoder
-# @Last Modified time: 2020-04-30 10:09:06
+# @Last Modified time: 2020-05-01 00:05:04
 
 """丁香园数据源"""
 
@@ -76,14 +76,18 @@ class DXYSpider(scrapy.Spider):
             country.pop('provinceShortName')
             country.pop('modifyTime', None)
             country.pop('createTime', None)
-            country['incrVo'] = json.dumps(country['incrVo'])
-            yield scrapy.Request(
-                country['statisticsData'],
-                callback=self.parse_country_statistics_data,
-                meta={
-                    'country': country
-                }
-            )
+            country['incrVo'] = json.dumps(country.get('incrVo', {}))
+            statistics_data = country.get('statisticsData')
+            if statistics_data:
+                yield scrapy.Request(
+                    statistics_data,
+                    callback=self.parse_country_statistics_data,
+                    meta={
+                        'country': country
+                    }
+                )
+            else:
+                yield items.CountryItem(dailyData=[], **country)
 
         # 时间线事件，id=“getTimelineService2” 为英文内容
         timelines = self.get_list(scripts, '#getTimelineService1')
@@ -161,7 +165,9 @@ class DXYSpider(scrapy.Spider):
         item = {}
         for key in (
                 'currentConfirmedCount', 'curedCount', 'confirmedCount',
-                'seriousCount', 'suspectedCount', 'deadCount'):
+                'seriousCount', 'suspectedCount', 'deadCount',
+                'currentConfirmedIncr', 'curedIncr', 'confirmedIncr',
+                'suspectedIncr', 'deadIncr'):
             item[key] = statistics.get(key, 0)
         item['countryType'] = items.StatisticsItem.django_model.GLOBAL
         yield items.StatisticsItem(**item)
@@ -170,7 +176,9 @@ class DXYSpider(scrapy.Spider):
         item = {}
         for key in (
                 'currentConfirmedCount', 'curedCount', 'confirmedCount',
-                'seriousCount', 'suspectedCount', 'deadCount'):
+                'seriousCount', 'suspectedCount', 'deadCount',
+                'currentConfirmedIncr', 'curedIncr', 'confirmedIncr',
+                'suspectedIncr', 'deadIncr'):
             item[key] = statistics.get(key, 0)
         item['countryType'] \
             = items.StatisticsItem.django_model.INTERNATIONAL
@@ -180,7 +188,9 @@ class DXYSpider(scrapy.Spider):
         item = {}
         for key in (
                 'currentConfirmedCount', 'curedCount', 'confirmedCount',
-                'seriousCount', 'suspectedCount', 'deadCount'):
+                'seriousCount', 'suspectedCount', 'deadCount',
+                'currentConfirmedIncr', 'curedIncr', 'confirmedIncr',
+                'suspectedIncr', 'deadIncr'):
             item[key] = statistics.get(key, 0)
         item['countryType'] = items.StatisticsItem.django_model.DOMESTIC
         yield items.StatisticsItem(**item)

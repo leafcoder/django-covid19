@@ -44,6 +44,11 @@ class LatestStatisticsView(APIView):
             item['seriousCount'] = inst.seriousCount
             item['curedCount'] = inst.curedCount
             item['deadCount'] = inst.deadCount
+            item['currentConfirmedIncr'] = inst.currentConfirmedIncr
+            item['confirmedIncr'] = inst.confirmedIncr
+            item['suspectedIncr'] = inst.suspectedIncr
+            item['curedIncr'] = inst.curedIncr
+            item['deadIncr'] = inst.deadIncr
             countryType = inst.countryType
             if countryType == Statistics.GLOBAL:
                 result['globalStatistics'] = item
