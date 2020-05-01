@@ -11,7 +11,7 @@
 	<body>
 		<header id="header">
 			<h3 class="header-title">新冠肺炎（2019-nCov）疫情</h3>
-			<div class="header-info header-info-l">数据来源：丁香园<small>（前往 <a href="https://github.com/leafcoder" target="_blank" style="color: #FFFFFF;">leafcoder/django-covid19</a>）</small></div>
+			<div class="header-info header-info-l">数据来源：丁香园<small>（前往 <a href="https://github.com/leafcoder/django-covid19" target="_blank" style="color: #FFFFFF;">leafcoder/django-covid19</a>）</small></div>
 			<div class="header-info header-info-r">时间：<span id="nowDate"></span><small>（每隔1分钟自动刷新）</small></div>
 		</header>
 		
@@ -30,29 +30,33 @@
 					</div>
 					<div class="flex-cell flex-cell-c" style="padding-right:0;">
 						<div class="chart-wrapper">
-							<h3 class="chart-title">统计数据</h3>
+							<h3 class="chart-title">国内外统计数据</h3>
 							<div class="chart-div chart-done">
 								<table class="data-t">
 									<tr>
 										<th><img src="img/icon-01.png" /></th>
 										<td>
+											<p>较昨日 <span id="internationalCurrentConfirmedIncr">0</span></p>
 											<p><span id="internationalCurrentConfirmedCount">0</span></p>
-											<p>国外现存确认</p>
+											<p>国外现存确诊</p>
 										</td>
 										<th><img src="img/icon-02.png" /></th>
 										<td>
+											<p>较昨日 <span id="domesticCurrentConfirmedIncr">0</span></p>
 											<p><span id="domesticCurrentConfirmedCount">0</span></p>
-											<p>中国现存确认</p>
+											<p>中国现存确诊</p>
 										</td>
 									</tr>
 									<tr>
 										<th><img src="img/icon-03.png" /></th>
 										<td>
+											<p>较昨日 <span id="internationalConfirmedIncr">0</span></p>
 											<p><span id="internationalConfirmedCount">0</span></p>
 											<p>国外累计确诊</p>
 										</td>
 										<th><img src="img/icon-04.png" /></th>
 										<td>
+											<p>较昨日 <span id="domesticConfirmedIncr">0</span></p>
 											<p><span id="domesticConfirmedCount">0</span></p>
 											<p>中国累计确诊</p>
 										</td>
@@ -60,11 +64,13 @@
 									<tr>
 										<th><img src="img/icon-05.png" /></th>
 										<td>
+											<p>较昨日 <span id="internationalDeadIncr">0</span></p>
 											<p><span id="internationalDeadCount">0</span></p>
 											<p>国外死亡人数</p>
 										</td>
 										<th><img src="img/icon-06.png" /></th>
 										<td>
+											<p>较昨日 <span id="domesticDeadIncr">0</span></p>
 											<p><span id="domesticDeadCount">0</span></p>
 											<p>中国死亡人数</p>
 										</td>
@@ -129,13 +135,41 @@
 						url: "http://111.231.75.86:8000/api/statistics/latest",
 						dataType: "json"
 					}).done(function(data) {
-						//console.log('Data: ', data);
 						rollNum("internationalConfirmedCount", 0, data.internationalStatistics.confirmedCount);
 						rollNum("internationalDeadCount", 0, data.internationalStatistics.deadCount);
 						rollNum("internationalCurrentConfirmedCount", 0, data.internationalStatistics.currentConfirmedCount);
 						rollNum("domesticConfirmedCount", 0, data.domesticStatistics.confirmedCount);
 						rollNum("domesticDeadCount", 0, data.domesticStatistics.deadCount);
 						rollNum("domesticCurrentConfirmedCount", 0, data.domesticStatistics.currentConfirmedCount);
+						if (data.internationalStatistics.confirmedIncr > 0)
+							$("#internationalConfirmedIncr").html('+' + data.internationalStatistics.confirmedIncr)
+						else
+							$("#internationalConfirmedIncr").html(data.internationalStatistics.confirmedIncr)
+;
+						if (data.internationalStatistics.deadIncr > 0)
+							$("#internationalDeadIncr").html('+' + data.internationalStatistics.deadIncr)
+						else
+							$("#internationalDeadIncr").html(data.internationalStatistics.deadIncr);
+
+						if (data.internationalStatistics.currentConfirmedIncr > 0)
+							$("#internationalCurrentConfirmedIncr").html('+' + data.internationalStatistics.currentConfirmedIncr)
+						else
+							$("#internationalCurrentConfirmedIncr").html(data.internationalStatistics.currentConfirmedIncr);
+
+						if (data.domesticStatistics.confirmedIncr > 0)
+							$("#domesticConfirmedIncr").html('+' + data.domesticStatistics.confirmedIncr)
+						else
+							$("#domesticConfirmedIncr").html(data.domesticStatistics.confirmedIncr)
+;
+						if (data.domesticStatistics.deadIncr > 0)
+							$("#domesticDeadIncr").html('+' + data.domesticStatistics.deadIncr)
+						else
+							$("#domesticDeadIncr").html(data.domesticStatistics.deadIncr)
+;
+						if (data.domesticStatistics.currentConfirmedIncr > 0)
+							$("#domesticCurrentConfirmedIncr").html('+' + data.domesticStatistics.currentConfirmedIncr)
+						else
+							$("#domesticCurrentConfirmedIncr").html(data.domesticStatistics.currentConfirmedIncr)
 					}).fail(function(jqXHR, textStatus) {
 						console.log("Ajax Error: ", textStatus);
 					});

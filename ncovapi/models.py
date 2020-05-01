@@ -33,6 +33,11 @@ class Statistics(models.Model):
     seriousCount = models.IntegerField('现存无症状', default=0)
     curedCount = models.IntegerField(default=0)
     deadCount = models.IntegerField(default=0)
+    currentConfirmedIncr = models.IntegerField(default=0)
+    confirmedIncr = models.IntegerField(default=0)
+    suspectedIncr = models.IntegerField(default=0)
+    curedIncr = models.IntegerField(default=0)
+    deadIncr = models.IntegerField(default=0)
     crawler = models.ForeignKey(
         "Crawler", on_delete=models.CASCADE, related_name="statistics",
         db_column="crawlerId"

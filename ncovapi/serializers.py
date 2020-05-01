@@ -13,6 +13,12 @@ class StatisticsGroupSerializer(serializers.Serializer):
     curedCount = serializers.IntegerField()
     deadCount = serializers.IntegerField()
 
+    currentConfirmedIncr = serializers.IntegerField()
+    confirmedIncr = serializers.IntegerField()
+    suspectedIncr = serializers.IntegerField()
+    curedIncr = serializers.IntegerField()
+    deadIncr = serializers.IntegerField()
+
 
 class WHOArticleSerializer(serializers.Serializer):
 
