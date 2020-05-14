@@ -34,5 +34,22 @@
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+  <script>
+    const gitalk = new Gitalk({
+      clientID: 'de4bf0b518216daef17f',
+      clientSecret: '378b45bc645577c56d1d350ad6a668e1311d80f5',
+      repo: 'django-covid19',
+      owner: 'leafcoder',
+      admin: [],
+      // facebook-like distraction free mode
+      distractionFreeMode: false
+    })
+  </script>
+
 </body>
 </html>
