@@ -1,9 +1,11 @@
 <div align="center">
 
-# django-covid19
-![GitHub watchers](https://img.shields.io/github/watchers/leafcoder/django-covid19?style=social)
-![GitHub stars](https://img.shields.io/github/stars/leafcoder/django-covid19?style=social)
-![GitHub forks](https://img.shields.io/github/forks/leafcoder/django-covid19?style=social)
+# 新冠肺炎实时接口 {docsify-ignore}
+
+<!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/leafcoder/django-covid19/subscription" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Watch leafcoder/django-covid19 on GitHub">Watch</a>
+<a class="github-button" href="https://github.com/leafcoder/django-covid19" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Star leafcoder/django-covid19 on GitHub">Star</a>
+<a class="github-button" href="https://github.com/leafcoder/django-covid19/fork" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Fork leafcoder/django-covid19 on GitHub">Fork</a>
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/leafcoder/django-covid19)
 ![GitHub top language](https://img.shields.io/github/languages/top/leafcoder/django-covid19)
