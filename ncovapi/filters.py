@@ -22,9 +22,9 @@ class CityFilter(django_filters.rest_framework.FilterSet):
 class ProvinceFilter(django_filters.rest_framework.FilterSet):
 
     provinceShortNames = CharInFilter(
-        field_name='provinceyName', lookup_expr='in')
+        field_name='provinceShortName', lookup_expr='in')
     provinceNames = CharInFilter(
-        field_name='provinceyName', lookup_expr='in')
+        field_name='provinceName', lookup_expr='in')
 
     class Meta:
         model = Province
