@@ -2,7 +2,7 @@
 # @Author: zhanglei3
 # @Date:   2020-04-08 09:08:13
 # @Last Modified by:   leafcoder
-# @Last Modified time: 2020-05-01 00:05:04
+# @Last Modified time: 2020-05-19 11:59:16
 
 """丁香园数据源"""
 
@@ -34,20 +34,16 @@ class DXYSpider(scrapy.Spider):
             datetime.fromtimestamp(statistics['createTime'] / 1000.0))
         modifyTime = make_aware(
             datetime.fromtimestamp(statistics['modifyTime'] / 1000.0))
-        qs = items.CrawlerItem.django_model.objects.all().order_by('-id')
+        qs = items.StatisticsItem.django_model.objects.all().order_by('-id')
         if qs.count() > 1 and qs[1].modifyTime == modifyTime:
             logger.info('Data does not change.')
-            self.crawler.delete()
-            self.crawler = None
+            self.crawled = 0
             return
-        self.crawler.createTime = createTime
-        self.crawler.modifyTime = modifyTime
-        self.crawler.save()
 
         # 统计信息
         statistics = self.explain_statistics(statistics)
-        for item in statistics:
-            yield item
+        statistics['createTime'] = createTime
+        statistics['modifyTime'] = modifyTime
 
         # 国内数据
         provinces = self.get_list(scripts, '#getAreaStat')
@@ -61,6 +57,71 @@ class DXYSpider(scrapy.Spider):
                     'cities': cities
                 }
             )
+
+        # 时间线事件，id=“getTimelineService2” 为英文内容
+        timelines = self.get_list(scripts, '#getTimelineService1')
+        result = []
+        for item in timelines:
+            timeline = {}
+            for key in ('title', 'summary', 'infoSource', 'sourceUrl',
+                        'pubDate', 'pubDateStr'):
+                timeline[key] = item.get(key)
+            result.append(timeline)
+        statistics['timelines'] = json.dumps(result)
+
+        # 建议，id=“#getIndexRecommendList2” 为英文内容
+        recommends = self.get_list(
+            scripts, '#getIndexRecommendListundefined')
+        result = []
+        for item in recommends:
+            recommend = {}
+            for key in ('title', 'linkUrl', 'imgUrl', 'countryType',
+                        'contentType', 'recordStatus', 'sort'):
+                recommend[key] = item.get(key)
+            result.append(recommend)
+        statistics['recommends'] = json.dumps(result)
+
+        # WHO 文章
+        item = self.get_dict(scripts, '#fetchWHOArticle')
+        article = {}
+        for key in ('title', 'linkUrl', 'imgUrl'):
+            article[key] = item.get(key)
+        statistics['WHOArticle'] = json.dumps(article)
+
+        # wiki
+        wiki_result = self.get_dict(scripts, '#getWikiList')
+        wikis = wiki_result['result']
+        result = []
+        for item in wikis:
+            wiki = {}
+            for key in ('title', 'linkUrl', 'imgUrl', 'description'):
+                wiki[key] = item.get(key)
+            result.append(wiki)
+        statistics['wikis'] = json.dumps(result)
+
+
+        # 购物指南
+        guides = self.get_list(scripts, '#fetchGoodsGuide')
+        result = []
+        for item in guides:
+            guide = {}
+            for key in ('categoryName', 'title', 'recordStatus',
+                        'contentImgUrls'):
+                guide[key] = item.get(key)
+            result.append(guide)
+        statistics['goodsGuides'] = json.dumps(result)
+
+        # 辟谣与防护
+        rumors = self.get_list(scripts, '#getIndexRumorList')
+        result = []
+        for item in rumors:
+            rumor = {}
+            for key in ('title', 'mainSummary', 'summary', 'body',
+                        'sourceUrl', 'score', 'rumorType'):
+                rumor[key] = item.get(key)
+            result.append(rumor)
+        statistics['rumors'] = json.dumps(result)
+        yield statistics
 
         # 国外数据
         countries = self.get_list(
@@ -89,58 +150,7 @@ class DXYSpider(scrapy.Spider):
             else:
                 yield items.CountryItem(dailyData=[], **country)
 
-        # 时间线事件，id=“getTimelineService2” 为英文内容
-        timelines = self.get_list(scripts, '#getTimelineService1')
-        for item in timelines:
-            timeline = {}
-            for key in ('title', 'summary', 'infoSource', 'sourceUrl',
-                        'pubDate', 'pubDateStr'):
-                timeline[key] = item.get(key)
-            yield items.TimelineItem(**timeline)
-
-        # 建议，id=“#getIndexRecommendList2” 为英文内容
-        recommends = self.get_list(
-            scripts, '#getIndexRecommendListundefined')
-        for item in recommends:
-            recommend = {}
-            for key in ('title', 'linkUrl', 'imgUrl', 'countryType',
-                        'contentType', 'recordStatus', 'sort'):
-                recommend[key] = item.get(key)
-            yield items.RecommendItem(**recommend)
-
-        # WHO 文章
-        item = self.get_dict(scripts, '#fetchWHOArticle')
-        article = {}
-        for key in ('title', 'linkUrl', 'imgUrl'):
-            article[key] = item.get(key)
-        yield items.WHOArticleItem(**article)
-
-        # wiki
-        wiki_result = self.get_dict(scripts, '#getWikiList')
-        wikis = wiki_result['result']
-        for item in wikis:
-            wiki = {}
-            for key in ('title', 'linkUrl', 'imgUrl', 'description'):
-                wiki[key] = item.get(key)
-            yield items.WikiItem(**wiki)
-
-        # 购物指南
-        guides = self.get_list(scripts, '#fetchGoodsGuide')
-        for item in guides:
-            guide = {}
-            for key in ('categoryName', 'title', 'recordStatus',
-                        'contentImgUrls'):
-                guide[key] = item.get(key)
-            yield items.GoodsGuideItem(**guide)
-
-        # 辟谣与防护
-        rumors = self.get_list(scripts, '#getIndexRumorList')
-        for item in rumors:
-            rumor = {}
-            for key in ('title', 'mainSummary', 'summary', 'body',
-                        'sourceUrl', 'score', 'rumorType'):
-                rumor[key] = item.get(key)
-            yield items.RumorItem(**rumor)
+        self.crawled = 1  # 代表爬虫已爬取数据
 
     def parse_province_statistics_data(self, response):
         result = json.loads(response.text)
@@ -162,6 +172,7 @@ class DXYSpider(scrapy.Spider):
 
     def explain_statistics(self, data):
         statistics = data['globalStatistics']
+        instance = {}
         item = {}
         for key in (
                 'currentConfirmedCount', 'curedCount', 'confirmedCount',
@@ -169,8 +180,7 @@ class DXYSpider(scrapy.Spider):
                 'currentConfirmedIncr', 'curedIncr', 'confirmedIncr',
                 'suspectedIncr', 'deadIncr'):
             item[key] = statistics.get(key, 0)
-        item['countryType'] = items.StatisticsItem.django_model.GLOBAL
-        yield items.StatisticsItem(**item)
+        instance['globalStatistics'] = json.dumps(item)
 
         statistics = data['foreignStatistics']
         item = {}
@@ -180,9 +190,8 @@ class DXYSpider(scrapy.Spider):
                 'currentConfirmedIncr', 'curedIncr', 'confirmedIncr',
                 'suspectedIncr', 'deadIncr'):
             item[key] = statistics.get(key, 0)
-        item['countryType'] \
-            = items.StatisticsItem.django_model.INTERNATIONAL
-        yield items.StatisticsItem(**item)
+        instance['internationalStatistics'] = json.dumps(item)
+
 
         statistics = data
         item = {}
@@ -192,8 +201,7 @@ class DXYSpider(scrapy.Spider):
                 'currentConfirmedIncr', 'curedIncr', 'confirmedIncr',
                 'suspectedIncr', 'deadIncr'):
             item[key] = statistics.get(key, 0)
-        item['countryType'] = items.StatisticsItem.django_model.DOMESTIC
-        yield items.StatisticsItem(**item)
+        instance['domesticStatistics'] = json.dumps(item)
 
         # Remark and Note
         remarks = []
@@ -208,12 +216,10 @@ class DXYSpider(scrapy.Spider):
             if note:
                 notes.append(note)
 
-        item = {
-            'remarks': remarks,
-            'notes': notes,
-            'generalRemark': data.get('generalRemark')
-        }
-        yield items.NoticeItem(**item)
+        instance['remarks'] = json.dumps(remarks)
+        instance['notes'] = json.dumps(notes)
+        instance['generalRemark'] = data.get('generalRemark')
+        return items.StatisticsItem(**instance)
 
     def get_list(self, scripts, data_id):
         ret = scripts.css(data_id).re(r'(\[.+\])')
