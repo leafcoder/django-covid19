@@ -17,30 +17,32 @@ from . import items
 class NcovPipeline(object):
 
     def open_spider(self, spider):
-        spider.crawler = items.CrawlerItem.django_model.objects.create()
+        spider.crawled = 0
 
     def process_item(self, item, spider):
         if isinstance(item, items.CityItem):
             provice_location_id = item.pop('province')
             province = items.ProvinceItem.django_model.objects.filter(
-                locationId=provice_location_id,
-                crawler=spider.crawler).first()
+                locationId=provice_location_id).first()
             item['province'] = province
-            items.CityItem.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
+            items.CityItem.django_model.objects.update_or_create(
+                province=province, cityName=item['cityName'],
+                defaults=item)
             return item
-        elif isinstance(item, (items.ProvinceItem, items.CountryItem,
-                               items.StatisticsItem, items.NoticeItem,
-                               items.WHOArticleItem, items.RecommendItem,
-                               items.TimelineItem, items.WikiItem,
-                               items.GoodsGuideItem, items.RumorItem)):
+        elif isinstance(item, items.ProvinceItem):
+            items.ProvinceItem.django_model.objects.update_or_create(
+                provinceName=item['provinceName'],
+                defaults=item)
+            return item
+        elif isinstance(item, items.CountryItem):
+            items.CountryItem.django_model.objects.update_or_create(
+                countryName=item['countryName'],
+                defaults=item)
+            return item
+        elif isinstance(item, items.StatisticsItem):
             klass = item.__class__
-            klass.django_model.objects.create(
-                crawler=spider.crawler, **item
-            )
+            klass.django_model.objects.create(**item)
             return item
 
     def close_spider(self, spider):
-        if spider.crawler is not None:
-            cache.set('crawled', 1)
+        cache.set('crawled', spider.crawled)

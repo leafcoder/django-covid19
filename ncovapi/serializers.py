@@ -1,24 +1,7 @@
-from .models import City, Province, Country
+from .models import Statistics, City, Province, Country
 from rest_framework import serializers
 
 import json
-
-
-class StatisticsGroupSerializer(serializers.Serializer):
-
-    currentConfirmedCount = serializers.IntegerField()
-    confirmedCount = serializers.IntegerField()
-    suspectedCount = serializers.IntegerField()
-    seriousCount = serializers.IntegerField()
-    curedCount = serializers.IntegerField()
-    deadCount = serializers.IntegerField()
-
-    currentConfirmedIncr = serializers.IntegerField()
-    confirmedIncr = serializers.IntegerField()
-    suspectedIncr = serializers.IntegerField()
-    curedIncr = serializers.IntegerField()
-    deadIncr = serializers.IntegerField()
-
 
 class WHOArticleSerializer(serializers.Serializer):
 
@@ -46,12 +29,14 @@ class TimelineSerializer(serializers.Serializer):
     infoSource = serializers.CharField()
     sourceUrl = serializers.URLField()
 
+
 class WikiSerializer(serializers.Serializer):
 
     title = serializers.CharField()
     linkUrl = serializers.URLField()
     imgUrl = serializers.URLField()
     description = serializers.CharField()
+
 
 class GoodsGuideSerializer(serializers.Serializer):
 
@@ -60,6 +45,7 @@ class GoodsGuideSerializer(serializers.Serializer):
     recordStatus = serializers.IntegerField()
     contentImgUrls = serializers.ListField(
         serializers.URLField(max_length=200), max_length=10)
+
 
 class RumorSerializer(serializers.Serializer):
 
@@ -71,14 +57,13 @@ class RumorSerializer(serializers.Serializer):
     score = serializers.IntegerField()
     rumorType = serializers.IntegerField()
 
+
 class LatestStatisticsSerializer(serializers.Serializer):
 
-    globalStatistics = StatisticsGroupSerializer()
-    domesticStatistics = StatisticsGroupSerializer()
-    internationalStatistics = StatisticsGroupSerializer()
-    remarks = serializers.ListField(
-       child=serializers.CharField(max_length=100), max_length=10
-    )
+    globalStatistics = serializers.DictField()
+    domesticStatistics = serializers.DictField()
+    internationalStatistics = serializers.DictField()
+    remarks = serializers.JSONField()
     notes = serializers.ListField(
        child=serializers.CharField(max_length=100), max_length=10
     )
@@ -95,12 +80,15 @@ class LatestStatisticsSerializer(serializers.Serializer):
 
 class StatisticsSerializer(serializers.Serializer):
 
-    globalStatistics = StatisticsGroupSerializer()
-    domesticStatistics = StatisticsGroupSerializer()
-    internationalStatistics = StatisticsGroupSerializer()
+    globalStatistics = serializers.DictField()
+    domesticStatistics = serializers.DictField()
+    internationalStatistics = serializers.DictField()
     modifyTime = serializers.DateTimeField()
     createTime = serializers.DateTimeField()
 
+    class Meta:
+        model = Statistics
+        fields = ('globalStatistics', 'domesticStatistics', 'internationalStatistics', 'modifyTime', 'createTime')
 
 class ProvinceSerializer(serializers.HyperlinkedModelSerializer):
 
