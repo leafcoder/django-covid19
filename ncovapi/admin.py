@@ -21,8 +21,11 @@ class BaseAdmin(admin.ModelAdmin):
 @admin.register(models.Statistics)
 class StatisticsAdmin(BaseAdmin):
 
-    pass
-
+    list_display = (
+        'globalStatistics', 'domesticStatistics', 'internationalStatistics',
+        'modifyTime', 'createTime', 'crawlTime'
+    )
+    search_fields = ('crawlTime', 'modifyTime')
 
 @admin.register(models.City)
 class CityAdmin(BaseAdmin):
