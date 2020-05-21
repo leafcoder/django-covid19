@@ -8,7 +8,7 @@
 import scrapy
 
 from scrapy_djangoitem import DjangoItem
-from ncovapi import models
+from covid19 import models
 
 
 class StatisticsItem(DjangoItem):

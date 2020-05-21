@@ -1,4 +1,4 @@
-"""covid19 URL Configuration
+"""ncov URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -19,17 +19,9 @@ from django.views.static import serve
 from django.conf import settings
 from django.conf.urls import url
 
-import os
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('ncovapi.urls', namespace='ncovapi')),
-    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
-    url(r'^docs/$', serve, {
-        'document_root': os.path.join(settings.BASE_DIR, 'docs'),
-        'path': 'index.html'
-    }),
-    url(r'^docs/(?P<path>.*)$', serve, {
-        'document_root': os.path.join(settings.BASE_DIR, 'docs')
-    })
+    path('api/', include('django_covid19.urls', namespace='django_covid19')),
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})
 ]

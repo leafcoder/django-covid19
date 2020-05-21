@@ -20,7 +20,7 @@
     <img src="https://img.shields.io/github/languages/top/leafcoder/django-covid19" data-origin="https://img.shields.io/github/languages/top/leafcoder/django-covid19" alt="GitHub top language">
     <img src="https://img.shields.io/github/languages/code-size/leafcoder/django-covid19" data-origin="https://img.shields.io/github/languages/code-size/leafcoder/django-covid19" alt="GitHub code size in bytes">
     <img src="https://img.shields.io/github/commit-activity/w/leafcoder/django-covid19" data-origin="https://img.shields.io/github/commit-activity/w/leafcoder/django-covid19" alt="GitHub commit activity">
-    <img src="https://img.shields.io/github/downloads/leafcoder/django-covid19/total" data-origin="https://img.shields.io/github/downloads/leafcoder/django-covid19/total" alt="GitHub All Releases">
+    <img src="https://img.shields.io/pypi/dm/django_covid19" data-origin="https://img.shields.io/pypi/dm/django_covid19" alt="PyPI - Downloads">
 </p>
 
 </div>
@@ -36,14 +36,14 @@
 如果开发者本身没有个人的云服务器用来部署本项目，也可以直接调用本项目已部署好
 的实时接口，可用于科研、娱乐、教学等各方面。
 
-[![在线文档](docs/images/docs.png)](http://111.231.75.86:8000/docs/)
+[![在线文档](https://raw.githubusercontent.com/leafcoder/django-covid19/master/docs/images/docs.png)](http://111.231.75.86:8000/docs/)
 
 # 在线大屏
 
 根据已部署的疫情在线接口，并结合使用开源数据大屏项目中的示例代码，本项目提
 供了一个使用本项目接口的数据大屏示例。
 
-[![在线数据大屏](docs/images/dashboard.png)](http://111.231.75.86/dashboard)
+[![在线数据大屏](https://raw.githubusercontent.com/leafcoder/django-covid19/master/docs/images/dashboard.png)](http://111.231.75.86/dashboard)
 
 # 问题相关
 

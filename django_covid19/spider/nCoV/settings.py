@@ -1,16 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
-import sys
-
-sys.path.insert(0, os.path.dirname(os.path.abspath('.')))
-
-print(sys.path)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'covid19.settings'
-
-import django
-django.setup()
-
 # Scrapy settings for nCoV project
 #
 # For simplicity, this file contains only settings considered important or
