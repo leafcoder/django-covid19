@@ -5,11 +5,11 @@ from . import views
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 
-app_name = 'ncovapi'
+app_name = 'ncov'
 
 urlpatterns = [
     path('statistics/', views.StatisticsListView.as_view(), name='statistics-list'),
-    path('statistics/latest', views.LatestStatisticsView.as_view(), name='latest-statistics'),
+    path('statistics/latest', views.LatestStatisticsView.as_view(), name='statistics-latest'),
     path('cities/', views.CityListView.as_view(), name='city-list'),
     path('cities/<int:pk>/', views.CityRetrieveView.as_view(), name='city-detail'),
     path('cities/<str:cityName>/', views.CityRetrieveByNameView.as_view(), name='city-detail-by-name'),

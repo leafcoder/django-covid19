@@ -2,26 +2,28 @@
 
 # 新冠肺炎实时接口 {docsify-ignore}
 
-<!-- Place this tag where you want the button to render. -->
-<a class="github-button" href="https://github.com/leafcoder/django-covid19/subscription" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Watch leafcoder/django-covid19 on GitHub">
-    <img alt="GitHub forks" src="https://img.shields.io/github/watchers/leafcoder/django-covid19?style=social">
-</a>
-<a class="github-button" href="https://github.com/leafcoder/django-covid19" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Star leafcoder/django-covid19 on GitHub">
-    <img alt="GitHub forks" src="https://img.shields.io/github/stars/leafcoder/django-covid19?style=social">
-</a>
-<a class="github-button" href="https://github.com/leafcoder/django-covid19/fork" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Fork leafcoder/django-covid19 on GitHub">
-    <img alt="GitHub forks" src="https://img.shields.io/github/forks/leafcoder/django-covid19?style=social">
-</a>
+<p>
+    <!-- Place this tag where you want the button to render. -->
+    <a class="github-button" href="https://github.com/leafcoder/django-covid19/subscription" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Watch leafcoder/django-covid19 on GitHub">
+        <img alt="GitHub forks" src="https://img.shields.io/github/watchers/leafcoder/django-covid19?style=social">
+    </a>
+    <a class="github-button" href="https://github.com/leafcoder/django-covid19" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Star leafcoder/django-covid19 on GitHub">
+        <img alt="GitHub forks" src="https://img.shields.io/github/stars/leafcoder/django-covid19?style=social">
+    </a>
+    <a class="github-button" href="https://github.com/leafcoder/django-covid19/fork" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Fork leafcoder/django-covid19 on GitHub">
+        <img alt="GitHub forks" src="https://img.shields.io/github/forks/leafcoder/django-covid19?style=social">
+    </a>
+</p>
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/leafcoder/django-covid19)
-![GitHub top language](https://img.shields.io/github/languages/top/leafcoder/django-covid19)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/leafcoder/django-covid19)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/leafcoder/django-covid19)
-![GitHub All Releases](https://img.shields.io/github/downloads/leafcoder/django-covid19/total)
+<p>
+    <img src="https://img.shields.io/github/v/release/leafcoder/django-covid19" data-origin="https://img.shields.io/github/v/release/leafcoder/django-covid19" alt="GitHub release (latest by date)">
+    <img src="https://img.shields.io/github/languages/top/leafcoder/django-covid19" data-origin="https://img.shields.io/github/languages/top/leafcoder/django-covid19" alt="GitHub top language">
+    <img src="https://img.shields.io/github/languages/code-size/leafcoder/django-covid19" data-origin="https://img.shields.io/github/languages/code-size/leafcoder/django-covid19" alt="GitHub code size in bytes">
+    <img src="https://img.shields.io/github/commit-activity/w/leafcoder/django-covid19" data-origin="https://img.shields.io/github/commit-activity/w/leafcoder/django-covid19" alt="GitHub commit activity">
+    <img src="https://img.shields.io/pypi/dm/django_covid19" data-origin="https://img.shields.io/pypi/dm/django_covid19" alt="PyPI - Downloads">
+</p>
 
 </div>
-
-# 介绍 :id=intro
 
 本项目的数据来源为[`丁香园`](http://ncov.dxy.cn/ncovh5/view/pneumonia)，定时获取疫
 情数据，保存疫情数据变更情况，以备跟踪研究和数据图表化展示。
@@ -30,57 +32,133 @@
 
 请按照以下步骤完成项目的初始化和启动。
 
-!> 注意：请先修改 covid19/settings.py 中 `SCRAPY_CMD`，设置为 scrapy 命令完整路径。
-   否则，自动更新任务将无法正常运行
-
 ## 代码仓库
 
 项目开源，需要源代码可以前往仓库自行获取。
 
-[前往获取源码](https://github.com/leafcoder/django-covid19)
+前往获取源码 [https://github.com/leafcoder/django-covid19](https://github.com/leafcoder/django-covid19)。
 
 ## 线上示例
 
 使用本项目的接口开发了一个数据大屏的示例页面，代码在项目根目录的 `demo/` 文件夹中。
 
-前往在线示例 [新冠肺炎实时数据大屏](http://111.231.75.86/dashboard)
+前往在线示例 [新冠肺炎实时数据大屏](http://ncov.leafcoder.cn/demo)
 
-## 源码下载 :id=download
+## 安装 :id=install
 
-可以通过 `git clone` 直接将 `master` 分支的代码克隆到本机使用；
+可以直接通过 `pip` 命令安装；
 
-    $ cd `YOUR_PROJECT_DIR`  # 项目需要下载到的目录
-    $ git@github.com:leafcoder/django-covid19.git
+    pip install django_covid19
 
-也可以直接下载打包好的代码；
+然后，将应用 `django_covid19` 和相关应用添加到你项目的 `INSTALLED_APPS`。
 
-    $ cd `YOUR_PROJECT_DIR`  # 项目需要下载到的目录
-    $ wget https://github.com/leafcoder/django-covid19/archive/<VERSION>.tar.gz  # VERSION 为要下载的版本号
-    $ tar zxf <VERSION>.tar.gz
-
-
-## 安装依赖 :id=requirements
-
-启动服务前，请先安装项目的 python 依赖包。可以使用 `pyenv` 或者 `virtualenvwrapper` 
-来管理 `python` 运行环境；
-
-    $ cd django-covid19
-    $ pip install -r requirement.txt
-
-如果直接通过系统自带 `python` 运行本项目，需在命令前加上 `sudo`;
-
-    $ cd django-covid19
-    $ sudo pip install -r requirement.txt
+    INSTALLED_APPS = [
+        ...
+        # 以下为需要添加的部分
+        'django_crontab',
+        'rest_framework',
+        'django_filters',
+        'django_covid19'
+    ]
 
 ## 初始化 :id=init
 
-项目默认配置是以 `sqlite3` 作为数据库存储数据，如果需要修改，请自行更改 `covid19/settings.py` 中的数据库配置；
+### 跨域
+
+将应用 `corsheaders` 和相关应用添加到你项目配置文件的 `INSTALLED_APPS`。
+
+    INSTALLED_APPS = [
+        ...
+        'corsheaders',
+        ...
+    ]
+
+
+将 `corsheaders` 的 `middleware` 添加到你项目配置文件的 `MIDDLEWARE`。
+
+
+    MIDDLEWARE = [
+        ...
+        'corsheaders.middleware.CorsMiddleware',  # 添加位置可查看应用 `corsheaders` 文档
+        ...
+    ]
+
+需要加到 `settings.py` 中的跨域其他配置。
+
+    # 跨域增加忽略
+    CORS_ALLOW_CREDENTIALS = True
+    CORS_ORIGIN_ALLOW_ALL = True
+
+    CORS_ALLOW_METHODS = (
+        'DELETE',
+        'GET',
+        'OPTIONS',
+        'PATCH',
+        'POST',
+        'PUT',
+        'VIEW',
+    )
+
+    CORS_ALLOW_HEADERS = (
+        'XMLHttpRequest',
+        'X_FILENAME',
+        'accept-encoding',
+        'authorization',
+        'content-type',
+        'dnt',
+        'origin',
+        'user-agent',
+        'x-csrftoken',
+        'x-requested-with',
+        'Pragma',
+    )
+
+### 数据库
+
+项目示例中使用 `sqlite3` 作为数据库存储数据（推荐使用 `MySQL`）；
+
+
+如果使用 `MySQL` 作为数据库，请先通过 `MySQL` 客户端创建好数据库，数据库编码推荐使用 `utf8mb4`；
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'django_covid19',
+            'USER': 'demo',
+            'PASSWORD': 'demo',
+            'HOST': 'localhost',
+            'PORT': 3306,
+            'OPTIONS': {
+                'sql_mode': 'traditional',
+                'charset': 'utf8mb4'
+            }
+        }
+    }
+
+### 缓存
+
+项目缓存配置建议使用 `Redis` 作为缓存后端（项目也支持*文件*、*内存*等缓存方式）；
+
+    CACHES = {
+        'default': {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/1",
+            "TIMEOUT": 3600 * 24,
+            "OPTIONS": {
+                "MAX_ENTRIES": 200000
+            }
+        }
+    }
+
+
+### 数据库初始化
+
 并运行以下命令完成项目数据库的初始化；
 
-    $ ./manage.py makemigrations ncovapi
+    $ ./manage.py makemigrations django_covid19
     $ ./manage.py migrate
 
-## 项目后台 :id=admin
+### 项目后台 :id=admin
 
 使用后台请先创建管理员账号；
 
@@ -90,13 +168,26 @@
 
     $ ./manage.py collectstatic
 
-## 定时更新 :id=crontab
+### 定时爬虫 :id=crontab
 
 项目通过运行爬虫程序，将每一次数据的变更保存到数据库中；
+
+请将以下配置添加到你项目配置文件 `<YOUR_PROJECT>/settings.py` 中。
+
+    CRONTAB_LOCK_JOBS = True
+    CRONJOBS = (
+        # 每分钟抓取一次
+        ('*/1 * * * *', 'django.core.management.call_command', ['crawl']),
+    )
+
 
 要创建自动抓取丁香园新冠数据任务需要运行如下命令，创建定时任务；
 
     $ ./manage.py crontab add
+
+如果想要立即爬取数据，可通过项目自定义命令获取；如果丁香园数据未发生变更，爬虫并不会爬取数据。
+
+    $ ./manage.py crawl
 
 ## 项目启动 :id=start
 
@@ -106,13 +197,34 @@
 
 运行成功后，通过浏览器访问 [`http://localhost:8000/api/statistics/`](http://localhost:8000/api/statistics/) 即可看到统计数据。
 
+# 示例项目
+
+通过 `pip` 安装好应 `django_covid19` 后，可以直接运行源码文件中的示例项目 `demo_proj` 查看效果。
+
+    # 安装应用
+    $ pip install django_covid19
+
+    # 拉取源码
+    $ git clone https://github.com/leafcoder/django-covid19.git
+
+    # 初始化数据库
+    $ cd django-covid19/demo_proj
+    $ ./manage.py makemigrations django_covid19
+    $ ./manage.py migrate
+
+    # 运行定时爬虫
+    $ ./manage.py crontab add
+
+    # 启动项目
+    $ ./manage.py runserver
+
 # API 文档 :id=apidoc
 
 本系统主要是将从`丁香园`获取的数据重新整合成接口返回出来。
 
 ## 全球疫情 :id=statistics
 
-### Latest :id=statistics-latest
+### 最新统计 :id=statistics-latest
 
 获取最新获取到的全球整体疫情统计数据、相关文章、日常建议、推荐信息等；
 
@@ -224,7 +336,7 @@ http://111.231.75.86:8000/api/statistics/latest
 }
 ```
 
-### List :id=statistics-list
+### 统计列表 :id=statistics-list
 
 获取项目从启动到当前获取到的全部疫情统计数据，分为全球、国内、国际三部分；
 
@@ -273,7 +385,7 @@ http://111.231.75.86:8000/api/statistics/
 
 ## 国家疫情 :id=country
 
-### Daily List（Chart Data） :id=country-daily
+### 日统计 :id=country-daily
 
 根据国家名称获取某个国家的疫情从 2020-01-19 到目前的疫情列表数据；
 
@@ -321,7 +433,7 @@ http://111.231.75.86:8000/api/countries/巴西/daily/
 ]
 ```
 
-### List :id=country-list
+### 所有国家 :id=country-list
 
 获取各个国家的疫情统计数据；
 
@@ -365,7 +477,7 @@ http://111.231.75.86:8000/api/countries/?continents=南美洲,北美洲&countryN
 ]
 ```
 
-### Detail :id=country-detail
+### 国家详情 :id=country-detail
 
 根据国家名称获取某个国家的疫情统计数据；
 
@@ -403,7 +515,7 @@ http://111.231.75.86:8000/api/countries/巴西/
 
 ## 省/自治区/直辖市
 
-### Daily List（Chart Data）
+### 日统计
 
 通过`短省份名`获取某个中国省份（自治区、直辖市）的疫情从 2020-01-19 到目前的疫情列表数据；
 
@@ -455,7 +567,7 @@ http://111.231.75.86:8000/api/provinces/澳门/daily/
 ]
 ```
 
-### List
+### 省列表
 
 获取中国各中国省/自治区/直辖市的疫情统计数据；
 
@@ -491,7 +603,7 @@ http://111.231.75.86:8000/api/provinces/?provinceShortNames=四川,香港
 ]
 ```
 
-### Detail
+### 省详情
 
 通过`短省份名`获取某个中国省份（自治区、直辖市）的疫情统计数据；
 
@@ -525,7 +637,7 @@ http://111.231.75.86:8000/api/provinces/澳门/
 
 ## 城市或直辖市某区
 
-### List
+### 城市列表
 
 获取中国各个城市或直辖市某个区的疫情数据。
 
@@ -560,7 +672,7 @@ http://111.231.75.86:8000/api/cities/?cityNames=大庆,万州区
 ]
 ```
 
-### Detail
+### 城市详情
 
 
 接口地址：/api/cities/\<CITY_NAME\>/

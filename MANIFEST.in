@@ -1,0 +1,13 @@
+include LICENSE
+include README.md
+include requirements.txt
+
+recursive-include django_covid19/spider *
+recursive-include docs *
+recursive-include demo *
+recursive-include demo_proj manage.py
+recursive-include demo_proj requirements.txt
+recursive-include demo_proj/ncov *
+
+recursive-exclude demo_proj db.sqlite3
+recursive-exclude django_covid19/migrations *

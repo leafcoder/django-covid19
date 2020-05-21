@@ -2,7 +2,7 @@
 # @Author: zhanglei3
 # @Date:   2020-04-08 09:08:13
 # @Last Modified by:   leafcoder
-# @Last Modified time: 2020-05-19 11:59:16
+# @Last Modified time: 2020-05-21 10:49:20
 
 """丁香园数据源"""
 
@@ -10,8 +10,10 @@ import json
 import scrapy
 import logging
 from scrapy.selector import Selector
+
 from .. import items
 
+from django.core.cache import cache
 from django.utils.timezone import datetime, make_aware
 
 logger = logging.getLogger()
@@ -25,6 +27,13 @@ class DXYSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
+        object_id = self.object_id
+        spider_id = cache.get('running_spider_id')
+        if object_id != spider_id:
+            logger.info('Spider is running.')
+            self.crawled = 0
+            return
+
         sel = Selector(response)
         scripts = sel.xpath('//script')
 
@@ -35,7 +44,7 @@ class DXYSpider(scrapy.Spider):
         modifyTime = make_aware(
             datetime.fromtimestamp(statistics['modifyTime'] / 1000.0))
         qs = items.StatisticsItem.django_model.objects.all().order_by('-id')
-        if qs.count() > 1 and qs[1].modifyTime == modifyTime:
+        if qs.count() > 1 and qs[0].modifyTime == modifyTime:
             logger.info('Data does not change.')
             self.crawled = 0
             return

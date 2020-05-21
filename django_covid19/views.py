@@ -11,11 +11,9 @@ from .serializers import LatestStatisticsSerializer, StatisticsSerializer, \
                          CountrySerializer
 from .models import Statistics, City, Province, Country
 from .filters import CityFilter, ProvinceFilter, CountryFilter
+from .settings import CACHE_PAGE_TIMEOUT
 
 import json
-
-
-TIMEOUT = 24 * 60 * 60
 
 
 class LatestStatisticsView(APIView):
@@ -29,7 +27,8 @@ class LatestStatisticsView(APIView):
             raise Http404
         return inst
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='statistics-lastest'))
     def get(self, request):
         obj = self.get_object()
         result = {}
@@ -75,7 +74,8 @@ class StatisticsListView(ListAPIView):
             result.append(statistics)
         return result
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='statistics-list'))
     def dispatch(self, *args, **kwargs):
         return super(StatisticsListView, self).dispatch(*args, **kwargs)
 
@@ -90,7 +90,8 @@ class ProvinceListView(ListAPIView):
     def get_queryset(self):
         return Province.objects.all().order_by('provinceName')
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='province-list'))
     def dispatch(self, *args, **kwargs):
         return super(ProvinceListView, self).dispatch(*args, **kwargs)
 
@@ -106,7 +107,8 @@ class ProvinceDailyListView(APIView):
             raise Http404
         return province
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='province-daily-list'))
     def get(self, request, provinceShortName):
         province = self.get_object(provinceShortName)
         result = province.dailyData
@@ -124,7 +126,8 @@ class ProvinceRetrieveByNameView(APIView):
             raise Http404
         return province
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='province-detail-by-name'))
     def get(self, request, provinceShortName):
         province = self.get_object(provinceShortName)
         serializer = ProvinceSerializer(province)
@@ -139,7 +142,8 @@ class ProvinceRetrieveView(APIView):
         except Province.DoesNotExist:
             raise Http404
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='province-detail'))
     def get(self, request, pk):
         province = self.get_object(pk)
         serializer = ProvinceSerializer(province)
@@ -155,7 +159,8 @@ class CountryListView(ListAPIView):
         return Country.objects.all().order_by(
             'continents', 'countryShortCode')
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='country-list'))
     def dispatch(self, *args, **kwargs):
         return super(CountryListView, self).dispatch(*args, **kwargs)
 
@@ -168,7 +173,8 @@ class CountryRetrieveView(APIView):
         except Country.DoesNotExist:
             raise Http404
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='country-detail'))
     def get(self, request, pk):
         country = self.get_object(pk)
         serializer = CountrySerializer(country)
@@ -183,7 +189,8 @@ class CountryDailyListView(APIView):
             raise Http404
         return country
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='country-daily-list'))
     def get(self, request, countryName):
         country = self.get_object(countryName)
         result = country.dailyData
@@ -199,7 +206,8 @@ class CountryRetrieveByNameView(APIView):
             raise Http404
         return country
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='country-detail-by-name'))
     def get(self, request, countryName):
         country = self.get_object(countryName)
         serializer = CountrySerializer(country)
@@ -214,7 +222,8 @@ class CityListView(ListAPIView):
     def get_queryset(self):
         return City.objects.all().order_by('province', 'cityName')
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='city-list'))
     def dispatch(self, *args, **kwargs):
         return super(CityListView, self).dispatch(*args, **kwargs)
 
@@ -227,7 +236,8 @@ class CityRetrieveView(APIView):
         except City.DoesNotExist:
             raise Http404
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='city-detail'))
     def get(self, request, pk):
         city = self.get_object(pk)
         serializer = CitySerializer(city)
@@ -242,7 +252,8 @@ class CityRetrieveByNameView(APIView):
             raise Http404
         return city
 
-    @method_decorator(cache_page(TIMEOUT))
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='city-detail-by-name'))
     def get(self, request, cityName):
         city = self.get_object(cityName)
         serializer = CitySerializer(city)

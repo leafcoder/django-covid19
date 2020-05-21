@@ -8,6 +8,7 @@
 import os
 import json
 import sqlite3
+from uuid import uuid4
 
 from django.core.cache import cache
 
@@ -17,6 +18,8 @@ from . import items
 class NcovPipeline(object):
 
     def open_spider(self, spider):
+        spider.object_id = uuid4().hex
+        cache.set('running_spider_id', spider.object_id)
         spider.crawled = 0
 
     def process_item(self, item, spider):
@@ -46,3 +49,4 @@ class NcovPipeline(object):
 
     def close_spider(self, spider):
         cache.set('crawled', spider.crawled)
+        cache.delete('running_spider_id')
