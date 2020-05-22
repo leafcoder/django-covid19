@@ -3,6 +3,7 @@ include README.md
 include requirements.txt
 
 recursive-include django_covid19/spider *
+recursive-include django_covid19/locale *
 recursive-include docs *
 recursive-include demo *
 recursive-include demo_proj manage.py

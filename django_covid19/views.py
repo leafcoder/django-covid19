@@ -117,6 +117,7 @@ class ProvinceDailyListView(APIView):
 
 
 class ProvinceRetrieveByNameView(APIView):
+
     """通过省名获取数据"""
 
     def get_object(self, provinceShortName):
