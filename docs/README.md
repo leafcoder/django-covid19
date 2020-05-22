@@ -156,6 +156,7 @@
 并运行以下命令完成项目数据库的初始化；
 
     $ ./manage.py makemigrations django_covid19
+    $ ./manage.py migrate django_covid19
     $ ./manage.py migrate
 
 ### 项目后台 :id=admin
