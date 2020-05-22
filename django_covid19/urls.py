@@ -5,7 +5,7 @@ from . import views
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 
-app_name = 'ncov'
+app_name = 'django_covid19'
 
 urlpatterns = [
     path('statistics/', views.StatisticsListView.as_view(), name='statistics-list'),
