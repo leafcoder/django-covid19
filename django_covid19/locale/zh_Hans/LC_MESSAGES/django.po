@@ -1,0 +1,155 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-22 13:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: admin.py:34 models.py:16
+msgid "globalStatistics"
+msgstr "全球疫情"
+
+#: admin.py:39 models.py:17
+msgid "domesticStatistics"
+msgstr "国内疫情"
+
+#: admin.py:45 models.py:18
+msgid "internationalStatistics"
+msgstr "国际疫情"
+
+#: apps.py:7
+msgid "django_covid19"
+msgstr "新冠肺炎疫情"
+
+#: management/commands/crawl.py:27
+msgid "Crawl data from DingXiangYuan."
+msgstr ""
+
+#: models.py:19
+msgid "remarks"
+msgstr ""
+
+#: models.py:20
+msgid "notes"
+msgstr ""
+
+#: models.py:21
+msgid "generalRemark"
+msgstr ""
+
+#: models.py:22
+msgid "WHOArticle"
+msgstr "WHO 文章"
+
+#: models.py:23
+msgid "recommends"
+msgstr "防护知识"
+
+#: models.py:24
+msgid "timelines"
+msgstr "时间线事件"
+
+#: models.py:25
+msgid "Wiki"
+msgstr ""
+
+#: models.py:26
+msgid "goodsGuides"
+msgstr "购物指南"
+
+#: models.py:27
+msgid "rumors"
+msgstr "辟谣与防护"
+
+#: models.py:28 models.py:51 models.py:68 models.py:109
+msgid "modifyTime"
+msgstr "修改时间"
+
+#: models.py:29 models.py:50 models.py:67 models.py:108
+msgid "createTime"
+msgstr "创建时间"
+
+#: models.py:30
+msgid "crawlTime"
+msgstr "抓取时间"
+
+#: models.py:33 models.py:34
+msgid "Statistics"
+msgstr "统计数据"
+
+#: models.py:39 models.py:60
+msgid "locationId"
+msgstr "地区编码"
+
+#: models.py:40
+msgid "provinceName"
+msgstr "省名"
+
+#: models.py:41
+msgid "provinceShortName"
+msgstr "短省名"
+
+#: models.py:42 models.py:62
+msgid "currentConfirmedCount"
+msgstr "现存确诊"
+
+#: models.py:43 models.py:63
+msgid "confirmedCount"
+msgstr "累计确诊"
+
+#: models.py:44 models.py:64
+msgid "suspectedCount"
+msgstr "疑似病例"
+
+#: models.py:45 models.py:65
+msgid "curedCount"
+msgstr "累计治愈"
+
+#: models.py:46 models.py:66
+msgid "deadCount"
+msgstr "累计死亡"
+
+#: models.py:47
+msgid "comment"
+msgstr "备注"
+
+#: models.py:48
+msgid "statisticsData"
+msgstr "统计数据 URL"
+
+#: models.py:49
+msgid "dailyData"
+msgstr "日统计数据"
+
+#: models.py:54 models.py:55
+msgid "Province"
+msgstr "国内省份"
+
+#: models.py:61
+msgid "cityName"
+msgstr "城市名称"
+
+#: models.py:70
+msgid "province"
+msgstr "国内省份"
+
+#: models.py:79 models.py:80
+msgid "City"
+msgstr "国内城市"
+
+#: models.py:112 models.py:113
+msgid "Country"
+msgstr "国家或地区"

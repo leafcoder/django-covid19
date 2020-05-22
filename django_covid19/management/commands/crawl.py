@@ -9,6 +9,7 @@ from nCoV.spiders.dxy import DXYSpider
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from django.core.management.base import BaseCommand
+from django.utils.translation import ugettext_lazy as _
 
 class Scraper:
     def __init__(self):
@@ -23,7 +24,7 @@ class Scraper:
 
 class Command(BaseCommand):
 
-    help = 'Crawl data from DingXiangYuan.'
+    help = _('Crawl data from DingXiangYuan.')
 
     def handle(self, *args, **options):
         scraper = Scraper()
