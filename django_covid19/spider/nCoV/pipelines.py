@@ -14,6 +14,17 @@ from django.core.cache import cache
 
 from . import items
 
+class CovidTrackingPipeline(object):
+
+    def process_item(self, item, spider):
+        if isinstance(item, items.StateItem):
+            state = item['state']
+            countryShortCode = item['countryShortCode']
+            items.StateItem.django_model.objects.update_or_create(
+                state=state, countryShortCode=countryShortCode,
+                defaults=item)
+            return item
+
 
 class NcovPipeline(object):
 
@@ -45,6 +56,8 @@ class NcovPipeline(object):
         elif isinstance(item, items.StatisticsItem):
             klass = item.__class__
             klass.django_model.objects.create(**item)
+            return item
+        else:
             return item
 
     def close_spider(self, spider):

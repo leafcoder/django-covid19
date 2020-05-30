@@ -29,3 +29,7 @@ class CountryItem(DjangoItem):
 class CityItem(DjangoItem):
 
     django_model = models.City
+
+class StateItem(DjangoItem):
+
+    django_model = models.State
