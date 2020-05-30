@@ -111,3 +111,43 @@ class Country(models.Model):
     class Meta:
         verbose_name = _('Country')
         verbose_name_plural = _('Country')
+
+class State(models.Model):
+
+    countryShortCode = models.CharField(max_length=20)
+    stateName = models.CharField(max_length=50, null=False)
+    dailyData = models.TextField(default='[]')  # save daily data here
+
+    # fields in covidtracking api
+    state = models.CharField(max_length=10, null=False)
+    positive = models.IntegerField(null=True, blank=True)
+    negative = models.IntegerField(null=True, blank=True)
+    positiveScore = models.IntegerField(null=True, blank=True)
+    negativeScore = models.IntegerField(null=True, blank=True)
+    negativeRegularScore = models.IntegerField(null=True, blank=True)
+    commercialScore = models.IntegerField(null=True, blank=True)
+    score = models.IntegerField(null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
+    dataQualityGrade = models.CharField(max_length=20, null=True, blank=True)
+    pending = models.IntegerField(null=True, blank=True)
+    hospitalizedCurrently = models.IntegerField(null=True, blank=True)
+    hospitalizedCumulative = models.IntegerField(null=True, blank=True)
+    inIcuCurrently = models.IntegerField(null=True, blank=True)
+    inIcuCumulative = models.IntegerField(null=True, blank=True)
+    onVentilatorCurrently = models.IntegerField(null=True, blank=True)
+    onVentilatorCumulative = models.IntegerField(null=True, blank=True)
+    recovered = models.IntegerField(null=True, blank=True)
+    lastUpdateEt = models.CharField(max_length=20, null=True, blank=True)
+    checkTimeEt = models.CharField(max_length=20, null=True, blank=True)
+    death = models.IntegerField(null=True, blank=True)
+    hospitalized = models.IntegerField(null=True, blank=True)
+    totalTestResults = models.IntegerField(null=True, blank=True)
+    posNeg = models.IntegerField(null=True, blank=True)
+    fips = models.CharField(max_length=20, null=True, blank=True)
+    dateModified = models.CharField(max_length=50, null=True, blank=True)
+    dateChecked = models.CharField(max_length=50, null=True, blank=True)
+    hash = models.CharField(max_length=100, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _('State')
+        verbose_name_plural = _('State')
