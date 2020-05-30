@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-22 13:32+0800\n"
+"POT-Creation-Date: 2020-05-31 00:10+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,9 +34,9 @@ msgstr "国际疫情"
 msgid "django_covid19"
 msgstr "新冠肺炎疫情"
 
-#: management/commands/crawl.py:27
+#: management/commands/crawl.py:32
 msgid "Crawl data from DingXiangYuan."
-msgstr ""
+msgstr "从丁香园抓取数据"
 
 #: models.py:19
 msgid "remarks"
@@ -153,3 +153,231 @@ msgstr "国内城市"
 #: models.py:112 models.py:113
 msgid "Country"
 msgstr "国家或地区"
+
+#: models.py:152 models.py:153
+msgid "State"
+msgstr "州"
+
+#: spider/nCoV/spiders/covidtracking.py:24
+msgid "Alabama"
+msgstr "阿拉巴马州"
+
+#: spider/nCoV/spiders/covidtracking.py:25
+msgid "Alaska"
+msgstr "阿拉斯加州"
+
+#: spider/nCoV/spiders/covidtracking.py:26
+msgid "AmericanSamoa"
+msgstr "美属萨摩亚"
+
+#: spider/nCoV/spiders/covidtracking.py:27
+msgid "Arizona"
+msgstr "亚利桑那州"
+
+#: spider/nCoV/spiders/covidtracking.py:28
+msgid "Arkansas"
+msgstr "阿肯色州"
+
+#: spider/nCoV/spiders/covidtracking.py:29
+msgid "California"
+msgstr "加利福尼亚州"
+
+#: spider/nCoV/spiders/covidtracking.py:30
+msgid "Colorado"
+msgstr "科罗拉多州"
+
+#: spider/nCoV/spiders/covidtracking.py:31
+msgid "Connecticut"
+msgstr "康涅狄格州"
+
+#: spider/nCoV/spiders/covidtracking.py:32
+msgid "Delaware"
+msgstr "特拉华州"
+
+#: spider/nCoV/spiders/covidtracking.py:33
+msgid "DistrictOfColumbia"
+msgstr "哥伦比亚特区"
+
+#: spider/nCoV/spiders/covidtracking.py:34
+msgid "Florida"
+msgstr "佛罗里达州"
+
+#: spider/nCoV/spiders/covidtracking.py:35
+msgid "Georgia"
+msgstr "乔治亚州"
+
+#: spider/nCoV/spiders/covidtracking.py:36
+msgid "Guam"
+msgstr "关岛"
+
+#: spider/nCoV/spiders/covidtracking.py:37
+msgid "Hawaii"
+msgstr "夏威夷州"
+
+#: spider/nCoV/spiders/covidtracking.py:38
+msgid "Idaho"
+msgstr "爱达荷州"
+
+#: spider/nCoV/spiders/covidtracking.py:39
+msgid "Illinois"
+msgstr "伊利诺斯州"
+
+#: spider/nCoV/spiders/covidtracking.py:40
+msgid "Indiana"
+msgstr "印第安纳州"
+
+#: spider/nCoV/spiders/covidtracking.py:41
+msgid "Iowa"
+msgstr "爱荷华州"
+
+#: spider/nCoV/spiders/covidtracking.py:42
+msgid "Kansas"
+msgstr "堪萨斯州"
+
+#: spider/nCoV/spiders/covidtracking.py:43
+msgid "Kentucky"
+msgstr "肯塔基州"
+
+#: spider/nCoV/spiders/covidtracking.py:44
+msgid "Louisiana"
+msgstr "路易斯安那州"
+
+#: spider/nCoV/spiders/covidtracking.py:45
+msgid "Maine"
+msgstr "缅因州"
+
+#: spider/nCoV/spiders/covidtracking.py:46
+msgid "Maryland"
+msgstr "马里兰州"
+
+#: spider/nCoV/spiders/covidtracking.py:47
+msgid "Massachusetts"
+msgstr "马萨诸塞州"
+
+#: spider/nCoV/spiders/covidtracking.py:48
+msgid "Michigan"
+msgstr "密歇根州"
+
+#: spider/nCoV/spiders/covidtracking.py:49
+msgid "Minnesota"
+msgstr "明尼苏达州"
+
+#: spider/nCoV/spiders/covidtracking.py:50
+msgid "Mississippi"
+msgstr "密西西比州"
+
+#: spider/nCoV/spiders/covidtracking.py:51
+msgid "Missouri"
+msgstr "密苏里州"
+
+#: spider/nCoV/spiders/covidtracking.py:52
+msgid "Montana"
+msgstr "蒙大纳州"
+
+#: spider/nCoV/spiders/covidtracking.py:53
+msgid "Nebraska"
+msgstr "内布拉斯加州"
+
+#: spider/nCoV/spiders/covidtracking.py:54
+msgid "Nevada"
+msgstr "内华达州"
+
+#: spider/nCoV/spiders/covidtracking.py:55
+msgid "NewHampshire"
+msgstr "新罕布什尔州"
+
+#: spider/nCoV/spiders/covidtracking.py:56
+msgid "NewJersey"
+msgstr "新泽西州"
+
+#: spider/nCoV/spiders/covidtracking.py:57
+msgid "NewMexico"
+msgstr "新墨西哥州"
+
+#: spider/nCoV/spiders/covidtracking.py:58
+msgid "NewYork"
+msgstr "纽约州"
+
+#: spider/nCoV/spiders/covidtracking.py:59
+msgid "NorthCarolina"
+msgstr "北卡罗来纳州"
+
+#: spider/nCoV/spiders/covidtracking.py:60
+msgid "NorthDakota"
+msgstr "北达科他州"
+
+#: spider/nCoV/spiders/covidtracking.py:61
+msgid "NorthernMarianaIslands"
+msgstr "北马里亚纳群岛"
+
+#: spider/nCoV/spiders/covidtracking.py:62
+msgid "Ohio"
+msgstr "俄亥俄州"
+
+#: spider/nCoV/spiders/covidtracking.py:63
+msgid "Oklahoma"
+msgstr "俄克拉荷马州"
+
+#: spider/nCoV/spiders/covidtracking.py:64
+msgid "Oregon"
+msgstr "俄勒冈州"
+
+#: spider/nCoV/spiders/covidtracking.py:65
+msgid "Pennsylvania"
+msgstr "宾夕法尼亚州"
+
+#: spider/nCoV/spiders/covidtracking.py:66
+msgid "PuertoRico"
+msgstr "波多黎各"
+
+#: spider/nCoV/spiders/covidtracking.py:67
+msgid "RhodeIsland"
+msgstr "美国罗德岛州"
+
+#: spider/nCoV/spiders/covidtracking.py:68
+msgid "SouthCarolina"
+msgstr "美国南卡罗来纳州"
+
+#: spider/nCoV/spiders/covidtracking.py:69
+msgid "SouthDakota"
+msgstr "南达科塔"
+
+#: spider/nCoV/spiders/covidtracking.py:70
+msgid "Tennessee"
+msgstr "田纳西州"
+
+#: spider/nCoV/spiders/covidtracking.py:71
+msgid "Texas"
+msgstr "德克萨斯州"
+
+#: spider/nCoV/spiders/covidtracking.py:72
+msgid "USVirginIslands"
+msgstr "美属维尔京群岛"
+
+#: spider/nCoV/spiders/covidtracking.py:73
+msgid "Utah"
+msgstr "犹他州"
+
+#: spider/nCoV/spiders/covidtracking.py:74
+msgid "Vermont"
+msgstr "佛蒙特州"
+
+#: spider/nCoV/spiders/covidtracking.py:75
+msgid "Virginia"
+msgstr "弗吉尼亚州"
+
+#: spider/nCoV/spiders/covidtracking.py:76
+msgid "Washington"
+msgstr "华盛顿州"
+
+#: spider/nCoV/spiders/covidtracking.py:77
+msgid "WestVirginia"
+msgstr "西佛吉尼亚州"
+
+#: spider/nCoV/spiders/covidtracking.py:78
+msgid "Wisconsin"
+msgstr "威斯康星州"
+
+#: spider/nCoV/spiders/covidtracking.py:79
+msgid "Wyoming"
+msgstr "怀俄明州"
