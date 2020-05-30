@@ -138,7 +138,7 @@ REST_FRAMEWORK = {
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         'LOCATION': '/var/tmp/ncov_cache',
         'TIMEOUT': 3600,
         'OPTIONS': {
@@ -146,6 +146,9 @@ CACHES = {
         }
     }
 }
+
+if DEBUG == False:
+    CACHES['default']['BACKEND'] = 'django.core.cache.backends.filebased.FileBasedCache'
 
 # 跨域增加忽略
 CORS_ALLOW_CREDENTIALS = True
