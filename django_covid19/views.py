@@ -320,37 +320,14 @@ class StateRetrieveView(APIView):
         return Response(serializer.data)
 
 
-class StateDailyListView(APIView):
+class BaseDailyView(object):
 
-    """州按天返回列表"""
-
-    def get_object(self, countryShortCode, state):
-        state = models.State.objects.filter(
-            countryShortCode=countryShortCode, state=state).first()
-        if state is None:
-            raise Http404
-        return state
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='state-daily-list'))
-    def get(self, request, countryShortCode, state, raw=None):
-        inst = self.get_object(countryShortCode, state)
-        result = inst.dailyData
-        result = json.loads(result)
-        if raw == 'raw':
-            return Response(result)
-        data = []
-        for r in result:
-            data.append(self.format(inst, r))
-        serializer = serializers.StateDailySerializer(data, many=True)
-        return Response(serializer.data)
-
-    def format(self, inst, data):
+    def format(self, countryShortCode, stateName, data):
         item = {}
         item['date'] = data['date']
         item['state'] = data['state']
-        item['stateName'] = inst.stateName
-        item['countryShortCode'] = inst.countryShortCode
+        item['stateName'] = stateName
+        item['countryShortCode'] = countryShortCode
 
         item['confirmedCount'] = data.get('positive')
         item['currentConfirmedCount'] = self.get_current_confirmed(data)
@@ -376,7 +353,34 @@ class StateDailyListView(APIView):
         death = data['deathIncrease'] if data.get('deathIncrease') else 0
         return positive - death
 
-class StateDailyListByNameView(StateDailyListView):
+
+class StateDailyListView(APIView, BaseDailyView):
+
+    """州按天返回列表"""
+
+    def get_object(self, countryShortCode, state):
+        state = models.State.objects.filter(
+            countryShortCode=countryShortCode, state=state).first()
+        if state is None:
+            raise Http404
+        return state
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='state-daily-list'))
+    def get(self, request, countryShortCode, state, raw=None):
+        inst = self.get_object(countryShortCode, state)
+        result = inst.dailyData
+        result = json.loads(result)
+        if raw == 'raw':
+            return Response(result)
+        stateName = inst.stateName
+        data = []
+        for r in result:
+            data.append(self.format(countryShortCode, stateName, r))
+        serializer = serializers.StateDailySerializer(data, many=True)
+        return Response(serializer.data)
+
+class StateDailyListByNameView(APIView, BaseDailyView):
 
     def get_object(self, countryShortCode, stateName):
         state = models.State.objects.filter(
@@ -393,8 +397,54 @@ class StateDailyListByNameView(StateDailyListView):
         result = json.loads(result)
         if raw == 'raw':
             return Response(result)
+        stateName = inst.stateName
         data = []
         for r in result:
-            data.append(self.format(inst, r))
+            data.append(self.format(countryShortCode, stateName, r))
         serializer = serializers.StateDailySerializer(data, many=True)
         return Response(serializer.data)
+
+
+class StateListDailyListView(ListAPIView, BaseDailyView):
+
+    serializer_class = serializers.StateDailyListSerializer
+    filter_class = filters.StateFilter
+
+    def get_queryset(self):
+        countryShortCode = self.kwargs['countryShortCode']
+        return models.State.objects.filter(
+                countryShortCode=countryShortCode).order_by('state')
+
+    def list(self, request, *args, **kwargs):
+        countryShortCode = kwargs['countryShortCode']
+        queryset = self.filter_queryset(self.get_queryset())
+
+        if kwargs.get('raw') == 'raw':
+            self.serializer_class = serializers.StateRawSerializer
+
+        result = []
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            for item in serializer.data:
+                stateName = item['stateName']
+                dailyData = json.loads(item['dailyData'])
+                for daily in dailyData:
+                    result.append(
+                        self.format(countryShortCode, stateName, daily))
+            return self.get_paginated_response(result)
+
+        serializer = self.get_serializer(queryset, many=True)
+        for item in serializer.data:
+            stateName = item['stateName']
+            dailyData = json.loads(item['dailyData'])
+            for daily in dailyData:
+                result.append(
+                    self.format(countryShortCode, stateName, daily))
+        return Response(result)
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='state-list-daily-list'))
+    def dispatch(self, *args, **kwargs):
+        return super(StateListDailyListView, self).dispatch(*args, **kwargs)
+

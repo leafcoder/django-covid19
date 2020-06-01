@@ -167,6 +167,13 @@ class StateRawSerializer(serializers.ModelSerializer):
         exclude = ('id', 'dailyData')
 
 
+class StateDailyListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.State
+        fields = ['stateName', 'dailyData']
+
+
 class StateDailySerializer(serializers.Serializer):
 
     state = serializers.CharField()
