@@ -138,7 +138,7 @@ REST_FRAMEWORK = {
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': '/var/tmp/ncov_cache',
         'TIMEOUT': 3600,
         'OPTIONS': {
@@ -147,8 +147,9 @@ CACHES = {
     }
 }
 
-if DEBUG == False:
-    CACHES['default']['BACKEND'] = 'django.core.cache.backends.filebased.FileBasedCache'
+if DEBUG == True:
+    CACHES['default']['BACKEND'] = 'django.core.cache.backends.locmem.LocMemCache'
+    CACHES['default']['LOCATION'] = 'ncov'
 
 # 跨域增加忽略
 CORS_ALLOW_CREDENTIALS = True
@@ -183,7 +184,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 CRONTAB_LOCK_JOBS = True
 CRONJOBS = (
-    # 每分钟抓取一次
-    ('*/1 * * * *', 'django.core.management.call_command', ['crawl']),
+    # 每分钟抓取丁香园数据一次
+    ('*/1 * * * *', 'django.core.management.call_command', ['crawl', 'dxy']),
+
+    # 下午4点到6点间每10分钟抓取 covidtracking 数据一次
+    ('*/10 16-18 * * *', 'django.core.management.call_command', ['crawl', 'covidtracking'])
 )
 
