@@ -27,6 +27,7 @@ urlpatterns = [
     path('countries/<str:countryName>/daily/', views.CountryDailyListView.as_view(), name='country-daily-list'),
 
     url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/$', views.StateListView.as_view(), name='state-list'),
+    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/daily/$', views.StateListDailyListView.as_view(), name='state-list-daily-list'),
     url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<state>[A-Z]+)/$', views.StateRetrieveView.as_view(), name='state-detail'),
     url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<state>[A-Z]+)/daily/$', views.StateDailyListView.as_view(), name='state-daily-list'),
     url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<stateName>[^/]+)/$', views.StateRetrieveByNameView.as_view(), name='state-detail-by-name'),
