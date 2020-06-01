@@ -135,6 +135,7 @@ class CountrySerializer(serializers.HyperlinkedModelSerializer):
             'suspectedCount', 'curedCount', 'deadCount', 'incrVo'
         ]
 
+
 class StateSerializer(serializers.ModelSerializer):
 
     countryShortCode = serializers.CharField()
@@ -155,8 +156,15 @@ class StateSerializer(serializers.ModelSerializer):
         fields = [
             'currentConfirmedCount', 'confirmedCount', 'curedCount',
             'deadCount', 'suspectedCount', 'stateName', 'state',
-            'countryShortCode'
+            'countryShortCode', 'dailyUrl', 'currentUrl'
         ]
+
+
+class StateRawSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.State
+        exclude = ('id', 'dailyData')
 
 
 class StateDailySerializer(serializers.Serializer):

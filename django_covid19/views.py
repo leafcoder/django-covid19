@@ -259,41 +259,6 @@ class CityRetrieveByNameView(APIView):
         serializer = serializers.CitySerializer(city)
         return Response(serializer.data)
 
-class StateRetrieveByNameView(APIView):
-
-    def get_object(self, countryShortCode, stateName):
-        state = models.State.objects.filter(
-            countryShortCode=countryShortCode,
-            stateName__iexact=stateName
-        ).first()
-        if state is None:
-            raise Http404
-        return state
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='state-detail-by-name'))
-    def get(self, request, countryShortCode, stateName):
-        inst = self.get_object(countryShortCode, stateName)
-        serializer = serializers.StateSerializer(inst)
-        return Response(serializer.data)
-
-
-class StateRetrieveView(APIView):
-
-    def get_object(self, countryShortCode, state):
-        state = models.State.objects.filter(
-            countryShortCode=countryShortCode, state=state).first()
-        if state is None:
-            raise Http404
-        return state
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='state-detail'))
-    def get(self, request, countryShortCode, state):
-        state = self.get_object(countryShortCode, state)
-        serializer = serializers.StateSerializer(state)
-        return Response(serializer.data)
-
 
 class StateListView(ListAPIView):
 
@@ -308,7 +273,51 @@ class StateListView(ListAPIView):
     @method_decorator(cache_page(
             CACHE_PAGE_TIMEOUT, key_prefix='state-list'))
     def dispatch(self, *args, **kwargs):
+        if kwargs.get('raw') == 'raw':
+            self.serializer_class = serializers.StateRawSerializer
         return super(StateListView, self).dispatch(*args, **kwargs)
+
+
+class StateRetrieveByNameView(APIView):
+
+    def get_object(self, countryShortCode, stateName):
+        state = models.State.objects.filter(
+            countryShortCode=countryShortCode,
+            stateName__iexact=stateName
+        ).first()
+        if state is None:
+            raise Http404
+        return state
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='state-detail-by-name'))
+    def get(self, request, countryShortCode, stateName, raw=None):
+        inst = self.get_object(countryShortCode, stateName)
+        if raw == 'raw':
+            serializer = serializers.StateRawSerializer(inst)
+        else:
+            serializer = serializers.StateSerializer(inst)
+        return Response(serializer.data)
+
+
+class StateRetrieveView(APIView):
+
+    def get_object(self, countryShortCode, state):
+        state = models.State.objects.filter(
+            countryShortCode=countryShortCode, state=state).first()
+        if state is None:
+            raise Http404
+        return state
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='state-detail'))
+    def get(self, request, countryShortCode, state, raw=None):
+        inst = self.get_object(countryShortCode, state)
+        if raw == 'raw':
+            serializer = serializers.StateRawSerializer(inst)
+        else:
+            serializer = serializers.StateSerializer(inst)
+        return Response(serializer.data)
 
 
 class StateDailyListView(APIView):
@@ -324,10 +333,12 @@ class StateDailyListView(APIView):
 
     @method_decorator(cache_page(
             CACHE_PAGE_TIMEOUT, key_prefix='state-daily-list'))
-    def get(self, request, countryShortCode, state):
+    def get(self, request, countryShortCode, state, raw=None):
         inst = self.get_object(countryShortCode, state)
         result = inst.dailyData
         result = json.loads(result)
+        if raw == 'raw':
+            return Response(result)
         data = []
         for r in result:
             data.append(self.format(inst, r))
@@ -376,10 +387,12 @@ class StateDailyListByNameView(StateDailyListView):
 
     @method_decorator(cache_page(
             CACHE_PAGE_TIMEOUT, key_prefix='state-daily-list-by-name'))
-    def get(self, request, countryShortCode, stateName):
+    def get(self, request, countryShortCode, stateName, raw=None):
         inst = self.get_object(countryShortCode, stateName)
         result = inst.dailyData
         result = json.loads(result)
+        if raw == 'raw':
+            return Response(result)
         data = []
         for r in result:
             data.append(self.format(inst, r))

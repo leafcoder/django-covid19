@@ -26,9 +26,9 @@ urlpatterns = [
     path('countries/<str:countryName>/', views.CountryRetrieveByNameView.as_view(), name='country-detail-by-name'),
     path('countries/<str:countryName>/daily/', views.CountryDailyListView.as_view(), name='country-daily-list'),
 
-    url(r'(?P<countryShortCode>[^/]+)/states/$', views.StateListView.as_view(), name='state-list'),
-    url(r'(?P<countryShortCode>[^/]+)/states/(?P<state>[A-Z]+)/$', views.StateRetrieveView.as_view(), name='state-detail'),
-    url(r'(?P<countryShortCode>[^/]+)/states/(?P<state>[A-Z]+)/daily/$', views.StateDailyListView.as_view(), name='state-daily-list'),
-    url(r'(?P<countryShortCode>[^/]+)/states/(?P<stateName>[^/]+)/$', views.StateRetrieveByNameView.as_view(), name='state-detail-by-name'),
-    url(r'(?P<countryShortCode>[^/]+)/states/(?P<stateName>[^/]+)/daily/$', views.StateDailyListByNameView.as_view(), name='state-daily-list-by-name'),
+    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/$', views.StateListView.as_view(), name='state-list'),
+    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<state>[A-Z]+)/$', views.StateRetrieveView.as_view(), name='state-detail'),
+    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<state>[A-Z]+)/daily/$', views.StateDailyListView.as_view(), name='state-daily-list'),
+    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<stateName>[^/]+)/$', views.StateRetrieveByNameView.as_view(), name='state-detail-by-name'),
+    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<stateName>[^/]+)/daily/$', views.StateDailyListByNameView.as_view(), name='state-daily-list-by-name'),
 ]

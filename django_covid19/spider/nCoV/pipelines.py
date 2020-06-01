@@ -14,7 +14,19 @@ from django.core.cache import cache
 
 from . import items
 
-class CovidTrackingPipeline(object):
+class BasePipeline(object):
+
+    def open_spider(self, spider):
+        spider.object_id = uuid4().hex
+        cache.set('running_spider_id', spider.object_id)
+        spider.crawled = 0
+
+    def close_spider(self, spider):
+        cache.set('crawled', spider.crawled)
+        cache.delete('running_spider_id')
+
+
+class CovidTrackingPipeline(BasePipeline):
 
     def process_item(self, item, spider):
         if isinstance(item, items.StateItem):
@@ -26,12 +38,7 @@ class CovidTrackingPipeline(object):
             return item
 
 
-class NcovPipeline(object):
-
-    def open_spider(self, spider):
-        spider.object_id = uuid4().hex
-        cache.set('running_spider_id', spider.object_id)
-        spider.crawled = 0
+class NcovPipeline(BasePipeline):
 
     def process_item(self, item, spider):
         if isinstance(item, items.CityItem):
@@ -59,7 +66,3 @@ class NcovPipeline(object):
             return item
         else:
             return item
-
-    def close_spider(self, spider):
-        cache.set('crawled', spider.crawled)
-        cache.delete('running_spider_id')

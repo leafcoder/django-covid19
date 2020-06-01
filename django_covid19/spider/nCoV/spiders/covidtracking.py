@@ -2,7 +2,7 @@
 # @Author: zhanglei3
 # @Date:   2020-04-08 09:08:13
 # @Last Modified by:   leafcoder
-# @Last Modified time: 2020-05-30 19:02:49
+# @Last Modified time: 2020-06-01 12:43:31
 
 """美国各州疫情数据源"""
 
@@ -81,63 +81,77 @@ STATES = {
 
 class CovidTrackingSpider(scrapy.Spider):
 
-    """data source: https://covidtracking.com/api"""
+    """Data source: https://covidtracking.com/api
+
+    Covidtracking update all the data each day between 4pm and 5pm EDT.
+    """
 
     name = "covidtracking"
     allowed_domains = ["covidtracking.com"]
+
+    # custom attributes
+    daily_state_url_template = \
+        'https://covidtracking.com/api/v1/states/%s/daily.json'
+    current_state_url_template = \
+        'https://covidtracking.com/api/v1/states/%s/current.json'
     country_short_code = 'USA'
     states = {}
 
     def start_requests(self):
-        apis = [
-            'https://covidtracking.com/api/v1/states/current.json',
-            'https://covidtracking.com/api/v1/states/daily.json',
-            'https://covidtracking.com/api/v1/states/info.json',
-            'https://covidtracking.com/api/v1/us/daily.json',
-        ]
+        object_id = self.object_id
+        spider_id = cache.get('running_spider_id')
+        if object_id != spider_id:
+            logger.info('Spider is running.')
+            self.crawled = 0
+            return
+
         yield scrapy.Request(
             'https://covidtracking.com/api/v1/states/info.json',
             self.parse_info)
 
-    def parse_states_current(self, response):
-        countryShortCode = self.country_short_code
+    def parse_info(self, response):
+        country_short_code = self.country_short_code
         states = self.states
         result = json.loads(response.text)
         for item in result:
             state = item['state']
+            state_name = item['name']
+            state_name = ''.join(state_name.split())
+            states[state] = {
+                'state': state,
+                'countryShortCode': country_short_code,
+                'stateName': state_name
+            }
+        yield scrapy.Request(
+            'https://covidtracking.com/api/v1/states/current.json',
+            self.parse_current_states)
+
+    def parse_current_states(self, response):
+        country_short_code = self.country_short_code
+        states = self.states
+        result = json.loads(response.text)
+        for item in result:
+            state = item['state']
+            daily_state_url = self.daily_state_url_template % state
+            current_state_url = self.current_state_url_template % state
             state_item = states[state]
             state_item.update(item)
             state_item.pop('grade', None)
             state_item.pop('total', None)
-            state_item['countryShortCode'] = countryShortCode
+            state_item['countryShortCode'] = country_short_code
+            state_item['currentUrl'] = current_state_url
+            state_item['dailyUrl'] = daily_state_url
             yield scrapy.Request(
-                'https://covidtracking.com/api/v1/states/%s/daily.json' \
-                    % state,
-                self.parse_state_daily,
-                meta={
-                    'state_item': state_item
-                })
+                daily_state_url,
+                self.parse_daily_state,
+                meta={'state_item': state_item})
 
-    def parse_state_daily(self, response):
+        self.crawled = 1  # 代表爬虫已爬取数据
+
+    def parse_daily_state(self, response):
         meta = response.meta
         state_item = meta['state_item']
         state_item['dailyData'] = json.dumps(
             json.loads(response.text)[::-1])
-        yield items.StateItem(**state_item)
 
-    def parse_info(self, response):
-        countryShortCode = self.country_short_code
-        states = self.states
-        result = json.loads(response.text)
-        for item in result:
-            state = item['state']
-            stateName = item['name']
-            stateName = ''.join(stateName.split())
-            states[state] = {
-                'state': state,
-                'countryShortCode': countryShortCode,
-                'stateName': stateName
-            }
-        yield scrapy.Request(
-            'https://covidtracking.com/api/v1/states/current.json',
-            self.parse_states_current)
+        yield items.StateItem(**state_item)

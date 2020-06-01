@@ -88,3 +88,14 @@ class CountryAdmin(BaseAdmin):
     search_fields = (
         'continents', 'countryFullName', 'countryShortCode', 'countryName'
     )
+
+
+@admin.register(models.State)
+class StateAdmin(BaseAdmin):
+
+    list_display = (
+        'countryShortCode', 'stateName', 'state',
+        'totalTestResults', 'positive', 'negative', 'pending',
+        'hospitalized', 'death', 'recovered', 'dateModified'
+    )
+    search_fields = ('countryShortCode', 'stateName', 'state')

@@ -112,10 +112,13 @@ class Country(models.Model):
         verbose_name = _('Country')
         verbose_name_plural = _('Country')
 
+
 class State(models.Model):
 
     countryShortCode = models.CharField(max_length=20)
     stateName = models.CharField(max_length=50, null=False)
+    currentUrl = models.URLField(max_length=200, null=True, blank=True)
+    dailyUrl = models.URLField(max_length=200, null=True, blank=True)
     dailyData = models.TextField(default='[]')  # save daily data here
 
     # fields in covidtracking api
