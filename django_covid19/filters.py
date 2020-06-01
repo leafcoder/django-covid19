@@ -1,6 +1,6 @@
 import django_filters
 from django.db.models import Q
-from .models import City, Province, Country
+from . import models
 
 
 class CharInFilter(django_filters.BaseInFilter, django_filters.CharFilter):
@@ -24,7 +24,7 @@ class CityFilter(django_filters.rest_framework.FilterSet):
         field_name='cityName', lookup_expr='exact')
 
     class Meta:
-        model = City
+        model = models.City
         fields = ['provinceShortName', 'provinceName', 'cityName']
 
 
@@ -41,7 +41,7 @@ class ProvinceFilter(django_filters.rest_framework.FilterSet):
         field_name='provinceName', lookup_expr='exact')
 
     class Meta:
-        model = Province
+        model = models.Province
         fields = ['provinceName', 'provinceShortName']
 
 
@@ -55,7 +55,18 @@ class CountryFilter(django_filters.rest_framework.FilterSet):
         field_name='countryName', lookup_expr='in')
 
     class Meta:
-        model = Country
+        model = models.Country
         fields = [
             'continents', 'countryShortCode', 'countryName'
         ]
+
+
+class StateFilter(django_filters.rest_framework.FilterSet):
+
+    states = CharInFilter(field_name='state', lookup_expr='in')
+    stateNames = CharInFilter(
+        field_name='stateName', lookup_expr='in')
+
+    class Meta:
+        model = models.State
+        fields = ['state', 'stateName']

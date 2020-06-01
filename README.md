@@ -25,6 +25,10 @@
 
 </div>
 
+由于现在疫情高发地已从国内转向国外，所以本项目也会逐渐增加*数据源*以便提供关于*国外某国某州（某省）*的疫情数据接口。
+
+现已新增美国各州最新疫情以及各州每日疫情统计接口，可前往 [各国各州接口](#/?id=states) 查看接口文档。
+
 # 项目文档
 
 本项目使用开源文档工具 [docsify](https://docsify.js.org) 编写了一份开发文档。
@@ -51,6 +55,10 @@
 
 * 推荐使用评论方式提问；
 * 推荐使用 isuss 提交 bug；
+
+# 致谢
+
+* [ccjhpu](https://github.com/ccjhpu)：在 [issues-8](https://github.com/leafcoder/django-covid19/issues/8) 中提出了加入各国各州的需求以及数据来源。
 
 # 致各位
 

@@ -1,5 +1,6 @@
-from .models import Statistics, City, Province, Country
+from . import models
 from rest_framework import serializers
+from django.utils.translation import ugettext_lazy as _
 
 import json
 
@@ -87,15 +88,19 @@ class StatisticsSerializer(serializers.Serializer):
     createTime = serializers.DateTimeField()
 
     class Meta:
-        model = Statistics
-        fields = ('globalStatistics', 'domesticStatistics', 'internationalStatistics', 'modifyTime', 'createTime')
+        model = models.Statistics
+        fields = (
+            'globalStatistics', 'domesticStatistics',
+            'internationalStatistics', 'modifyTime', 'createTime'
+        )
+
 
 class ProvinceSerializer(serializers.HyperlinkedModelSerializer):
 
     provinceName = serializers.CharField(read_only=True)
 
     class Meta:
-        model = Province
+        model = models.Province
         fields = [
             'provinceName', 'provinceShortName',
             'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
@@ -106,7 +111,7 @@ class ProvinceSerializer(serializers.HyperlinkedModelSerializer):
 class CitySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = City
+        model = models.City
         fields = [
             'provinceName', 'cityName',
             'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
@@ -123,9 +128,60 @@ class CountrySerializer(serializers.HyperlinkedModelSerializer):
         return data
 
     class Meta:
-        model = Country
+        model = models.Country
         fields = [
             'continents', 'countryShortCode', 'countryName',
             'countryFullName', 'currentConfirmedCount', 'confirmedCount',
             'suspectedCount', 'curedCount', 'deadCount', 'incrVo'
         ]
+
+
+class StateSerializer(serializers.ModelSerializer):
+
+    countryShortCode = serializers.CharField()
+    currentConfirmedCount = serializers.SerializerMethodField()
+    confirmedCount = serializers.IntegerField(source='positive')
+    curedCount = serializers.IntegerField(source='recovered')
+    deadCount = serializers.IntegerField(source='death')
+    suspectedCount = serializers.IntegerField(source='pending')
+
+    def get_currentConfirmedCount(self, obj):
+        positive = obj.positive if obj.positive else 0
+        death = obj.death if obj.death else 0
+        recovered = obj.recovered if obj.recovered else 0
+        return positive - death - recovered
+
+    class Meta:
+        model = models.State
+        fields = [
+            'currentConfirmedCount', 'confirmedCount', 'curedCount',
+            'deadCount', 'suspectedCount', 'stateName', 'state',
+            'countryShortCode', 'dailyUrl', 'currentUrl'
+        ]
+
+
+class StateRawSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.State
+        exclude = ('id', 'dailyData')
+
+
+class StateDailySerializer(serializers.Serializer):
+
+    state = serializers.CharField()
+    date = serializers.CharField()
+    stateName = serializers.CharField()
+    countryShortCode = serializers.CharField()
+
+    currentConfirmedCount = serializers.IntegerField()
+    confirmedCount = serializers.IntegerField()
+    curedCount = serializers.IntegerField()
+    deadCount = serializers.IntegerField()
+    suspectedCount = serializers.IntegerField()
+
+    currentConfirmedIncr = serializers.IntegerField()
+    confirmedIncr = serializers.IntegerField()
+    curedIncr = serializers.IntegerField()
+    deadIncr = serializers.IntegerField()
+    suspectedIncr = serializers.IntegerField()

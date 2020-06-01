@@ -2,7 +2,7 @@
 # @Author: zhanglei3
 # @Date:   2020-04-08 09:08:13
 # @Last Modified by:   leafcoder
-# @Last Modified time: 2020-05-21 10:49:20
+# @Last Modified time: 2020-06-01 11:45:25
 
 """丁香园数据源"""
 
@@ -39,20 +39,20 @@ class DXYSpider(scrapy.Spider):
 
         # 判断是否需要保存抓取的数据
         statistics = self.get_dict(scripts, '#getStatisticsService')
-        createTime = make_aware(
+        create_time = make_aware(
             datetime.fromtimestamp(statistics['createTime'] / 1000.0))
-        modifyTime = make_aware(
+        modify_time = make_aware(
             datetime.fromtimestamp(statistics['modifyTime'] / 1000.0))
         qs = items.StatisticsItem.django_model.objects.all().order_by('-id')
-        if qs.count() > 1 and qs[0].modifyTime == modifyTime:
+        if qs.count() > 1 and qs[0].modifyTime == modify_time:
             logger.info('Data does not change.')
             self.crawled = 0
             return
 
         # 统计信息
         statistics = self.explain_statistics(statistics)
-        statistics['createTime'] = createTime
-        statistics['modifyTime'] = modifyTime
+        statistics['createTime'] = create_time
+        statistics['modifyTime'] = modify_time
 
         # 国内数据
         provinces = self.get_list(scripts, '#getAreaStat')
