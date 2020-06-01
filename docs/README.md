@@ -783,6 +783,76 @@ http://111.231.75.86:8000/api/states/USA/?stateNames=Alaska,Alabama
 ]
 ```
 
+
+#### 多个州的日统计 :id=state-USA-list-daily
+
+可获取全部州或某几个州的日统计数据列表；
+
+接口地址：/api/states/USA/\<STATE\>/daily/
+
+原始数据：/api/states/raw/USA/\<STATE\>/daily/
+
+请求方法：GET
+
+请求参数：
+
+参数                 | 描述
+------------------- | -------
+stateNames          | 州名，如：Alaska，Alabama；以逗号分割多个值；大小写敏感；
+states              | 州缩写，如：AK（Alaska），AL（Alabama）;大小写敏感；
+
+示例链接：
+
+http://111.231.75.86:8000/api/states/USA/daily/
+
+http://111.231.75.86:8000/api/states/USA/daily/?states=AK,AL
+
+http://111.231.75.86:8000/api/states/USA/daily/?stateNames=Alaska,Alabama
+
+返回结果：
+
+```
+[
+    {
+        "date": 20200306,
+        "state": "AK",
+        "stateName": "Alaska",
+        "countryShortCode": "USA",
+        "confirmedCount": 0,
+        "currentConfirmedCount": 0,
+        "suspectedCount": 1,
+        "curedCount": null,
+        "deadCount": 0,
+        "currentConfirmedIncr": 0,
+        "confirmedIncr": null,
+        "suspectedIncr": null,
+        "curedIncr": null,
+        "deadIncr": null
+    },
+    // （20200307 - 现在）AK 日统计
+    ...
+    {
+        "date": 20200307,
+        "state": "AL",
+        "stateName": "Alabama",
+        "countryShortCode": "USA",
+        "confirmedCount": 0,
+        "currentConfirmedCount": 0,
+        "suspectedCount": null,
+        "curedCount": null,
+        "deadCount": null,
+        "currentConfirmedIncr": 0,
+        "confirmedIncr": null,
+        "suspectedIncr": null,
+        "curedIncr": null,
+        "deadIncr": null
+    },
+    // （20200307 - 现在）AL 日统计
+    ...
+    // 其他州的日统计
+```
+
+
 #### 某州最新疫情 :id=state-USA-detail
 
 
