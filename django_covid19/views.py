@@ -75,7 +75,7 @@ class StatisticsListView(ListAPIView):
     @method_decorator(cache_page(
             CACHE_PAGE_TIMEOUT, key_prefix='statistics-list'))
     def dispatch(self, *args, **kwargs):
-        return super(models.StatisticsListView, self).dispatch(*args, **kwargs)
+        return super(StatisticsListView, self).dispatch(*args, **kwargs)
 
 
 class ProvinceListView(ListAPIView):
