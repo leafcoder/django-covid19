@@ -1,6 +1,6 @@
 <div align="center">
 
-# 新冠肺炎实时接口 {docsify-ignore}
+# 新冠肺炎实时接口 :id=intro {docsify-ignore}
 
 <p>
     <!-- Place this tag where you want the button to render. -->
@@ -28,21 +28,27 @@
 本项目的数据来源为[`丁香园`](http://ncov.dxy.cn/ncovh5/view/pneumonia)，定时获取疫
 情数据，保存疫情数据变更情况，以备跟踪研究和数据图表化展示。
 
+由于现在疫情高发地已从国内转向国外，所以本项目也会逐渐增加*数据源*以便提供关于*国外某国某州（某省）*的疫情数据接口。
+
+现已新增美国各州最新疫情以及各州每日疫情统计接口，可前往 [各国各州接口](#/?id=states) 查看接口文档。
+
 # 快速开始 :id=quick-start
 
 请按照以下步骤完成项目的初始化和启动。
 
-## 代码仓库
+## 代码仓库 :id=repo
 
 项目开源，需要源代码可以前往仓库自行获取。
 
 前往获取源码 [https://github.com/leafcoder/django-covid19](https://github.com/leafcoder/django-covid19)。
 
-## 线上示例
+## 线上示例 :id=demo
 
 使用本项目的接口开发了一个数据大屏的示例页面，代码在项目根目录的 `demo/` 文件夹中。
 
 前往在线示例 [新冠肺炎实时数据大屏](http://ncov.leafcoder.cn/demo)
+
+[![在线数据大屏](https://raw.githubusercontent.com/leafcoder/django-covid19/master/docs/images/dashboard.png)](http://111.231.75.86/dashboard)
 
 ## 安装 :id=install
 
@@ -63,7 +69,7 @@
 
 ## 初始化 :id=init
 
-### 跨域
+### 跨域 :id=corsheaders
 
 将应用 `corsheaders` 和相关应用添加到你项目配置文件的 `INSTALLED_APPS`。
 
@@ -113,7 +119,7 @@
         'Pragma',
     )
 
-### 数据库
+### 数据库 :id=database
 
 项目示例中使用 `sqlite3` 作为数据库存储数据（推荐使用 `MySQL`）；
 
@@ -135,7 +141,10 @@
         }
     }
 
-### 缓存
+### 缓存 :id=cache
+
+> 如果使用*内存*等无法跨进程访问的方式作为缓存后端，会导致爬虫更新数据后，缓存并不会自动删除。
+> 建议使用 `Redis` 等可跨进程访问的缓存后端。
 
 项目缓存配置建议使用 `Redis` 作为缓存后端（项目也支持*文件*、*内存*等缓存方式）；
 
@@ -151,7 +160,7 @@
     }
 
 
-### 数据库初始化
+### 数据库初始化 :id=migrate
 
 并运行以下命令完成项目数据库的初始化；
 
@@ -177,18 +186,23 @@
 
     CRONTAB_LOCK_JOBS = True
     CRONJOBS = (
-        # 每分钟抓取一次
-        ('*/1 * * * *', 'django.core.management.call_command', ['crawl']),
+        # 每分钟抓取丁香园数据一次
+        ('*/1 * * * *', 'django.core.management.call_command', ['crawl', 'dxy']),
+
+        # 每天下午4-6点间每10分钟抓取 covidtracking 数据一次（covidtracking 每天下午4-5点间更新数据）
+        # 抓取美国各州疫情数据
+        ('*/10 16-18 * * *', 'django.core.management.call_command', ['crawl', 'covidtracking'])
+
     )
 
-
-要创建自动抓取丁香园新冠数据任务需要运行如下命令，创建定时任务；
+要创建自动抓取丁香园、covidtracking 新冠数据任务需要运行如下命令，创建定时任务；
 
     $ ./manage.py crontab add
 
-如果想要立即爬取数据，可通过项目自定义命令获取；如果丁香园数据未发生变更，爬虫并不会爬取数据。
+如果想要立即爬取数据，可通过项目自定义命令获取；如果数据未发生变更，爬虫并不会爬取数据。
 
-    $ ./manage.py crawl
+    $ ./manage.py crawl dxy
+    $ ./manage.py crawl covidtracking
 
 ## 项目启动 :id=start
 
@@ -198,7 +212,7 @@
 
 运行成功后，通过浏览器访问 [`http://localhost:8000/api/statistics/`](http://localhost:8000/api/statistics/) 即可看到统计数据。
 
-# 示例项目
+# 示例项目 :id=demo-project
 
 通过 `pip` 安装好应 `django_covid19` 后，可以直接运行源码文件中的示例项目 `demo_proj` 查看效果。
 
@@ -384,7 +398,7 @@ http://111.231.75.86:8000/api/statistics/
 ]
 ```
 
-## 国家疫情 :id=country
+## 各国疫情 :id=country
 
 ### 日统计 :id=country-daily
 
@@ -478,7 +492,7 @@ http://111.231.75.86:8000/api/countries/?continents=南美洲,北美洲&countryN
 ]
 ```
 
-### 国家详情 :id=country-detail
+### 各国详情 :id=country-detail
 
 根据国家名称获取某个国家的疫情统计数据；
 
@@ -514,9 +528,9 @@ http://111.231.75.86:8000/api/countries/巴西/
 }
 ```
 
-## 省/自治区/直辖市
+## 省/自治区/直辖市 :id=province
 
-### 日统计
+### 日统计 :id=province-daily
 
 通过`短省份名`获取某个中国省份（自治区、直辖市）的疫情从 2020-01-19 到目前的疫情列表数据；
 
@@ -568,7 +582,7 @@ http://111.231.75.86:8000/api/provinces/澳门/daily/
 ]
 ```
 
-### 省列表
+### 省列表 :id=province-list
 
 获取中国各中国省/自治区/直辖市的疫情统计数据；
 
@@ -604,7 +618,7 @@ http://111.231.75.86:8000/api/provinces/?provinceShortNames=四川,香港
 ]
 ```
 
-### 省详情
+### 省详情 :id=province-detail
 
 通过`短省份名`获取某个中国省份（自治区、直辖市）的疫情统计数据；
 
@@ -636,9 +650,9 @@ http://111.231.75.86:8000/api/provinces/澳门/
 }
 ```
 
-## 城市或直辖市某区
+## 城市或直辖市某区 :id=city
 
-### 城市列表
+### 城市列表 :id=city-list
 
 获取中国各个城市或直辖市某个区的疫情数据。
 
@@ -673,7 +687,7 @@ http://111.231.75.86:8000/api/cities/?cityNames=大庆,万州区
 ]
 ```
 
-### 城市详情
+### 城市详情 :id=city-detail
 
 
 接口地址：/api/cities/\<CITY_NAME\>/
@@ -696,4 +710,143 @@ http://111.231.75.86:8000/api/cities/大庆/
     "curedCount": 195,
     "deadCount": 4
 }
+```
+
+
+## 各国各州 :id=state
+
+现阶段暂时仅支持获取 *美国各州* 最新数据和每日数据，数据来源为 [https://covidtracking.com/](https://covidtracking.com/)，每日 *下午 4-5 点* 更新数据；
+
+特此感谢 [ccjhpu](https://github.com/ccjhpu) 在 [issues-8](https://github.com/leafcoder/django-covid19/issues/8) 中提出的需求以及数据来源。
+
+### 美国 :id=state-USA
+
+> 各国疫情统计数据中，美国整体疫情数据依旧来源于 [`丁香园`](http://ncov.dxy.cn/ncovh5/view/pneumonia)，
+仅美国各州疫情数据来源于 [https://covidtracking.com/](https://covidtracking.com)；
+
+不过由于各个数据源间统计方式的不同，所以也会将 [https://covidtracking.com/](https://covidtracking.com) 原始数据提供出来，以供选择；
+
+原始数据的文档请自行参考 [https://covidtracking.com/api](https://covidtracking.com/api);
+
+#### 州列表 :id=state-USA-list
+
+获取中国各个城市或直辖市某个区的疫情数据。
+
+接口地址：/api/states/USA/
+
+原始数据：/api/states/raw/USA/
+
+请求方法：GET
+
+请求参数：
+
+参数                 | 描述
+------------------- | -------
+stateNames          | 州名，如：Alaska，Alabama；以逗号分割多个值；大小写敏感；
+states              | 州缩写，如：AK（Alaska），AL（Alabama）;大小写敏感；
+
+示例链接：
+
+http://111.231.75.86:8000/api/states/USA/
+
+http://111.231.75.86:8000/api/states/USA/?states=AL,AK
+
+http://111.231.75.86:8000/api/states/USA/?stateNames=Alaska,Alabama
+
+
+返回结果：
+
+```
+[
+    {
+        "currentConfirmedCount": 56,
+        "confirmedCount": 434,
+        "curedCount": 368,
+        "deadCount": 10,
+        "suspectedCount": null,
+        "stateName": "Alaska",
+        "state": "AK",
+        "countryShortCode": "USA"
+    },
+    {
+        "currentConfirmedCount": 7917,
+        "confirmedCount": 17903,
+        "curedCount": 9355,
+        "deadCount": 631,
+        "suspectedCount": null,
+        "stateName": "Alabama",
+        "state": "AL",
+        "countryShortCode": "USA"
+    },
+    ...
+    其他各州
+]
+```
+
+#### 某州最新疫情 :id=state-USA-detail
+
+
+接口地址：/api/states/USA/\<STATE\>/
+
+原始数据：/api/states/raw/USA/\<STATE\>/
+
+请求方法：GET
+
+示例链接：
+
+http://111.231.75.86:8000/api/states/USA/AL/
+
+http://111.231.75.86:8000/api/states/USA/AK/
+
+返回结果：
+
+```
+{
+    "currentConfirmedCount": 7917,
+    "confirmedCount": 17903,
+    "curedCount": 9355,
+    "deadCount": 631,
+    "suspectedCount": null,
+    "stateName": "Alabama",
+    "state": "AL",
+    "countryShortCode": "USA"
+}
+```
+
+#### 某州日统计 :id=state-USA-daily
+
+
+接口地址：/api/states/USA/\<STATE\>/daily
+
+原始数据：/api/states/raw/USA/\<STATE\>/daily
+
+请求方法：GET
+
+示例链接：
+
+http://111.231.75.86:8000/api/states/USA/AL/daily/
+
+返回结果：
+
+```
+[
+    // 更早日期疫情
+    ...
+    {
+        "state": "AL",
+        "date": "20200531",
+        "stateName": "Alabama",
+        "countryShortCode": "USA",
+        "currentConfirmedCount": 7917,
+        "confirmedCount": 17903,
+        "curedCount": 9355,
+        "deadCount": 631,
+        "suspectedCount": null,
+        "currentConfirmedIncr": 531,
+        "confirmedIncr": 544,
+        "curedIncr": null,
+        "deadIncr": 13,
+        "suspectedIncr": 5352
+    }
+]
 ```
