@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-# @Author: zhanglei3
-# @Date:   2020-04-08 09:08:13
-# @Last Modified by:   leafcoder
-# @Last Modified time: 2020-06-01 12:43:31
-
 """美国各州疫情数据源"""
 
 import json
@@ -94,7 +88,7 @@ class CovidTrackingSpider(scrapy.Spider):
         'https://covidtracking.com/api/v1/states/%s/daily.json'
     current_state_url_template = \
         'https://covidtracking.com/api/v1/states/%s/current.json'
-    country_short_code = 'USA'
+    countryCode = 'USA'
     states = {}
 
     def start_requests(self):
@@ -110,7 +104,7 @@ class CovidTrackingSpider(scrapy.Spider):
             self.parse_info)
 
     def parse_info(self, response):
-        country_short_code = self.country_short_code
+        countryCode = self.countryCode
         states = self.states
         result = json.loads(response.text)
         for item in result:
@@ -119,7 +113,7 @@ class CovidTrackingSpider(scrapy.Spider):
             state_name = ''.join(state_name.split())
             states[state] = {
                 'state': state,
-                'countryShortCode': country_short_code,
+                'countryCode': countryCode,
                 'stateName': state_name
             }
         yield scrapy.Request(
@@ -127,7 +121,7 @@ class CovidTrackingSpider(scrapy.Spider):
             self.parse_current_states)
 
     def parse_current_states(self, response):
-        country_short_code = self.country_short_code
+        countryCode = self.countryCode
         states = self.states
         result = json.loads(response.text)
         for item in result:
@@ -138,7 +132,7 @@ class CovidTrackingSpider(scrapy.Spider):
             state_item.update(item)
             state_item.pop('grade', None)
             state_item.pop('total', None)
-            state_item['countryShortCode'] = country_short_code
+            state_item['countryCode'] = countryCode
             state_item['currentUrl'] = current_state_url
             state_item['dailyUrl'] = daily_state_url
             yield scrapy.Request(
@@ -150,8 +144,54 @@ class CovidTrackingSpider(scrapy.Spider):
 
     def parse_daily_state(self, response):
         meta = response.meta
-        state_item = meta['state_item']
-        state_item['dailyData'] = json.dumps(
-            json.loads(response.text)[::-1])
+        province = meta['state_item']
+        dailyData = json.loads(response.text)[::-1]
+        countryCode = self.countryCode
+        provinceCode = province['state']
+        provinceName = province['stateName']
+        formated_dailyData = []
+        for daily_item in dailyData:
+            formated_dailyData.append(
+                self.format(countryCode, provinceName, daily_item))
+        province_args = {}
+        provice_fieldnames = [f.name for f in \
+            items.ProvinceItem.django_model._meta.get_fields()]
+        for fieldname in provice_fieldnames:
+            value = province.get(fieldname)
+            if value is not None:
+                province_args[fieldname] = value
+        province_args['provinceName'] = provinceName
+        province_args['provinceCode'] = provinceCode
+        province_args['dailyData'] = json.dumps(formated_dailyData)
+        yield items.ProvinceItem(**province_args)
 
-        yield items.StateItem(**state_item)
+    def format(self, countryCode, stateName, data):
+        item = {}
+        item['dateId'] = data['date']
+        item['provinceCode'] = data['state']
+        item['provinceName'] = stateName
+        item['countryCode'] = countryCode
+
+        item['confirmedCount'] = data.get('positive')
+        item['currentConfirmedCount'] = self.get_current_confirmed(data)
+        item['suspectedCount'] = data.get('pending')
+        item['curedCount'] = data.get('recovered')
+        item['deadCount'] = data.get('death')
+
+        item['currentConfirmedIncr'] = self.get_current_confirmed_incr(data)
+        item['confirmedIncr'] = data.get('positiveIncrease')
+        item['suspectedIncr'] = data.get('totalTestResultsIncrease')
+        item['curedIncr'] = None  # 未提供
+        item['deadIncr'] = data.get('deathIncrease')
+        return item
+
+    def get_current_confirmed(self, data):
+        positive = data['positive'] if data.get('positive') else 0
+        death = data['death'] if data.get('death') else 0
+        recovered = data['recovered'] if data.get('recovered') else 0
+        return positive - death - recovered
+
+    def get_current_confirmed_incr(self, data):
+        positive = data['positiveIncrease'] if data.get('positiveIncrease') else 0
+        death = data['deathIncrease'] if data.get('deathIncrease') else 0
+        return positive - death

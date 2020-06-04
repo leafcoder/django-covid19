@@ -13,6 +13,7 @@ from .settings import CACHE_PAGE_TIMEOUT
 
 import json
 
+DEFAULT_COUNTRY_CODE = 'CHN'
 
 class LatestStatisticsView(APIView):
 
@@ -78,6 +79,89 @@ class StatisticsListView(ListAPIView):
         return super(StatisticsListView, self).dispatch(*args, **kwargs)
 
 
+class CountryListView(ListAPIView):
+
+    serializer_class = serializers.CountrySerializer
+    filter_class = filters.CountryFilter
+
+    def get_queryset(self):
+        return models.Country.objects.all().order_by(
+            'continents', 'countryCode')
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='country-list'))
+    def dispatch(self, *args, **kwargs):
+        return super(CountryListView, self).dispatch(*args, **kwargs)
+
+
+class CountryListDailyView(ListAPIView):
+
+    serializer_class = serializers.CountryDailySerializer
+    filter_class = filters.CountryFilter
+
+    def get_queryset(self):
+        return models.Country.objects.all().order_by(
+            'continents', 'countryCode')
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        result = []
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            for item in serializer.data:
+                dailyData = json.loads(item['dailyData'])
+                result.extend(dailyData)
+            return self.get_paginated_response(result)
+
+        serializer = self.get_serializer(queryset, many=True)
+        for item in serializer.data:
+            dailyData = json.loads(item['dailyData'])
+            result.extend(dailyData)
+        return Response(result)
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='country-list-daily'))
+    def dispatch(self, *args, **kwargs):
+        return super(CountryListDailyView, self).dispatch(*args, **kwargs)
+
+
+class CountryRetrieveView(APIView):
+
+    def get_object(self, countryCode):
+        country = models.Country.objects.filter(
+            countryCode=countryCode).first()
+        if country is None:
+            raise Http404
+        return country
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='country-detail'))
+    def get(self, request, countryCode):
+        country = self.get_object(countryCode)
+        serializer = serializers.CountrySerializer(country)
+        return Response(serializer.data)
+
+
+class CountryDailyView(APIView):
+
+    def get_object(self, countryCode):
+        country = models.Country.objects.filter(
+            countryCode=countryCode).first()
+        if country is None:
+            raise Http404
+        return country
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='country-daily-list'))
+    def get(self, request, countryCode):
+        country = self.get_object(countryCode)
+        result = country.dailyData
+        result = json.loads(result)
+        return Response(result)
+
+
 class ProvinceListView(ListAPIView):
 
     """省列表"""
@@ -86,7 +170,11 @@ class ProvinceListView(ListAPIView):
     filter_class = filters.ProvinceFilter
 
     def get_queryset(self):
-        return models.Province.objects.all().order_by('provinceName')
+        countryCode = self.kwargs['countryCode']
+        if not countryCode:
+            countryCode = DEFAULT_COUNTRY_CODE
+        return models.Province.objects.filter(
+            countryCode=countryCode).order_by('provinceCode')
 
     @method_decorator(cache_page(
             CACHE_PAGE_TIMEOUT, key_prefix='province-list'))
@@ -94,123 +182,125 @@ class ProvinceListView(ListAPIView):
         return super(ProvinceListView, self).dispatch(*args, **kwargs)
 
 
-class ProvinceDailyListView(APIView):
+class ProvinceDailyView(APIView):
 
     """省按天返回列表"""
 
-    def get_object(self, provinceShortName):
+    def get_object(self, countryCode, provinceCode):
         province = models.Province.objects.filter(
-            provinceShortName=provinceShortName).first()
+            countryCode=countryCode, provinceCode=provinceCode).first()
         if province is None:
             raise Http404
         return province
 
     @method_decorator(cache_page(
             CACHE_PAGE_TIMEOUT, key_prefix='province-daily-list'))
-    def get(self, request, provinceShortName):
-        province = self.get_object(provinceShortName)
+    def get(self, request, countryCode, provinceCode):
+        if countryCode is None:
+            countryCode = DEFAULT_COUNTRY_CODE
+        province = self.get_object(countryCode, provinceCode)
         result = province.dailyData
         result = json.loads(result)
         return Response(result)
+
+
+class ProvinceDailyByNameView(APIView):
+
+    """省按天返回列表"""
+
+    def get_object(self, countryCode, provinceName):
+        province = models.Province.objects.filter(
+            countryCode=countryCode, provinceName=provinceName).first()
+        if province is None:
+            raise Http404
+        return province
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='province-daily-list-by-name'))
+    def get(self, request, countryCode, provinceName):
+        if countryCode is None:
+            countryCode = DEFAULT_COUNTRY_CODE
+        province = self.get_object(countryCode, provinceName)
+        result = province.dailyData
+        result = json.loads(result)
+        return Response(result)
+
+
+class ProvinceListDailyView(ListAPIView):
+
+    serializer_class = serializers.ProvinceDailySerializer
+    filter_class = filters.ProvinceFilter
+
+    def get_queryset(self):
+        countryCode = self.kwargs['countryCode']
+        if not countryCode:
+            countryCode = DEFAULT_COUNTRY_CODE
+        return models.Province.objects.filter(
+            countryCode=countryCode).order_by('provinceCode')
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        result = []
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            for item in serializer.data:
+                dailyData = json.loads(item['dailyData'])
+                result.extend(dailyData)
+            return self.get_paginated_response(result)
+
+        serializer = self.get_serializer(queryset, many=True)
+        for item in serializer.data:
+            dailyData = json.loads(item['dailyData'])
+            result.extend(dailyData)
+        return Response(result)
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='province-list-daily'))
+    def dispatch(self, *args, **kwargs):
+        return super(ProvinceListDailyView, self).dispatch(*args, **kwargs)
+
+
+class ProvinceRetrieveView(APIView):
+
+    """通过省编码获取数据"""
+
+    def get_object(self, countryCode, provinceCode):
+        province = models.Province.objects.filter(
+            countryCode=countryCode, provinceCode=provinceCode).first()
+        if province is None:
+            raise Http404
+        return province
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='province-detail'))
+    def get(self, request, countryCode, provinceCode):
+        if countryCode is None:
+            countryCode = DEFAULT_COUNTRY_CODE
+        province = self.get_object(countryCode, provinceCode)
+        serializer = serializers.ProvinceSerializer(province)
+        return Response(serializer.data)
 
 
 class ProvinceRetrieveByNameView(APIView):
 
     """通过省名获取数据"""
 
-    def get_object(self, provinceShortName):
+    def get_object(self, countryCode, provinceName):
         province = models.Province.objects.filter(
-            provinceShortName=provinceShortName).first()
+            countryCode=countryCode, provinceName=provinceName).first()
         if province is None:
             raise Http404
         return province
 
     @method_decorator(cache_page(
             CACHE_PAGE_TIMEOUT, key_prefix='province-detail-by-name'))
-    def get(self, request, provinceShortName):
-        province = self.get_object(provinceShortName)
+    def get(self, request, countryCode, provinceName=None):
+        if countryCode is None:
+            countryCode = DEFAULT_COUNTRY_CODE
+        province = self.get_object(countryCode, provinceName)
         serializer = serializers.ProvinceSerializer(province)
-        return Response(serializer.data)
-
-
-class ProvinceRetrieveView(APIView):
-
-    def get_object(self, pk):
-        try:
-            return models.Province.objects.get(pk=pk)
-        except models.Province.DoesNotExist:
-            raise Http404
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='province-detail'))
-    def get(self, request, pk):
-        province = self.get_object(pk)
-        serializer = serializers.ProvinceSerializer(province)
-        return Response(serializer.data)
-
-
-class CountryListView(ListAPIView):
-
-    serializer_class = serializers.CountrySerializer
-    filter_class = filters.CountryFilter
-
-    def get_queryset(self):
-        return models.Country.objects.all().order_by(
-            'continents', 'countryShortCode')
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='country-list'))
-    def dispatch(self, *args, **kwargs):
-        return super(CountryListView, self).dispatch(*args, **kwargs)
-
-
-class CountryRetrieveView(APIView):
-
-    def get_object(self, pk):
-        try:
-            return models.Country.objects.get(pk=pk)
-        except models.Country.DoesNotExist:
-            raise Http404
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='country-detail'))
-    def get(self, request, pk):
-        country = self.get_object(pk)
-        serializer = serializers.CountrySerializer(country)
-        return Response(serializer.data)
-
-
-class CountryDailyListView(APIView):
-
-    def get_object(self, countryName):
-        country = models.Country.objects.filter(countryName=countryName).first()
-        if country is None:
-            raise Http404
-        return country
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='country-daily-list'))
-    def get(self, request, countryName):
-        country = self.get_object(countryName)
-        result = country.dailyData
-        result = json.loads(result)
-        return Response(result)
-
-
-class CountryRetrieveByNameView(APIView):
-
-    def get_object(self, countryName):
-        country = models.Country.objects.filter(
-            countryName=countryName).first()
-        if country is None:
-            raise Http404
-        return country
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='country-detail-by-name'))
-    def get(self, request, countryName):
-        country = self.get_object(countryName)
-        serializer = serializers.CountrySerializer(country)
         return Response(serializer.data)
 
 
@@ -220,7 +310,11 @@ class CityListView(ListAPIView):
     filter_class = filters.CityFilter
 
     def get_queryset(self):
-        return models.City.objects.all().order_by('province', 'cityName')
+        countryCode = self.kwargs['countryCode']
+        if not countryCode:
+            countryCode = DEFAULT_COUNTRY_CODE
+        return models.City.objects.filter(
+            countryCode=countryCode).order_by('provinceCode', 'cityName')
 
     @method_decorator(cache_page(
             CACHE_PAGE_TIMEOUT, key_prefix='city-list'))
@@ -228,223 +322,20 @@ class CityListView(ListAPIView):
         return super(CityListView, self).dispatch(*args, **kwargs)
 
 
-class CityRetrieveView(APIView):
-
-    def get_object(self, pk):
-        try:
-            return models.City.objects.get(pk=pk)
-        except models.City.DoesNotExist:
-            raise Http404
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='city-detail'))
-    def get(self, request, pk):
-        city = self.get_object(pk)
-        serializer = serializers.CitySerializer(city)
-        return Response(serializer.data)
-
-
 class CityRetrieveByNameView(APIView):
 
-    def get_object(self, cityName):
-        city = models.City.objects.filter(cityName=cityName).first()
+    def get_object(self, countryCode, cityName):
+        city = models.City.objects.filter(
+            countryCode=countryCode, cityName=cityName).first()
         if city is None:
             raise Http404
         return city
 
     @method_decorator(cache_page(
             CACHE_PAGE_TIMEOUT, key_prefix='city-detail-by-name'))
-    def get(self, request, cityName):
-        city = self.get_object(cityName)
+    def get(self, request, countryCode, cityName):
+        if countryCode is None:
+            countryCode = DEFAULT_COUNTRY_CODE
+        city = self.get_object(countryCode, cityName)
         serializer = serializers.CitySerializer(city)
         return Response(serializer.data)
-
-
-class StateListView(ListAPIView):
-
-    serializer_class = serializers.StateSerializer
-    filter_class = filters.StateFilter
-
-    def get_queryset(self):
-        countryShortCode = self.kwargs['countryShortCode']
-        return models.State.objects.filter(
-            countryShortCode=countryShortCode).order_by('state')
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='state-list'))
-    def dispatch(self, *args, **kwargs):
-        if kwargs.get('raw') == 'raw':
-            self.serializer_class = serializers.StateRawSerializer
-        return super(StateListView, self).dispatch(*args, **kwargs)
-
-
-class StateRetrieveByNameView(APIView):
-
-    def get_object(self, countryShortCode, stateName):
-        state = models.State.objects.filter(
-            countryShortCode=countryShortCode,
-            stateName__iexact=stateName
-        ).first()
-        if state is None:
-            raise Http404
-        return state
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='state-detail-by-name'))
-    def get(self, request, countryShortCode, stateName, raw=None):
-        inst = self.get_object(countryShortCode, stateName)
-        if raw == 'raw':
-            serializer = serializers.StateRawSerializer(inst)
-        else:
-            serializer = serializers.StateSerializer(inst)
-        return Response(serializer.data)
-
-
-class StateRetrieveView(APIView):
-
-    def get_object(self, countryShortCode, state):
-        state = models.State.objects.filter(
-            countryShortCode=countryShortCode, state=state).first()
-        if state is None:
-            raise Http404
-        return state
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='state-detail'))
-    def get(self, request, countryShortCode, state, raw=None):
-        inst = self.get_object(countryShortCode, state)
-        if raw == 'raw':
-            serializer = serializers.StateRawSerializer(inst)
-        else:
-            serializer = serializers.StateSerializer(inst)
-        return Response(serializer.data)
-
-
-class BaseDailyView(object):
-
-    def format(self, countryShortCode, stateName, data):
-        item = {}
-        item['date'] = data['date']
-        item['state'] = data['state']
-        item['stateName'] = stateName
-        item['countryShortCode'] = countryShortCode
-
-        item['confirmedCount'] = data.get('positive')
-        item['currentConfirmedCount'] = self.get_current_confirmed(data)
-        item['suspectedCount'] = data.get('pending')
-        item['curedCount'] = data.get('recovered')
-        item['deadCount'] = data.get('death')
-
-        item['currentConfirmedIncr'] = self.get_current_confirmed_incr(data)
-        item['confirmedIncr'] = data.get('positiveIncrease')
-        item['suspectedIncr'] = data.get('totalTestResultsIncrease')
-        item['curedIncr'] = None  # 未提供
-        item['deadIncr'] = data.get('deathIncrease')
-        return item
-
-    def get_current_confirmed(self, data):
-        positive = data['positive'] if data.get('positive') else 0
-        death = data['death'] if data.get('death') else 0
-        recovered = data['recovered'] if data.get('recovered') else 0
-        return positive - death - recovered
-
-    def get_current_confirmed_incr(self, data):
-        positive = data['positiveIncrease'] if data.get('positiveIncrease') else 0
-        death = data['deathIncrease'] if data.get('deathIncrease') else 0
-        return positive - death
-
-
-class StateDailyListView(APIView, BaseDailyView):
-
-    """州按天返回列表"""
-
-    def get_object(self, countryShortCode, state):
-        state = models.State.objects.filter(
-            countryShortCode=countryShortCode, state=state).first()
-        if state is None:
-            raise Http404
-        return state
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='state-daily-list'))
-    def get(self, request, countryShortCode, state, raw=None):
-        inst = self.get_object(countryShortCode, state)
-        result = inst.dailyData
-        result = json.loads(result)
-        if raw == 'raw':
-            return Response(result)
-        stateName = inst.stateName
-        data = []
-        for r in result:
-            data.append(self.format(countryShortCode, stateName, r))
-        serializer = serializers.StateDailySerializer(data, many=True)
-        return Response(serializer.data)
-
-class StateDailyListByNameView(APIView, BaseDailyView):
-
-    def get_object(self, countryShortCode, stateName):
-        state = models.State.objects.filter(
-            countryShortCode=countryShortCode, stateName=stateName).first()
-        if state is None:
-            raise Http404
-        return state
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='state-daily-list-by-name'))
-    def get(self, request, countryShortCode, stateName, raw=None):
-        inst = self.get_object(countryShortCode, stateName)
-        result = inst.dailyData
-        result = json.loads(result)
-        if raw == 'raw':
-            return Response(result)
-        stateName = inst.stateName
-        data = []
-        for r in result:
-            data.append(self.format(countryShortCode, stateName, r))
-        serializer = serializers.StateDailySerializer(data, many=True)
-        return Response(serializer.data)
-
-
-class StateListDailyListView(ListAPIView, BaseDailyView):
-
-    serializer_class = serializers.StateDailyListSerializer
-    filter_class = filters.StateFilter
-
-    def get_queryset(self):
-        countryShortCode = self.kwargs['countryShortCode']
-        return models.State.objects.filter(
-                countryShortCode=countryShortCode).order_by('state')
-
-    def list(self, request, *args, **kwargs):
-        countryShortCode = kwargs['countryShortCode']
-        queryset = self.filter_queryset(self.get_queryset())
-
-        if kwargs.get('raw') == 'raw':
-            self.serializer_class = serializers.StateRawSerializer
-
-        result = []
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            for item in serializer.data:
-                stateName = item['stateName']
-                dailyData = json.loads(item['dailyData'])
-                for daily in dailyData:
-                    result.append(
-                        self.format(countryShortCode, stateName, daily))
-            return self.get_paginated_response(result)
-
-        serializer = self.get_serializer(queryset, many=True)
-        for item in serializer.data:
-            stateName = item['stateName']
-            dailyData = json.loads(item['dailyData'])
-            for daily in dailyData:
-                result.append(
-                    self.format(countryShortCode, stateName, daily))
-        return Response(result)
-
-    @method_decorator(cache_page(
-            CACHE_PAGE_TIMEOUT, key_prefix='state-list-daily-list'))
-    def dispatch(self, *args, **kwargs):
-        return super(StateListDailyListView, self).dispatch(*args, **kwargs)
-

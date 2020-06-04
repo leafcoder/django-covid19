@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-# @Author: zhanglei3
-# @Date:   2020-04-08 09:08:13
-# @Last Modified by:   leafcoder
-# @Last Modified time: 2020-06-01 11:45:25
-
 """丁香园数据源"""
 
 import json
@@ -18,6 +12,49 @@ from django.utils.timezone import datetime, make_aware
 
 logger = logging.getLogger()
 
+PROVINCE_CODES = {
+    "黑龙江": "HLJ",
+    "香港": "XG",
+    "青海": "QH",
+    "陕西": "SX", # 同山西
+    "重庆": "CQ",
+    "辽宁": "LN",
+    "贵州": "GZ",
+    "西藏": "XZ",
+    "福建": "FJ",
+    "甘肃": "GS",
+    "澳门": "AM",
+    "湖南": "HN",
+    "湖北": "HB",
+    "海南": "HN-2",
+    "浙江": "ZJ",
+    "河南": "HN-1",
+    "河北": "HB-1",
+    "江西": "JX",
+    "江苏": "JS",
+    "新疆": "XJ",
+    "广西": "GX",
+    "广东": "GD",
+    "山西": "SX-1",
+    "山东": "SD",
+    "安徽": "AH",
+    "宁夏": "NX",
+    "天津": "TJ",
+    "四川": "SC",
+    "吉林": "JL",
+    "台湾": "TW",
+    "北京": "BJ",
+    "内蒙古": "NMG",
+    "云南": "YN",
+    "上海": "SH"
+}
+
+COUNTRY_CODE_FIX = {
+    'Princess': 'PRINCESS',
+    'Saint Martin': 'MAF',
+    'Sint Maarten': 'SXM'
+}
+
 class DXYSpider(scrapy.Spider):
 
     name = "dxy"
@@ -25,6 +62,8 @@ class DXYSpider(scrapy.Spider):
     start_urls = [
         "http://ncov.dxy.cn/ncovh5/view/pneumonia",
     ]
+
+    countryCode = 'CHN'
 
     def parse(self, response):
         object_id = self.object_id
@@ -58,6 +97,7 @@ class DXYSpider(scrapy.Spider):
         provinces = self.get_list(scripts, '#getAreaStat')
         for province in provinces:
             cities = province.pop('cities', [])
+            province.pop('locationId')
             yield scrapy.Request(
                 province['statisticsData'],
                 callback=self.parse_province_statistics_data,
@@ -162,22 +202,56 @@ class DXYSpider(scrapy.Spider):
         self.crawled = 1  # 代表爬虫已爬取数据
 
     def parse_province_statistics_data(self, response):
-        result = json.loads(response.text)
-        data = json.dumps(result['data'])
+        countryCode = self.countryCode
         meta = response.meta
         cities = meta['cities']
         province = meta['province']
-        yield items.ProvinceItem(dailyData=data, **province)
+        provinceName = province['provinceShortName']
+        provinceCode = PROVINCE_CODES[provinceName]
+        result = json.loads(response.text)
+        dailyData = result['data']
+        for item in dailyData:
+            item['countryCode'] = countryCode
+            item['provinceName'] = provinceName
+            item['provinceCode'] = provinceCode
+        data = json.dumps(dailyData)
+        province['provinceName'] = provinceName
+        province_args = {}
+        provice_fieldnames = [f.name for f in \
+            items.ProvinceItem.django_model._meta.get_fields()]
+        for fieldname in provice_fieldnames:
+            value = province.get(fieldname)
+            if value is not None:
+                province_args[fieldname] = value
+        province_args['dailyData'] = data
+        province_args['dailyUrl'] = province.get('statisticsData')
+        province_args['countryCode'] = countryCode
+        province_args['provinceCode'] = provinceCode
+        yield items.ProvinceItem(**province_args)
+
         for city in cities:
-            location_id = province['locationId']
-            yield items.CityItem(province=location_id, **city)
+            city.pop('locationId')
+            yield items.CityItem(
+                countryCode=countryCode,
+                provinceCode=provinceCode,
+                provinceName=provinceName,
+                **city
+            )
 
     def parse_country_statistics_data(self, response):
         result = json.loads(response.text)
-        data = json.dumps(result['data'])
+        dailyData = result['data']
         meta = response.meta
         country = meta['country']
-        yield items.CountryItem(dailyData=data, **country)
+        country.pop('locationId')
+        country['countryCode'] = countryCode \
+            = country.pop('countryShortCode')
+        countryCode = COUNTRY_CODE_FIX.get(countryCode, countryCode)
+        for item in dailyData:
+            item['countryCode'] = countryCode
+            item['countryName'] = country['countryName']
+        dailyData = json.dumps(dailyData)
+        yield items.CountryItem(dailyData=dailyData, **country)
 
     def explain_statistics(self, data):
         statistics = data['globalStatistics']

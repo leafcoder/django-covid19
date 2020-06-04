@@ -100,10 +100,10 @@ venv.bak/
 # mkdocs documentation
 /site
 
-spider/nCoV/__pycache__/
-covid19/__pycache__/
-ncovapi/__pycache__/
-ncovapi/migrations/
+demo_pro/__pycache__/
+django_covid19/__pycache__/
+django_covid19/migrations/
+django_covid19/spider/nCoV/__pycache__/
 *.sqlite3
 *.db
 static/

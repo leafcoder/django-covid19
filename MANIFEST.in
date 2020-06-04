@@ -2,8 +2,7 @@ include LICENSE
 include README.md
 include requirements.txt
 
-recursive-include django_covid19/spider *
-recursive-include django_covid19/locale *
+recursive-include django_covid19 *
 recursive-include docs *
 recursive-include demo *
 recursive-include demo_proj manage.py
@@ -11,4 +10,10 @@ recursive-include demo_proj requirements.txt
 recursive-include demo_proj/ncov *
 
 recursive-exclude demo_proj db.sqlite3
+recursive-exclude demo_proj/ncov/__pycache__ *
 recursive-exclude django_covid19/migrations *
+recursive-exclude django_covid19/__pycache__ *
+recursive-exclude django_covid19/management/__pycache__ *
+recursive-exclude django_covid19/management/commands/__pycache__ *
+recursive-exclude django_covid19/spider/nCoV/__pycache__ *
+recursive-exclude django_covid19/spider/nCoV/spiders/__pycache__ *
