@@ -95,30 +95,7 @@ class StatisticsSerializer(serializers.Serializer):
         )
 
 
-class ProvinceSerializer(serializers.HyperlinkedModelSerializer):
-
-    provinceName = serializers.CharField(read_only=True)
-
-    class Meta:
-        model = models.Province
-        fields = [
-            'provinceName', 'provinceShortName',
-            'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
-            'curedCount', 'deadCount'
-        ]
-
-
-class CitySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.City
-        fields = [
-            'provinceName', 'cityName',
-            'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
-            'curedCount', 'deadCount'
-        ]
-
-class CountrySerializer(serializers.HyperlinkedModelSerializer):
+class CountrySerializer(serializers.ModelSerializer):
 
     def to_representation(self, inst):
         data = super().to_representation(inst)
@@ -130,65 +107,43 @@ class CountrySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Country
         fields = [
-            'continents', 'countryShortCode', 'countryName',
-            'countryFullName', 'currentConfirmedCount', 'confirmedCount',
+            'continents', 'countryCode', 'countryName',
+            'currentConfirmedCount', 'confirmedCount',
             'suspectedCount', 'curedCount', 'deadCount', 'incrVo'
         ]
 
 
-class StateSerializer(serializers.ModelSerializer):
-
-    countryShortCode = serializers.CharField()
-    currentConfirmedCount = serializers.SerializerMethodField()
-    confirmedCount = serializers.IntegerField(source='positive')
-    curedCount = serializers.IntegerField(source='recovered')
-    deadCount = serializers.IntegerField(source='death')
-    suspectedCount = serializers.IntegerField(source='pending')
-
-    def get_currentConfirmedCount(self, obj):
-        positive = obj.positive if obj.positive else 0
-        death = obj.death if obj.death else 0
-        recovered = obj.recovered if obj.recovered else 0
-        return positive - death - recovered
+class CountryDailySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.State
+        model = models.Country
+        fields = ['dailyData']
+
+
+class ProvinceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Province
         fields = [
-            'currentConfirmedCount', 'confirmedCount', 'curedCount',
-            'deadCount', 'suspectedCount', 'stateName', 'state',
-            'countryShortCode', 'dailyUrl', 'currentUrl'
+            'countryCode', 'provinceCode', 'provinceName',
+            'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
+            'curedCount', 'deadCount', 'dailyUrl', 'currentUrl'
         ]
 
 
-class StateRawSerializer(serializers.ModelSerializer):
+class ProvinceDailySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.State
-        exclude = ('id', 'dailyData')
+        model = models.Province
+        fields = ['provinceCode', 'provinceName', 'dailyData']
 
 
-class StateDailyListSerializer(serializers.ModelSerializer):
+class CitySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.State
-        fields = ['stateName', 'dailyData']
-
-
-class StateDailySerializer(serializers.Serializer):
-
-    state = serializers.CharField()
-    date = serializers.CharField()
-    stateName = serializers.CharField()
-    countryShortCode = serializers.CharField()
-
-    currentConfirmedCount = serializers.IntegerField()
-    confirmedCount = serializers.IntegerField()
-    curedCount = serializers.IntegerField()
-    deadCount = serializers.IntegerField()
-    suspectedCount = serializers.IntegerField()
-
-    currentConfirmedIncr = serializers.IntegerField()
-    confirmedIncr = serializers.IntegerField()
-    curedIncr = serializers.IntegerField()
-    deadIncr = serializers.IntegerField()
-    suspectedIncr = serializers.IntegerField()
+        model = models.City
+        fields = [
+            'provinceCode', 'provinceName', 'cityName',
+            'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
+            'curedCount', 'deadCount'
+        ]
