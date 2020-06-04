@@ -10,26 +10,20 @@ from . import views
 app_name = 'django_covid19'
 
 urlpatterns = [
-    path('statistics/', views.StatisticsListView.as_view(), name='statistics-list'),
-    path('statistics/latest', views.LatestStatisticsView.as_view(), name='statistics-latest'),
-    path('cities/', views.CityListView.as_view(), name='city-list'),
-    path('cities/<int:pk>/', views.CityRetrieveView.as_view(), name='city-detail'),
-    path('cities/<str:cityName>/', views.CityRetrieveByNameView.as_view(), name='city-detail-by-name'),
+    url(r'statistics/$', views.StatisticsListView.as_view(), name='statistics-list'),
+    url(r'statistics/latest/$', views.LatestStatisticsView.as_view(), name='statistics-latest'),
+    url(r'cities/(?P<countryCode>[A-Z]+)/$', views.CityListView.as_view(), name='city-list'),
+    url(r'cities/(?P<countryCode>[A-Z]+)/(?P<cityName>[^/]+)/$', views.CityRetrieveByNameView.as_view(), name='city-detail'),
 
-    path('provinces/', views.ProvinceListView.as_view(), name='province-list'),
-    path('provinces/<int:pk>/', views.ProvinceRetrieveView.as_view(), name='province-detail'),
-    path('provinces/<str:provinceShortName>/', views.ProvinceRetrieveByNameView.as_view(), name='province-detail-by-name'),
-    path('provinces/<str:provinceShortName>/daily/', views.ProvinceDailyListView.as_view(), name='province-daily-list'),
+    url(r'countries/$', views.CountryListView.as_view(), name='country-list'),
+    url(r'countries/daily/$', views.CountryListDailyView.as_view(), name='country-list-daily'),
+    url(r'countries/(?P<countryCode>[A-Z]+)/$', views.CountryRetrieveView.as_view(), name='country-detail'),
+    url(r'countries/(?P<countryCode>[A-Z]+)/daily/$', views.CountryDailyView.as_view(), name='country-daily'),
 
-    path('countries/', views.CountryListView.as_view(), name='country-list'),
-    path('countries/<int:pk>/', views.CountryRetrieveView.as_view(), name='country-detail'),
-    path('countries/<str:countryName>/', views.CountryRetrieveByNameView.as_view(), name='country-detail-by-name'),
-    path('countries/<str:countryName>/daily/', views.CountryDailyListView.as_view(), name='country-daily-list'),
-
-    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/$', views.StateListView.as_view(), name='state-list'),
-    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/daily/$', views.StateListDailyListView.as_view(), name='state-list-daily-list'),
-    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<state>[A-Z]+)/$', views.StateRetrieveView.as_view(), name='state-detail'),
-    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<state>[A-Z]+)/daily/$', views.StateDailyListView.as_view(), name='state-daily-list'),
-    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<stateName>[^/]+)/$', views.StateRetrieveByNameView.as_view(), name='state-detail-by-name'),
-    url(r'states/(?:(?P<raw>raw)/)?(?P<countryShortCode>[^/]+)/(?P<stateName>[^/]+)/daily/$', views.StateDailyListByNameView.as_view(), name='state-daily-list-by-name'),
+    url(r'provinces/(?P<countryCode>[A-Z]+)/$', views.ProvinceListView.as_view(), name='province-list'),
+    url(r'provinces/(?P<countryCode>[A-Z]+)/daily/$', views.ProvinceListDailyView.as_view(), name='province-list-daily'),
+    url(r'provinces/(?P<countryCode>[A-Z]+)/(?P<provinceCode>[A-Z\-\d]+)/daily/$', views.ProvinceDailyView.as_view(), name='province-daily'),
+    url(r'provinces/(?P<countryCode>[A-Z]+)/(?P<provinceName>[^/]+)/daily/$', views.ProvinceDailyByNameView.as_view(), name='province-daily-by-name'),
+    url(r'provinces/(?P<countryCode>[A-Z]+)/(?P<provinceCode>[A-Z\-\d]+)/$', views.ProvinceRetrieveView.as_view(), name='province-detail'),
+    url(r'provinces/(?P<countryCode>[A-Z]+)/(?P<provinceName>[^/]+)/$', views.ProvinceRetrieveByNameView.as_view(), name='province-detail-by-name'),
 ]

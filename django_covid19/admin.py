@@ -61,41 +61,34 @@ class StatisticsAdmin(BaseAdmin):
 class CityAdmin(BaseAdmin):
 
     list_display = (
-        'province', 'cityName', 'currentConfirmedCount',
-        'confirmedCount', 'suspectedCount', 'curedCount', 'deadCount'
+        'countryCode', 'provinceName', 'provinceCode', 'cityName',
+        'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
+        'curedCount', 'deadCount'
     )
-    search_fields = ('cityName', 'province__provinceName')
+    search_fields = (
+        'cityName', 'countryCode', 'provinceCode', 'provinceName'
+    )
 
 
 @admin.register(models.Province)
 class ProvinceAdmin(BaseAdmin):
 
     list_display = (
-        'provinceName', 'currentConfirmedCount',
-        'confirmedCount', 'suspectedCount', 'curedCount', 'deadCount'
+        'countryCode', 'provinceName',
+        'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
+        'curedCount', 'deadCount'
     )
-    search_fields = ('provinceName', )
+    search_fields = ('provinceName', 'countryCode')
 
 
 @admin.register(models.Country)
 class CountryAdmin(BaseAdmin):
 
     list_display = (
-        'continents', 'countryName', 'countryFullName',
+        'continents', 'countryCode', 'countryName', 'countryFullName',
         'currentConfirmedCount', 'confirmedCount',
         'suspectedCount', 'curedCount', 'deadCount'
     )
     search_fields = (
-        'continents', 'countryFullName', 'countryShortCode', 'countryName'
+        'continents', 'countryFullName', 'countryCode', 'countryName'
     )
-
-
-@admin.register(models.State)
-class StateAdmin(BaseAdmin):
-
-    list_display = (
-        'countryShortCode', 'stateName', 'state',
-        'totalTestResults', 'positive', 'negative', 'pending',
-        'hospitalized', 'death', 'recovered', 'dateModified'
-    )
-    search_fields = ('countryShortCode', 'stateName', 'state')

@@ -29,11 +29,13 @@ class BasePipeline(object):
 class CovidTrackingPipeline(BasePipeline):
 
     def process_item(self, item, spider):
-        if isinstance(item, items.StateItem):
-            state = item['state']
-            countryShortCode = item['countryShortCode']
-            items.StateItem.django_model.objects.update_or_create(
-                state=state, countryShortCode=countryShortCode,
+        if isinstance(item, items.ProvinceItem) \
+                and item['countryCode'] == 'USA':
+            provinceCode = item['provinceCode']
+            countryCode = item['countryCode']
+            items.ProvinceItem.django_model.objects.update_or_create(
+                countryCode=countryCode,
+                provinceCode=provinceCode,
                 defaults=item)
             return item
 
@@ -42,15 +44,16 @@ class NcovPipeline(BasePipeline):
 
     def process_item(self, item, spider):
         if isinstance(item, items.CityItem):
-            provice_location_id = item.pop('province')
-            province = items.ProvinceItem.django_model.objects.filter(
-                locationId=provice_location_id).first()
-            item['province'] = province
+            countryCode = item['countryCode']
+            provinceCode = item['provinceCode']
             items.CityItem.django_model.objects.update_or_create(
-                province=province, cityName=item['cityName'],
+                countryCode=countryCode,
+                provinceCode=provinceCode,
+                cityName=item['cityName'],
                 defaults=item)
             return item
-        elif isinstance(item, items.ProvinceItem):
+        elif isinstance(item, items.ProvinceItem) \
+                and item['countryCode'] == 'CHN':
             items.ProvinceItem.django_model.objects.update_or_create(
                 provinceName=item['provinceName'],
                 defaults=item)

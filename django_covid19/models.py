@@ -34,57 +34,10 @@ class Statistics(models.Model):
         verbose_name_plural = _('Statistics')
 
 
-class Province(models.Model):
-
-    locationId = models.IntegerField(_('locationId'))
-    provinceName = models.CharField(_('provinceName'), max_length=50)
-    provinceShortName = models.CharField(_('provinceShortName'), max_length=20)
-    currentConfirmedCount = models.IntegerField(_('currentConfirmedCount'), default=0)
-    confirmedCount = models.IntegerField(_('confirmedCount'), default=0)
-    suspectedCount = models.IntegerField(_('suspectedCount'), default=0)
-    curedCount = models.IntegerField(_('curedCount'), default=0)
-    deadCount = models.IntegerField(_('deadCount'), default=0)
-    comment = models.CharField(_('comment'), max_length=200)
-    statisticsData = models.CharField(_('statisticsData'), max_length=500)
-    dailyData = models.TextField(_('dailyData'))
-    createTime = models.DateTimeField(_('createTime'), auto_now_add=True, editable=False)
-    modifyTime = models.DateTimeField(_('modifyTime'), auto_now=True, editable=False)
-
-    class Meta:
-        verbose_name = _('Province')
-        verbose_name_plural = _('Province')
-
-
-class City(models.Model):
-
-    locationId = models.IntegerField(_('locationId'))
-    cityName = models.CharField(_('cityName'), max_length=50)
-    currentConfirmedCount = models.IntegerField(_('currentConfirmedCount'), default=0)
-    confirmedCount = models.IntegerField(_('confirmedCount'), default=0)
-    suspectedCount = models.IntegerField(_('suspectedCount'), default=0)
-    curedCount = models.IntegerField(_('curedCount'), default=0)
-    deadCount = models.IntegerField(_('deadCount'), default=0)
-    createTime = models.DateTimeField(_('createTime'), auto_now_add=True, editable=False)
-    modifyTime = models.DateTimeField(_('modifyTime'), auto_now=True, editable=False)
-    province = models.ForeignKey(
-        "Province", verbose_name=_('province'), on_delete=models.CASCADE,
-        related_name="cities", db_column="provinceId"
-    )
-
-    @property
-    def provinceName(self):
-        return self.province.provinceName
-
-    class Meta:
-        verbose_name = _('City')
-        verbose_name_plural = _('City')
-
-
 class Country(models.Model):
 
-    locationId = models.IntegerField()
     continents = models.CharField(max_length=50)
-    countryShortCode = models.CharField(max_length=20)
+    countryCode = models.CharField(max_length=20)
     countryName = models.CharField(max_length=50)
     countryFullName = models.CharField(max_length=50)
     currentConfirmedCount = models.IntegerField(default=0)
@@ -113,44 +66,41 @@ class Country(models.Model):
         verbose_name_plural = _('Country')
 
 
-class State(models.Model):
+class Province(models.Model):
 
-    countryShortCode = models.CharField(max_length=20)
-    stateName = models.CharField(max_length=50, null=False)
-    currentUrl = models.URLField(max_length=200, null=True, blank=True)
-    dailyUrl = models.URLField(max_length=200, null=True, blank=True)
-    dailyData = models.TextField(default='[]')  # save daily data here
-
-    # fields in covidtracking api
-    state = models.CharField(max_length=10, null=False)
-    positive = models.IntegerField(null=True, blank=True)
-    negative = models.IntegerField(null=True, blank=True)
-    positiveScore = models.IntegerField(null=True, blank=True)
-    negativeScore = models.IntegerField(null=True, blank=True)
-    negativeRegularScore = models.IntegerField(null=True, blank=True)
-    commercialScore = models.IntegerField(null=True, blank=True)
-    score = models.IntegerField(null=True, blank=True)
-    notes = models.TextField(null=True, blank=True)
-    dataQualityGrade = models.CharField(max_length=20, null=True, blank=True)
-    pending = models.IntegerField(null=True, blank=True)
-    hospitalizedCurrently = models.IntegerField(null=True, blank=True)
-    hospitalizedCumulative = models.IntegerField(null=True, blank=True)
-    inIcuCurrently = models.IntegerField(null=True, blank=True)
-    inIcuCumulative = models.IntegerField(null=True, blank=True)
-    onVentilatorCurrently = models.IntegerField(null=True, blank=True)
-    onVentilatorCumulative = models.IntegerField(null=True, blank=True)
-    recovered = models.IntegerField(null=True, blank=True)
-    lastUpdateEt = models.CharField(max_length=20, null=True, blank=True)
-    checkTimeEt = models.CharField(max_length=20, null=True, blank=True)
-    death = models.IntegerField(null=True, blank=True)
-    hospitalized = models.IntegerField(null=True, blank=True)
-    totalTestResults = models.IntegerField(null=True, blank=True)
-    posNeg = models.IntegerField(null=True, blank=True)
-    fips = models.CharField(max_length=20, null=True, blank=True)
-    dateModified = models.CharField(max_length=50, null=True, blank=True)
-    dateChecked = models.CharField(max_length=50, null=True, blank=True)
-    hash = models.CharField(max_length=100, null=True, blank=True)
+    countryCode = models.CharField(_('countryCode'), max_length=20)
+    provinceName = models.CharField(_('provinceName'), max_length=50)
+    provinceCode = models.CharField(_('provinceCode'), max_length=20)
+    currentConfirmedCount = models.IntegerField(_('currentConfirmedCount'), default=0)
+    confirmedCount = models.IntegerField(_('confirmedCount'), default=0)
+    suspectedCount = models.IntegerField(_('suspectedCount'), default=0)
+    curedCount = models.IntegerField(_('curedCount'), default=0)
+    deadCount = models.IntegerField(_('deadCount'), default=0)
+    dailyUrl = models.URLField(_('dailyUrl'), null=True, blank=True)
+    currentUrl = models.URLField(_('currentUrl'), null=True, blank=True)
+    dailyData = models.TextField(_('dailyData'), default='[]')
+    createTime = models.DateTimeField(_('createTime'), auto_now_add=True, editable=False)
+    modifyTime = models.DateTimeField(_('modifyTime'), auto_now=True, editable=False)
 
     class Meta:
-        verbose_name = _('State')
-        verbose_name_plural = _('State')
+        verbose_name = _('Province')
+        verbose_name_plural = _('Province')
+
+
+class City(models.Model):
+
+    countryCode = models.CharField(_('countryCode'), max_length=20)
+    provinceCode = models.CharField(_('provinceCode'), max_length=20)
+    provinceName = models.CharField(_('provinceName'), max_length=50)
+    cityName = models.CharField(_('cityName'), max_length=50)
+    currentConfirmedCount = models.IntegerField(_('currentConfirmedCount'), default=0)
+    confirmedCount = models.IntegerField(_('confirmedCount'), default=0)
+    suspectedCount = models.IntegerField(_('suspectedCount'), default=0)
+    curedCount = models.IntegerField(_('curedCount'), default=0)
+    deadCount = models.IntegerField(_('deadCount'), default=0)
+    createTime = models.DateTimeField(_('createTime'), auto_now_add=True, editable=False)
+    modifyTime = models.DateTimeField(_('modifyTime'), auto_now=True, editable=False)
+
+    class Meta:
+        verbose_name = _('City')
+        verbose_name_plural = _('City')

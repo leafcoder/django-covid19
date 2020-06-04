@@ -350,7 +350,7 @@
 
 				function load_province_map() {
 					$.ajax({
-						url: "http://111.231.75.86:8000/api/provinces/",
+						url: "http://111.231.75.86:8000/api/provinces/CHN/",
 						dataType: "json"
 					}).done(function() {
 						$("#mapChart").addClass("chart-done");
@@ -358,7 +358,7 @@
 						const chartData = [];
 						for(let i in data) {
 							chartData.push({
-								name: data[i].provinceShortName,
+								name: data[i].provinceName,
 								value: data[i].currentConfirmedCount,
 								source: data[i]
 							});
@@ -477,7 +477,7 @@
 
 				function load_usa_daily_list() {
 					$.ajax({
-						url: "http://111.231.75.86:8000/api/countries/美国/daily/",
+						url: "http://111.231.75.86:8000/api/countries/USA/daily/",
 						dataType: "json"
 					}).done(function() {
 						$("#trendChart").addClass("chart-done");
