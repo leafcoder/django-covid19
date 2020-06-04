@@ -436,47 +436,51 @@ http://111.231.75.86:8000/api/countries/daily/?countryNames=美国
 
 ### 某国日统计 :id=country-daily
 
-根据国家名称获取某个国家的疫情从 2020-01-19 到目前的疫情列表数据；
+根据[国家代码](#/?id=国家代码)获取某个国家的疫情从 2020-01-19 到目前的疫情列表数据；
 
-接口地址：/api/countries/\<COUNTRY_NAME\>/daily/
+接口地址：/api/countries/\<COUNTRY_CODE\>/daily/
 
 请求方法：GET
 
 示例链接：
 
-http://111.231.75.86:8000/api/countries/美国/daily/
+http://111.231.75.86:8000/api/countries/USA/daily/
 
-http://111.231.75.86:8000/api/countries/巴西/daily/
+http://111.231.75.86:8000/api/countries/BRA/daily/
 
 返回结果：
 
 ```
 [
     {
-        "dateId": 20200119,
-        "currentConfirmedCount": 188,
-        "confirmedCount": 217,
+        "confirmedCount": 1,
+        "confirmedIncr": 1,
+        "curedCount": 0,
+        "curedIncr": 0,
+        "currentConfirmedCount": 1,
+        "currentConfirmedIncr": 1,
+        "dateId": 20200123,
+        "deadCount": 0,
+        "deadIncr": 0,
         "suspectedCount": 0,
-        "curedCount": 25,
-        "deadCount": 4,
-        "currentConfirmedIncr": 188,
-        "confirmedIncr": 217,
         "suspectedCountIncr": 0,
-        "curedIncr": 25,
-        "deadIncr": 4
+        "countryCode": "USA",
+        "countryName": "美国"
     },
     {
-        "dateId": 20200120,
-        "currentConfirmedCount": 188,
-        "confirmedCount": 217,
+        "confirmedCount": 1,
+        "confirmedIncr": 0,
+        "curedCount": 0,
+        "curedIncr": 0,
+        "currentConfirmedCount": 1,
+        "currentConfirmedIncr": 0,
+        "dateId": 20200124,
+        "deadCount": 0,
+        "deadIncr": 0,
         "suspectedCount": 0,
-        "curedCount": 25,
-        "deadCount": 4,
-        "currentConfirmedIncr": 188,
-        "confirmedIncr": 217,
         "suspectedCountIncr": 0,
-        "curedIncr": 25,
-        "deadIncr": 4
+        "countryCode": "USA",
+        "countryName": "美国"
     },
     ...
 ]
@@ -528,11 +532,7 @@ http://111.231.75.86:8000/api/countries/?continents=南美洲,北美洲&countryN
 
 ### 某国最新疫情 :id=country-detail
 
-根据国家名称获取某个国家的疫情统计数据；
-
-接口地址：/api/countries/\<COUNTRY_NAME\>/
-
-或
+根据[国家代码](#/?id=国家代码)获取某个国家的疫情统计数据；
 
 接口地址：/api/countries/\<COUNTRY_CODE\>/
 
@@ -540,11 +540,7 @@ http://111.231.75.86:8000/api/countries/?continents=南美洲,北美洲&countryN
 
 示例链接：
 
-http://111.231.75.86:8000/api/countries/美国/
-
 http://111.231.75.86:8000/api/countries/USA/
-
-http://111.231.75.86:8000/api/countries/巴西/
 
 http://111.231.75.86:8000/api/countries/BRA/
 
@@ -641,9 +637,8 @@ http://111.231.75.86:8000/api/provinces/USA/daily/
 
 !> 现阶段暂时仅支持获取 `中国各省`、`美国各州` 最新数据和每日数据；
 
-接口地址：/api/provinces/\<COUNTRY_CODE\>/\<PROVINCE_NAME\>/daily/
-
-或
+* [国家代码](#/?id=国家代码)
+* [省、州编码](#/?id=省、州编码)
 
 接口地址：/api/provinces/\<COUNTRY_CODE\>/\<PROVINCE_CODE\>/daily/
 
@@ -651,15 +646,9 @@ http://111.231.75.86:8000/api/provinces/USA/daily/
 
 示例链接：
 
-http://111.231.75.86:8000/api/provinces/CHN/台湾/daily/
-
 http://111.231.75.86:8000/api/provinces/CHN/TW/daily/
 
-http://111.231.75.86:8000/api/provinces/CHN/香港/daily/
-
 http://111.231.75.86:8000/api/provinces/CHN/XG/daily/
-
-http://111.231.75.86:8000/api/provinces/CHN/澳门/daily/
 
 http://111.231.75.86:8000/api/provinces/CHN/AM/daily/
 
@@ -716,6 +705,8 @@ http://111.231.75.86:8000/api/provinces/USA/AL/daily/
 !> 现阶段暂时仅支持获取 `中国各省`、`美国各州` 最新数据和每日数据；
 
 获取某省/自治区/直辖市/州的疫情统计数据；
+
+* [国家代码](#/?id=国家代码)
 
 接口地址：/api/provinces/\<COUNTRY_CODE\>/
 
@@ -776,25 +767,21 @@ http://111.231.75.86:8000/api/provinces/USA/?provinceCodes=AL,AK
 
 !> 现阶段暂时仅支持获取 `中国各省`、`美国各州` 最新数据和每日数据；
 
-通过`省份名`或`省份编码`获取某省份（自治区、直辖市）的疫情统计数据；
+通过[省、州编码](#/?id=省、州编码)获取某省份（自治区、直辖市）的疫情统计数据；
 
-接口地址：/api/provinces/\<COUNTRY_CODE\>/\<PROVINCE_NAME\>/
+* [国家代码](#/?id=国家代码)
+* [省、州编码](#/?id=省、州编码)
+
+接口地址：/api/provinces/\<COUNTRY_CODE\>/\<PROVINCE_CODE\>/
 
 请求方法：GET
 
 示例链接：
 
-http://111.231.75.86:8000/api/provinces/CHN/四川/
-
-http://111.231.75.86:8000/api/provinces/CHN/台湾/
 
 http://111.231.75.86:8000/api/provinces/CHN/TW/
 
-http://111.231.75.86:8000/api/provinces/CHN/香港/
-
 http://111.231.75.86:8000/api/provinces/CHN/XG/
-
-http://111.231.75.86:8000/api/provinces/CHN/澳门/
 
 http://111.231.75.86:8000/api/provinces/CHN/AM/
 
