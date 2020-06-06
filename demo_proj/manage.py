@@ -3,6 +3,9 @@
 import os
 import sys
 
+# import django_covid19 from parent dir
+sys.path.insert(0, '..')
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ncov.settings')
