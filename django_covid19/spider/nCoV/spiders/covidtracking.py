@@ -126,8 +126,8 @@ class CovidTrackingSpider(scrapy.Spider):
         result = json.loads(response.text)
         for item in result:
             state = item['state']
-            daily_state_url = self.daily_state_url_template % state
-            current_state_url = self.current_state_url_template % state
+            daily_state_url = self.daily_state_url_template % state.lower()
+            current_state_url = self.current_state_url_template % state.lower()
             state_item = states[state]
             state_item.update(item)
             state_item.pop('grade', None)
