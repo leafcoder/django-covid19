@@ -6,7 +6,7 @@ chardet==3.0.4
 constantly==15.1.0
 cryptography==2.9
 cssselect==1.1.0
-Django==2.2.12
+Django==2.2.13
 django-cors-headers==3.2.1
 django-crontab==0.7.1
 django-filter==2.2.0
