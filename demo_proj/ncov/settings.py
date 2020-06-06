@@ -186,7 +186,6 @@ CRONJOBS = (
     # 每分钟抓取丁香园数据一次
     ('*/1 * * * *', 'django.core.management.call_command', ['crawl', 'dxy']),
 
-    # 下午4点到6点间每10分钟抓取 covidtracking 数据一次
-    ('*/10 16-18 * * *', 'django.core.management.call_command', ['crawl', 'covidtracking'])
+    # 每小时0分时开始抓取 covidtracking 数据一次
+    ('0 * * * *', 'django.core.management.call_command', ['crawl', 'covidtracking'])
 )
-
