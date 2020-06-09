@@ -186,6 +186,9 @@ CRONJOBS = (
     # 每分钟抓取丁香园数据一次
     ('*/1 * * * *', 'django.core.management.call_command', ['crawl', 'dxy']),
 
-    # 每小时0分时开始抓取 covidtracking 数据一次
-    ('0 * * * *', 'django.core.management.call_command', ['crawl', 'covidtracking'])
+    # 每隔1小时开始抓取 covidtracking 数据一次
+    ('*/60 * * * *', 'django.core.management.call_command', ['crawl', 'covidtracking']),
 )
+
+# scrapy 日志文件路径
+SCRAPY_LOG_FILE = '/var/tmp/django-covid19-spider.log'

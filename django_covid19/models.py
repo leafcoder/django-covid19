@@ -46,7 +46,7 @@ class Country(models.Model):
     curedCount = models.IntegerField(default=0)
     deadCount = models.IntegerField(default=0)
 
-    showRank = models.BooleanField(null=True)
+    showRank = models.BooleanField(default=False)
     deadRateRank = models.IntegerField(null=True)
     deadCountRank = models.IntegerField(null=True)
     confirmedCountRank = models.FloatField(null=True)
