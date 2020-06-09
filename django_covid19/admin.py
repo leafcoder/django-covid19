@@ -63,7 +63,7 @@ class CityAdmin(BaseAdmin):
     list_display = (
         'countryCode', 'provinceName', 'provinceCode', 'cityName',
         'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
-        'curedCount', 'deadCount'
+        'curedCount', 'deadCount', 'createTime', 'modifyTime'
     )
     search_fields = (
         'cityName', 'countryCode', 'provinceCode', 'provinceName'
@@ -76,7 +76,7 @@ class ProvinceAdmin(BaseAdmin):
     list_display = (
         'countryCode', 'provinceName',
         'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
-        'curedCount', 'deadCount'
+        'curedCount', 'deadCount', 'createTime', 'modifyTime'
     )
     search_fields = ('provinceName', 'countryCode')
 
@@ -86,8 +86,8 @@ class CountryAdmin(BaseAdmin):
 
     list_display = (
         'continents', 'countryCode', 'countryName', 'countryFullName',
-        'currentConfirmedCount', 'confirmedCount',
-        'suspectedCount', 'curedCount', 'deadCount'
+        'currentConfirmedCount', 'confirmedCount', 'suspectedCount',
+        'curedCount', 'deadCount', 'createTime', 'modifyTime'
     )
     search_fields = (
         'continents', 'countryFullName', 'countryCode', 'countryName'
