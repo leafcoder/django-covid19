@@ -89,3 +89,12 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# Get settings from django
+from django.conf import settings
+
+for name in dir(settings):
+    if not name.startswith('SCRAPY_'):
+        continue
+    scrapy_name = name[7:]
+    globals()[scrapy_name] = getattr(settings, name, None)
