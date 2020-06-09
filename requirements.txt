@@ -3,3 +3,4 @@ django-filter==2.2.0
 djangorestframework==3.11.0
 Scrapy==2.0.1
 scrapy-djangoitem==1.1.1
+django-mysql==3.5.0
