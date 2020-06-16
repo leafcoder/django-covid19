@@ -814,7 +814,7 @@ http://111.231.75.86:8000/api/provinces/USA/AL/
 
 获取中国各个城市或直辖市某个区的疫情数据。
 
-接口地址：/api/cities/
+接口地址：/api/cities/\<COUNTRY_CODE\>/
 
 请求方法：GET
 
@@ -827,7 +827,7 @@ cityNames           | 城市名，如：大庆、万州区
 
 示例链接：
 
-http://111.231.75.86:8000/api/cities/?cityNames=大庆,万州区
+http://111.231.75.86:8000/api/cities/CHN/?cityNames=大庆,万州区
 
 返回结果：
 
@@ -848,13 +848,13 @@ http://111.231.75.86:8000/api/cities/?cityNames=大庆,万州区
 ### 某城市最新疫情 :id=city-detail
 
 
-接口地址：/api/cities/\<CITY_NAME\>/
+接口地址：/api/cities/\<COUNTRY_CODE\>/\<CITY_NAME\>/
 
 请求方法：GET
 
 示例链接：
 
-http://111.231.75.86:8000/api/cities/大庆/
+http://111.231.75.86:8000/api/cities/CHN/大庆/
 
 返回结果：
 
