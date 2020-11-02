@@ -21,8 +21,8 @@
     <img src="https://img.shields.io/github/languages/code-size/leafcoder/django-covid19" data-origin="https://img.shields.io/github/languages/code-size/leafcoder/django-covid19" alt="GitHub code size in bytes">
     <img src="https://img.shields.io/github/commit-activity/w/leafcoder/django-covid19" data-origin="https://img.shields.io/github/commit-activity/w/leafcoder/django-covid19" alt="GitHub commit activity">
     <img src="https://img.shields.io/pypi/dm/django_covid19" data-origin="https://img.shields.io/pypi/dm/django_covid19" alt="PyPI - Downloads">
+    <img src="https://static.pepy.tech/badge/django-covid19" data-origin="https://pepy.tech/badge/django-covid19" alt="downloads">
 </p>
-
 </div>
 
 由于现在疫情高发地已从国内转向国外，所以本项目也会逐渐增加*数据源*以便提供关于*国外某国某州（某省）*的疫情数据接口。
