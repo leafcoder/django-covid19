@@ -20,7 +20,6 @@
     <img src="https://img.shields.io/github/languages/top/leafcoder/django-covid19" data-origin="https://img.shields.io/github/languages/top/leafcoder/django-covid19" alt="GitHub top language">
     <img src="https://img.shields.io/github/languages/code-size/leafcoder/django-covid19" data-origin="https://img.shields.io/github/languages/code-size/leafcoder/django-covid19" alt="GitHub code size in bytes">
     <img src="https://img.shields.io/github/commit-activity/w/leafcoder/django-covid19" data-origin="https://img.shields.io/github/commit-activity/w/leafcoder/django-covid19" alt="GitHub commit activity">
-    <img src="https://img.shields.io/pypi/dm/django_covid19" data-origin="https://img.shields.io/pypi/dm/django_covid19" alt="PyPI - Downloads">
     <img src="https://static.pepy.tech/badge/django-covid19" data-origin="https://pepy.tech/badge/django-covid19" alt="downloads">
 </p>
 </div>
