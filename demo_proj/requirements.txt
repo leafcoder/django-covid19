@@ -10,7 +10,7 @@ django-covid19
 django-crontab==0.7.1
 django-filter==2.2.0
 django-mysql==3.5.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 hyperlink==19.0.0
 idna==2.9
 incremental==17.5.0
