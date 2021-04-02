@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-31 00:10+0800\n"
+"POT-Creation-Date: 2020-11-03 16:06+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: admin.py:34 models.py:16
+#: admin.py:34 models.py:15
 msgid "globalStatistics"
 msgstr "全球疫情"
 
-#: admin.py:39 models.py:17
+#: admin.py:39 models.py:16
 msgid "domesticStatistics"
 msgstr "国内疫情"
 
-#: admin.py:45 models.py:18
+#: admin.py:45 models.py:17
 msgid "internationalStatistics"
 msgstr "国际疫情"
 
-#: apps.py:7
+#: apps.py:8
 msgid "django_covid19"
 msgstr "新冠肺炎疫情"
 
@@ -38,346 +38,433 @@ msgstr "新冠肺炎疫情"
 msgid "Crawl data from DingXiangYuan."
 msgstr "从丁香园抓取数据"
 
-#: models.py:19
+#: management/commands/import_crc.py:18
+msgid "Import country codes."
+msgstr "导入国家或地区编码。"
+
+#: models.py:18
 msgid "remarks"
-msgstr ""
+msgstr "备注"
+
+#: models.py:19
+msgid "notes"
+msgstr "说明"
 
 #: models.py:20
-msgid "notes"
-msgstr ""
-
-#: models.py:21
 msgid "generalRemark"
 msgstr ""
 
-#: models.py:22
+#: models.py:21
 msgid "WHOArticle"
 msgstr "WHO 文章"
 
-#: models.py:23
+#: models.py:22
 msgid "recommends"
 msgstr "防护知识"
 
-#: models.py:24
+#: models.py:23
 msgid "timelines"
 msgstr "时间线事件"
 
-#: models.py:25
+#: models.py:24
 msgid "Wiki"
 msgstr ""
 
-#: models.py:26
+#: models.py:25
 msgid "goodsGuides"
 msgstr "购物指南"
 
-#: models.py:27
+#: models.py:26
 msgid "rumors"
 msgstr "辟谣与防护"
 
-#: models.py:28 models.py:51 models.py:68 models.py:109
+#: models.py:27 models.py:61 models.py:82 models.py:101
 msgid "modifyTime"
 msgstr "修改时间"
 
-#: models.py:29 models.py:50 models.py:67 models.py:108
+#: models.py:28 models.py:60 models.py:81 models.py:100
 msgid "createTime"
 msgstr "创建时间"
 
-#: models.py:30
+#: models.py:29
 msgid "crawlTime"
 msgstr "抓取时间"
 
-#: models.py:33 models.py:34
+#: models.py:32 models.py:33
 msgid "Statistics"
 msgstr "统计数据"
 
-#: models.py:39 models.py:60
-msgid "locationId"
-msgstr "地区编码"
+#: models.py:38
+msgid "continents"
+msgstr "大洲"
 
-#: models.py:40
-msgid "provinceName"
-msgstr "省名"
+#: models.py:39 models.py:70 models.py:91 models.py:111
+msgid "countryCode"
+msgstr "国家或地区编码"
+
+#: models.py:40 models.py:113
+msgid "countryName"
+msgstr "国家或地区名称"
 
 #: models.py:41
-msgid "provinceShortName"
-msgstr "短省名"
+msgid "countryFullName"
+msgstr "国家或地区全名"
 
-#: models.py:42 models.py:62
+#: models.py:42 models.py:73 models.py:95
 msgid "currentConfirmedCount"
 msgstr "现存确诊"
 
-#: models.py:43 models.py:63
+#: models.py:43 models.py:74 models.py:96
 msgid "confirmedCount"
 msgstr "累计确诊"
 
-#: models.py:44 models.py:64
+#: models.py:44 models.py:75 models.py:97
 msgid "suspectedCount"
 msgstr "疑似病例"
 
-#: models.py:45 models.py:65
+#: models.py:45 models.py:76 models.py:98
 msgid "curedCount"
 msgstr "累计治愈"
 
-#: models.py:46 models.py:66
+#: models.py:46 models.py:77 models.py:99
 msgid "deadCount"
 msgstr "累计死亡"
 
-#: models.py:47
-msgid "comment"
-msgstr "备注"
-
 #: models.py:48
+msgid "showRank"
+msgstr "显示排名"
+
+#: models.py:49
+msgid "deadRateRank"
+msgstr "死亡率排名"
+
+#: models.py:50
+msgid "deadCountRank"
+msgstr "死亡数排名"
+
+#: models.py:51
+msgid "confirmedCountRank"
+msgstr "确认数排名"
+
+#: models.py:52
+msgid "deadRate"
+msgstr "死亡率"
+
+#: models.py:53
+msgid "tags"
+msgstr ""
+
+#: models.py:54
 msgid "statisticsData"
 msgstr "统计数据 URL"
 
-#: models.py:49
+#: models.py:55 models.py:116
+msgid "comment"
+msgstr "备注"
+
+#: models.py:56
+msgid "incrVo"
+msgstr "新增情况"
+
+#: models.py:57
+msgid "sort"
+msgstr ""
+
+#: models.py:58
+msgid "operator"
+msgstr "操作者"
+
+#: models.py:59 models.py:80
 msgid "dailyData"
 msgstr "日统计数据"
 
-#: models.py:54 models.py:55
-msgid "Province"
-msgstr "国内省份"
-
-#: models.py:61
-msgid "cityName"
-msgstr "城市名称"
-
-#: models.py:70
-msgid "province"
-msgstr "国内省份"
-
-#: models.py:79 models.py:80
-msgid "City"
-msgstr "国内城市"
-
-#: models.py:112 models.py:113
+#: models.py:64 models.py:65
 msgid "Country"
 msgstr "国家或地区"
 
-#: models.py:152 models.py:153
-msgid "State"
-msgstr "州"
+#: models.py:71 models.py:93
+msgid "provinceName"
+msgstr "省名"
 
-#: spider/nCoV/spiders/covidtracking.py:24
+#: models.py:72 models.py:92
+msgid "provinceCode"
+msgstr "省份编码"
+
+#: models.py:78
+msgid "dailyUrl"
+msgstr "日统计链接"
+
+#: models.py:79
+msgid "currentUrl"
+msgstr "最新统计链接"
+
+#: models.py:85 models.py:86
+msgid "Province"
+msgstr "国内省份"
+
+#: models.py:94
+msgid "cityName"
+msgstr "城市名称"
+
+#: models.py:104 models.py:105
+msgid "City"
+msgstr "国内城市"
+
+#: models.py:110
+msgid "numericCode"
+msgstr "数字编码"
+
+#: models.py:112
+msgid "shortCountryCode"
+msgstr "短国家或地区编码"
+
+#: models.py:114
+msgid "englishCountryName"
+msgstr "英文国家名"
+
+#: models.py:115
+msgid "englishCountryFullName"
+msgstr "英文国家全名"
+
+#: models.py:119 models.py:120
+msgid "CountryCode"
+msgstr "国家或地区编码"
+
+#: spider/nCoV/spiders/covidtracking.py:18
 msgid "Alabama"
 msgstr "阿拉巴马州"
 
-#: spider/nCoV/spiders/covidtracking.py:25
+#: spider/nCoV/spiders/covidtracking.py:19
 msgid "Alaska"
 msgstr "阿拉斯加州"
 
-#: spider/nCoV/spiders/covidtracking.py:26
+#: spider/nCoV/spiders/covidtracking.py:20
 msgid "AmericanSamoa"
 msgstr "美属萨摩亚"
 
-#: spider/nCoV/spiders/covidtracking.py:27
+#: spider/nCoV/spiders/covidtracking.py:21
 msgid "Arizona"
 msgstr "亚利桑那州"
 
-#: spider/nCoV/spiders/covidtracking.py:28
+#: spider/nCoV/spiders/covidtracking.py:22
 msgid "Arkansas"
 msgstr "阿肯色州"
 
-#: spider/nCoV/spiders/covidtracking.py:29
+#: spider/nCoV/spiders/covidtracking.py:23
 msgid "California"
 msgstr "加利福尼亚州"
 
-#: spider/nCoV/spiders/covidtracking.py:30
+#: spider/nCoV/spiders/covidtracking.py:24
 msgid "Colorado"
 msgstr "科罗拉多州"
 
-#: spider/nCoV/spiders/covidtracking.py:31
+#: spider/nCoV/spiders/covidtracking.py:25
 msgid "Connecticut"
 msgstr "康涅狄格州"
 
-#: spider/nCoV/spiders/covidtracking.py:32
+#: spider/nCoV/spiders/covidtracking.py:26
 msgid "Delaware"
 msgstr "特拉华州"
 
-#: spider/nCoV/spiders/covidtracking.py:33
+#: spider/nCoV/spiders/covidtracking.py:27
 msgid "DistrictOfColumbia"
 msgstr "哥伦比亚特区"
 
-#: spider/nCoV/spiders/covidtracking.py:34
+#: spider/nCoV/spiders/covidtracking.py:28
 msgid "Florida"
 msgstr "佛罗里达州"
 
-#: spider/nCoV/spiders/covidtracking.py:35
+#: spider/nCoV/spiders/covidtracking.py:29
 msgid "Georgia"
 msgstr "乔治亚州"
 
-#: spider/nCoV/spiders/covidtracking.py:36
+#: spider/nCoV/spiders/covidtracking.py:30
 msgid "Guam"
 msgstr "关岛"
 
-#: spider/nCoV/spiders/covidtracking.py:37
+#: spider/nCoV/spiders/covidtracking.py:31
 msgid "Hawaii"
 msgstr "夏威夷州"
 
-#: spider/nCoV/spiders/covidtracking.py:38
+#: spider/nCoV/spiders/covidtracking.py:32
 msgid "Idaho"
 msgstr "爱达荷州"
 
-#: spider/nCoV/spiders/covidtracking.py:39
+#: spider/nCoV/spiders/covidtracking.py:33
 msgid "Illinois"
 msgstr "伊利诺斯州"
 
-#: spider/nCoV/spiders/covidtracking.py:40
+#: spider/nCoV/spiders/covidtracking.py:34
 msgid "Indiana"
 msgstr "印第安纳州"
 
-#: spider/nCoV/spiders/covidtracking.py:41
+#: spider/nCoV/spiders/covidtracking.py:35
 msgid "Iowa"
 msgstr "爱荷华州"
 
-#: spider/nCoV/spiders/covidtracking.py:42
+#: spider/nCoV/spiders/covidtracking.py:36
 msgid "Kansas"
 msgstr "堪萨斯州"
 
-#: spider/nCoV/spiders/covidtracking.py:43
+#: spider/nCoV/spiders/covidtracking.py:37
 msgid "Kentucky"
 msgstr "肯塔基州"
 
-#: spider/nCoV/spiders/covidtracking.py:44
+#: spider/nCoV/spiders/covidtracking.py:38
 msgid "Louisiana"
 msgstr "路易斯安那州"
 
-#: spider/nCoV/spiders/covidtracking.py:45
+#: spider/nCoV/spiders/covidtracking.py:39
 msgid "Maine"
 msgstr "缅因州"
 
-#: spider/nCoV/spiders/covidtracking.py:46
+#: spider/nCoV/spiders/covidtracking.py:40
 msgid "Maryland"
 msgstr "马里兰州"
 
-#: spider/nCoV/spiders/covidtracking.py:47
+#: spider/nCoV/spiders/covidtracking.py:41
 msgid "Massachusetts"
 msgstr "马萨诸塞州"
 
-#: spider/nCoV/spiders/covidtracking.py:48
+#: spider/nCoV/spiders/covidtracking.py:42
 msgid "Michigan"
 msgstr "密歇根州"
 
-#: spider/nCoV/spiders/covidtracking.py:49
+#: spider/nCoV/spiders/covidtracking.py:43
 msgid "Minnesota"
 msgstr "明尼苏达州"
 
-#: spider/nCoV/spiders/covidtracking.py:50
+#: spider/nCoV/spiders/covidtracking.py:44
 msgid "Mississippi"
 msgstr "密西西比州"
 
-#: spider/nCoV/spiders/covidtracking.py:51
+#: spider/nCoV/spiders/covidtracking.py:45
 msgid "Missouri"
 msgstr "密苏里州"
 
-#: spider/nCoV/spiders/covidtracking.py:52
+#: spider/nCoV/spiders/covidtracking.py:46
 msgid "Montana"
 msgstr "蒙大纳州"
 
-#: spider/nCoV/spiders/covidtracking.py:53
+#: spider/nCoV/spiders/covidtracking.py:47
 msgid "Nebraska"
 msgstr "内布拉斯加州"
 
-#: spider/nCoV/spiders/covidtracking.py:54
+#: spider/nCoV/spiders/covidtracking.py:48
 msgid "Nevada"
 msgstr "内华达州"
 
-#: spider/nCoV/spiders/covidtracking.py:55
+#: spider/nCoV/spiders/covidtracking.py:49
 msgid "NewHampshire"
 msgstr "新罕布什尔州"
 
-#: spider/nCoV/spiders/covidtracking.py:56
+#: spider/nCoV/spiders/covidtracking.py:50
 msgid "NewJersey"
 msgstr "新泽西州"
 
-#: spider/nCoV/spiders/covidtracking.py:57
+#: spider/nCoV/spiders/covidtracking.py:51
 msgid "NewMexico"
 msgstr "新墨西哥州"
 
-#: spider/nCoV/spiders/covidtracking.py:58
+#: spider/nCoV/spiders/covidtracking.py:52
 msgid "NewYork"
 msgstr "纽约州"
 
-#: spider/nCoV/spiders/covidtracking.py:59
+#: spider/nCoV/spiders/covidtracking.py:53
 msgid "NorthCarolina"
 msgstr "北卡罗来纳州"
 
-#: spider/nCoV/spiders/covidtracking.py:60
+#: spider/nCoV/spiders/covidtracking.py:54
 msgid "NorthDakota"
 msgstr "北达科他州"
 
-#: spider/nCoV/spiders/covidtracking.py:61
+#: spider/nCoV/spiders/covidtracking.py:55
 msgid "NorthernMarianaIslands"
 msgstr "北马里亚纳群岛"
 
-#: spider/nCoV/spiders/covidtracking.py:62
+#: spider/nCoV/spiders/covidtracking.py:56
 msgid "Ohio"
 msgstr "俄亥俄州"
 
-#: spider/nCoV/spiders/covidtracking.py:63
+#: spider/nCoV/spiders/covidtracking.py:57
 msgid "Oklahoma"
 msgstr "俄克拉荷马州"
 
-#: spider/nCoV/spiders/covidtracking.py:64
+#: spider/nCoV/spiders/covidtracking.py:58
 msgid "Oregon"
 msgstr "俄勒冈州"
 
-#: spider/nCoV/spiders/covidtracking.py:65
+#: spider/nCoV/spiders/covidtracking.py:59
 msgid "Pennsylvania"
 msgstr "宾夕法尼亚州"
 
-#: spider/nCoV/spiders/covidtracking.py:66
+#: spider/nCoV/spiders/covidtracking.py:60
 msgid "PuertoRico"
 msgstr "波多黎各"
 
-#: spider/nCoV/spiders/covidtracking.py:67
+#: spider/nCoV/spiders/covidtracking.py:61
 msgid "RhodeIsland"
 msgstr "美国罗德岛州"
 
-#: spider/nCoV/spiders/covidtracking.py:68
+#: spider/nCoV/spiders/covidtracking.py:62
 msgid "SouthCarolina"
 msgstr "美国南卡罗来纳州"
 
-#: spider/nCoV/spiders/covidtracking.py:69
+#: spider/nCoV/spiders/covidtracking.py:63
 msgid "SouthDakota"
 msgstr "南达科塔"
 
-#: spider/nCoV/spiders/covidtracking.py:70
+#: spider/nCoV/spiders/covidtracking.py:64
 msgid "Tennessee"
 msgstr "田纳西州"
 
-#: spider/nCoV/spiders/covidtracking.py:71
+#: spider/nCoV/spiders/covidtracking.py:65
 msgid "Texas"
 msgstr "德克萨斯州"
 
-#: spider/nCoV/spiders/covidtracking.py:72
+#: spider/nCoV/spiders/covidtracking.py:66
 msgid "USVirginIslands"
 msgstr "美属维尔京群岛"
 
-#: spider/nCoV/spiders/covidtracking.py:73
+#: spider/nCoV/spiders/covidtracking.py:67
 msgid "Utah"
 msgstr "犹他州"
 
-#: spider/nCoV/spiders/covidtracking.py:74
+#: spider/nCoV/spiders/covidtracking.py:68
 msgid "Vermont"
 msgstr "佛蒙特州"
 
-#: spider/nCoV/spiders/covidtracking.py:75
+#: spider/nCoV/spiders/covidtracking.py:69
 msgid "Virginia"
 msgstr "弗吉尼亚州"
 
-#: spider/nCoV/spiders/covidtracking.py:76
+#: spider/nCoV/spiders/covidtracking.py:70
 msgid "Washington"
 msgstr "华盛顿州"
 
-#: spider/nCoV/spiders/covidtracking.py:77
+#: spider/nCoV/spiders/covidtracking.py:71
 msgid "WestVirginia"
 msgstr "西佛吉尼亚州"
 
-#: spider/nCoV/spiders/covidtracking.py:78
+#: spider/nCoV/spiders/covidtracking.py:72
 msgid "Wisconsin"
 msgstr "威斯康星州"
 
-#: spider/nCoV/spiders/covidtracking.py:79
+#: spider/nCoV/spiders/covidtracking.py:73
 msgid "Wyoming"
 msgstr "怀俄明州"
+
+#~ msgid "serialNumber"
+#~ msgstr "序号"
+
+#~ msgid "ID"
+#~ msgstr "编号"
+
+#~ msgid "locationId"
+#~ msgstr "地区编码"
+
+#~ msgid "provinceShortName"
+#~ msgstr "短省名"
+
+#~ msgid "State"
+#~ msgstr "州"

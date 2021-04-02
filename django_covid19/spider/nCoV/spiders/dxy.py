@@ -119,8 +119,7 @@ class DXYSpider(scrapy.Spider):
         statistics['timelines'] = json.dumps(result)
 
         # 建议，id=“#getIndexRecommendList2” 为英文内容
-        recommends = self.get_list(
-            scripts, '#getIndexRecommendListundefined')
+        recommends = self.get_list(scripts, '#getIndexRecommendList2')
         result = []
         for item in recommends:
             recommend = {}
@@ -151,6 +150,7 @@ class DXYSpider(scrapy.Spider):
 
         # 购物指南
         guides = self.get_list(scripts, '#fetchGoodsGuide')
+        print(guides)
         result = []
         for item in guides:
             guide = {}
@@ -161,20 +161,14 @@ class DXYSpider(scrapy.Spider):
         statistics['goodsGuides'] = json.dumps(result)
 
         # 辟谣与防护
-        rumors = self.get_list(scripts, '#getIndexRumorList')
-        result = []
-        for item in rumors:
-            rumor = {}
-            for key in ('title', 'mainSummary', 'summary', 'body',
-                        'sourceUrl', 'score', 'rumorType'):
-                rumor[key] = item.get(key)
-            result.append(rumor)
-        statistics['rumors'] = json.dumps(result)
+        # 丁香园页面已无“辟谣与防护”的文本类型数据，取消该数据
+        statistics['rumors'] = {}
         yield statistics
 
         # 国外数据
         countries = self.get_list(
             scripts, '#getListByCountryTypeService2true')
+        print(countries)
         for country in countries:
             country.pop('id', None)
             country['countryName'] = country.pop('provinceName', None)
