@@ -92,3 +92,18 @@ class CountryAdmin(BaseAdmin):
     search_fields = (
         'continents', 'countryFullName', 'countryCode', 'countryName'
     )
+
+
+@admin.register(models.CountryCode)
+class CountryCodeAdmin(BaseAdmin):
+
+    list_display = (
+        'numericCode', 'countryCode', 'shortCountryCode', 'countryName',
+        'englishCountryName', 'englishCountryFullName', 'comment'
+    )
+    search_fields = (
+        'numericCode', 'countryCode', 'shortCountryCode', 'countryName',
+        'englishCountryName', 'englishCountryFullName', 'comment'
+    )
+
+

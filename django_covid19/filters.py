@@ -47,3 +47,19 @@ class CountryFilter(django_filters.rest_framework.FilterSet):
         fields = [
             'continents', 'countryCode', 'countryName'
         ]
+
+
+class CountryCodeFilter(django_filters.rest_framework.FilterSet):
+
+    numericCodes = CharInFilter(
+        field_name='numericCode', lookup_expr='in')
+    countryCodes = CharInFilter(
+        field_name='countryCode', lookup_expr='in')
+    shortCountryCodes = CharInFilter(
+        field_name='shortCountryCode', lookup_expr='in')
+
+    class Meta:
+        model = models.CountryCode
+        fields = [
+            'numericCode', 'countryCode', 'shortCountryCode'
+        ]

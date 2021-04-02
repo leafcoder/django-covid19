@@ -1,0 +1,2442 @@
+[
+    {
+        "comment": "", 
+        "countryCode": "AFG", 
+        "serialNumber": 1, 
+        "englishCountryFullName": "the Islamic Republic of Afghanistan", 
+        "countryName": "阿富汗", 
+        "englishCountryName": "Afghanistan", 
+        "numericCode": 4, 
+        "shortCountryCode": "AF"
+    }, 
+    {
+        "comment": "ISO 3166-1:2006新增", 
+        "countryCode": "ALA", 
+        "serialNumber": 2, 
+        "englishCountryFullName": "", 
+        "countryName": "奥兰群岛", 
+        "englishCountryName": "Aland Islands", 
+        "numericCode": 248, 
+        "shortCountryCode": "AX"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ALB", 
+        "serialNumber": 3, 
+        "englishCountryFullName": "the Republic of Albania", 
+        "countryName": "阿尔巴尼亚", 
+        "englishCountryName": "Albania", 
+        "numericCode": 8, 
+        "shortCountryCode": "AL"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "DZA", 
+        "serialNumber": 4, 
+        "englishCountryFullName": "the People's Democratic Republic of Algeria", 
+        "countryName": "阿尔及利亚", 
+        "englishCountryName": "Algeria", 
+        "numericCode": 12, 
+        "shortCountryCode": "DZ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ASM", 
+        "serialNumber": 5, 
+        "englishCountryFullName": "", 
+        "countryName": "美属萨摩亚", 
+        "englishCountryName": "American Samoa", 
+        "numericCode": 16, 
+        "shortCountryCode": "AS"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "AND", 
+        "serialNumber": 6, 
+        "englishCountryFullName": "the Principality of Andorra", 
+        "countryName": "安道尔", 
+        "englishCountryName": "Andorra", 
+        "numericCode": 20, 
+        "shortCountryCode": "AD"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "AGO", 
+        "serialNumber": 7, 
+        "englishCountryFullName": "the Republic of Angola", 
+        "countryName": "安哥拉", 
+        "englishCountryName": "Angola", 
+        "numericCode": 24, 
+        "shortCountryCode": "AO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "AIA", 
+        "serialNumber": 8, 
+        "englishCountryFullName": "", 
+        "countryName": "安圭拉", 
+        "englishCountryName": "Anguilla", 
+        "numericCode": 660, 
+        "shortCountryCode": "AI"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ATA", 
+        "serialNumber": 9, 
+        "englishCountryFullName": "", 
+        "countryName": "南极洲", 
+        "englishCountryName": "Antarctica", 
+        "numericCode": 10, 
+        "shortCountryCode": "AQ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ATG", 
+        "serialNumber": 10, 
+        "englishCountryFullName": "", 
+        "countryName": "安提瓜和巴布达", 
+        "englishCountryName": "Antigua and Barbuda", 
+        "numericCode": 28, 
+        "shortCountryCode": "AG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ARG", 
+        "serialNumber": 11, 
+        "englishCountryFullName": "the Argentine Republic", 
+        "countryName": "阿根廷", 
+        "englishCountryName": "Argentina", 
+        "numericCode": 32, 
+        "shortCountryCode": "AR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ARM", 
+        "serialNumber": 12, 
+        "englishCountryFullName": "the Republic of Armenia", 
+        "countryName": "亚美尼亚", 
+        "englishCountryName": "Armenia", 
+        "numericCode": 51, 
+        "shortCountryCode": "AM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ABW", 
+        "serialNumber": 13, 
+        "englishCountryFullName": "", 
+        "countryName": "阿鲁巴", 
+        "englishCountryName": "Aruba", 
+        "numericCode": 533, 
+        "shortCountryCode": "AW"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "AUS", 
+        "serialNumber": 14, 
+        "englishCountryFullName": "", 
+        "countryName": "澳大利亚", 
+        "englishCountryName": "Australia", 
+        "numericCode": 36, 
+        "shortCountryCode": "AU"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "AUT", 
+        "serialNumber": 15, 
+        "englishCountryFullName": "the Republic of Austria", 
+        "countryName": "奥地利", 
+        "englishCountryName": "Austria", 
+        "numericCode": 40, 
+        "shortCountryCode": "AT"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "AZE", 
+        "serialNumber": 16, 
+        "englishCountryFullName": "the Republic of Azerbaijan", 
+        "countryName": "阿塞拜疆", 
+        "englishCountryName": "Azerbaijan", 
+        "numericCode": 31, 
+        "shortCountryCode": "AZ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BHS", 
+        "serialNumber": 17, 
+        "englishCountryFullName": "the Commonwealth of The Bahamas", 
+        "countryName": "巴哈马", 
+        "englishCountryName": "Bahamas (The)", 
+        "numericCode": 44, 
+        "shortCountryCode": "BS"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BHR", 
+        "serialNumber": 18, 
+        "englishCountryFullName": "the Kingdom of Bahrain", 
+        "countryName": "巴林", 
+        "englishCountryName": "Bahrain", 
+        "numericCode": 48, 
+        "shortCountryCode": "BH"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BGD", 
+        "serialNumber": 19, 
+        "englishCountryFullName": "the People's Republic of Bangladesh", 
+        "countryName": "孟加拉国", 
+        "englishCountryName": "Bangladesh", 
+        "numericCode": 50, 
+        "shortCountryCode": "BD"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BRB", 
+        "serialNumber": 20, 
+        "englishCountryFullName": "", 
+        "countryName": "巴巴多斯", 
+        "englishCountryName": "Barbados", 
+        "numericCode": 52, 
+        "shortCountryCode": "BB"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BLR", 
+        "serialNumber": 21, 
+        "englishCountryFullName": "the Republic of Belarus", 
+        "countryName": "白俄罗斯", 
+        "englishCountryName": "Belarus", 
+        "numericCode": 112, 
+        "shortCountryCode": "BY"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BEL", 
+        "serialNumber": 22, 
+        "englishCountryFullName": "the Kingdom of Belgium", 
+        "countryName": "比利时", 
+        "englishCountryName": "Belgium", 
+        "numericCode": 56, 
+        "shortCountryCode": "BE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BLZ", 
+        "serialNumber": 23, 
+        "englishCountryFullName": "", 
+        "countryName": "伯利兹", 
+        "englishCountryName": "Belize", 
+        "numericCode": 84, 
+        "shortCountryCode": "BZ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BEN", 
+        "serialNumber": 24, 
+        "englishCountryFullName": "the Republic of Benin", 
+        "countryName": "贝宁", 
+        "englishCountryName": "Benin", 
+        "numericCode": 204, 
+        "shortCountryCode": "BJ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BMU", 
+        "serialNumber": 25, 
+        "englishCountryFullName": "", 
+        "countryName": "百慕大", 
+        "englishCountryName": "Bermuda", 
+        "numericCode": 60, 
+        "shortCountryCode": "BM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BTN", 
+        "serialNumber": 26, 
+        "englishCountryFullName": "the Kingdom of Bhutan", 
+        "countryName": "不丹", 
+        "englishCountryName": "Bhutan", 
+        "numericCode": 64, 
+        "shortCountryCode": "BT"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BOL", 
+        "serialNumber": 27, 
+        "englishCountryFullName": "the Republic of Bolivia", 
+        "countryName": "玻利维亚", 
+        "englishCountryName": "Bolivia", 
+        "numericCode": 68, 
+        "shortCountryCode": "BO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BIH", 
+        "serialNumber": 28, 
+        "englishCountryFullName": "", 
+        "countryName": "波黑", 
+        "englishCountryName": "Bosnia and Herzegovina", 
+        "numericCode": 70, 
+        "shortCountryCode": "BA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BWA", 
+        "serialNumber": 29, 
+        "englishCountryFullName": "the Republic of Botswana", 
+        "countryName": "博茨瓦纳", 
+        "englishCountryName": "Botswana", 
+        "numericCode": 72, 
+        "shortCountryCode": "BW"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BVT", 
+        "serialNumber": 30, 
+        "englishCountryFullName": "", 
+        "countryName": "布维岛", 
+        "englishCountryName": "Bouvet Island", 
+        "numericCode": 74, 
+        "shortCountryCode": "BV"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BRA", 
+        "serialNumber": 31, 
+        "englishCountryFullName": "the Federative Republic of Brazil", 
+        "countryName": "巴西", 
+        "englishCountryName": "Brazil", 
+        "numericCode": 76, 
+        "shortCountryCode": "BR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "IOT", 
+        "serialNumber": 32, 
+        "englishCountryFullName": "", 
+        "countryName": "英属印度洋领地", 
+        "englishCountryName": "British Indian Ocean Territory (the)", 
+        "numericCode": 86, 
+        "shortCountryCode": "IO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BRN", 
+        "serialNumber": 33, 
+        "englishCountryFullName": "", 
+        "countryName": "文莱", 
+        "englishCountryName": "Brunei Darussalam", 
+        "numericCode": 96, 
+        "shortCountryCode": "BN"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BGR", 
+        "serialNumber": 34, 
+        "englishCountryFullName": "the Republic of Bulgaria", 
+        "countryName": "保加利亚", 
+        "englishCountryName": "Bulgaria", 
+        "numericCode": 100, 
+        "shortCountryCode": "BG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BFA", 
+        "serialNumber": 35, 
+        "englishCountryFullName": "Burkina Faso", 
+        "countryName": "布基纳法索", 
+        "englishCountryName": "Burkina Faso", 
+        "numericCode": 854, 
+        "shortCountryCode": "BF"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "BDI", 
+        "serialNumber": 36, 
+        "englishCountryFullName": "the Republic of Burundi", 
+        "countryName": "布隆迪", 
+        "englishCountryName": "Burundi", 
+        "numericCode": 108, 
+        "shortCountryCode": "BI"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "KHM", 
+        "serialNumber": 37, 
+        "englishCountryFullName": "the Kingdom of Cambodia", 
+        "countryName": "柬埔寨", 
+        "englishCountryName": "Cambodia", 
+        "numericCode": 116, 
+        "shortCountryCode": "KH"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CMR", 
+        "serialNumber": 38, 
+        "englishCountryFullName": "the Republic of Cameroon", 
+        "countryName": "喀麦隆", 
+        "englishCountryName": "Cameroon", 
+        "numericCode": 120, 
+        "shortCountryCode": "CM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CAN", 
+        "serialNumber": 39, 
+        "englishCountryFullName": "", 
+        "countryName": "加拿大", 
+        "englishCountryName": "Canada", 
+        "numericCode": 124, 
+        "shortCountryCode": "CA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CPV", 
+        "serialNumber": 40, 
+        "englishCountryFullName": "the Republic of Cape Verde", 
+        "countryName": "佛得角", 
+        "englishCountryName": "Cape Verde", 
+        "numericCode": 132, 
+        "shortCountryCode": "CV"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CYM", 
+        "serialNumber": 41, 
+        "englishCountryFullName": "", 
+        "countryName": "开曼群岛", 
+        "englishCountryName": "Cayman Islands (the)", 
+        "numericCode": 136, 
+        "shortCountryCode": "KY"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CAF", 
+        "serialNumber": 42, 
+        "englishCountryFullName": "the Central African Republic", 
+        "countryName": "中非", 
+        "englishCountryName": "Central African Republic (the)", 
+        "numericCode": 140, 
+        "shortCountryCode": "CF"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TCD", 
+        "serialNumber": 43, 
+        "englishCountryFullName": "the Republic of Chad", 
+        "countryName": "乍得", 
+        "englishCountryName": "Chad", 
+        "numericCode": 148, 
+        "shortCountryCode": "TD"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CHL", 
+        "serialNumber": 44, 
+        "englishCountryFullName": "the Republic of Chile", 
+        "countryName": "智利", 
+        "englishCountryName": "Chile", 
+        "numericCode": 152, 
+        "shortCountryCode": "CL"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CHN", 
+        "serialNumber": 45, 
+        "englishCountryFullName": "the People's Republic of China", 
+        "countryName": "中国", 
+        "englishCountryName": "China", 
+        "numericCode": 156, 
+        "shortCountryCode": "CN"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CXR", 
+        "serialNumber": 46, 
+        "englishCountryFullName": "", 
+        "countryName": "圣诞岛", 
+        "englishCountryName": "Christmas Island", 
+        "numericCode": 162, 
+        "shortCountryCode": "CX"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CCK", 
+        "serialNumber": 47, 
+        "englishCountryFullName": "", 
+        "countryName": "科科斯（基林）群岛", 
+        "englishCountryName": "Cocos (Keeling) Islands (the)", 
+        "numericCode": 166, 
+        "shortCountryCode": "CC"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "COL", 
+        "serialNumber": 48, 
+        "englishCountryFullName": "the Republic of Colombia", 
+        "countryName": "哥伦比亚", 
+        "englishCountryName": "Colombia", 
+        "numericCode": 170, 
+        "shortCountryCode": "CO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "COM", 
+        "serialNumber": 49, 
+        "englishCountryFullName": "the Union of the Comoros", 
+        "countryName": "科摩罗", 
+        "englishCountryName": "Comoros", 
+        "numericCode": 174, 
+        "shortCountryCode": "KM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "COG", 
+        "serialNumber": 50, 
+        "englishCountryFullName": "the Republic of the Congo", 
+        "countryName": "刚果（布）", 
+        "englishCountryName": "Congo", 
+        "numericCode": 178, 
+        "shortCountryCode": "CG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "COD", 
+        "serialNumber": 51, 
+        "englishCountryFullName": "the Democratic Republic of the Congo", 
+        "countryName": "刚果（金）", 
+        "englishCountryName": "Congo (the Democratic Republic of the)", 
+        "numericCode": 180, 
+        "shortCountryCode": "CD"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "COK", 
+        "serialNumber": 52, 
+        "englishCountryFullName": "", 
+        "countryName": "库克群岛", 
+        "englishCountryName": "Cook Islands (the)", 
+        "numericCode": 184, 
+        "shortCountryCode": "CK"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CRI", 
+        "serialNumber": 53, 
+        "englishCountryFullName": "the Republic of Costa Rica", 
+        "countryName": "哥斯达黎加", 
+        "englishCountryName": "Costa Rica", 
+        "numericCode": 188, 
+        "shortCountryCode": "CR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CIV", 
+        "serialNumber": 54, 
+        "englishCountryFullName": "the Republic of Côte d'Ivoire", 
+        "countryName": "科特迪瓦", 
+        "englishCountryName": "Côte d'Ivoire", 
+        "numericCode": 384, 
+        "shortCountryCode": "CI"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "HRV", 
+        "serialNumber": 55, 
+        "englishCountryFullName": "the Republic of Croatia", 
+        "countryName": "克罗地亚", 
+        "englishCountryName": "Croatia", 
+        "numericCode": 191, 
+        "shortCountryCode": "HR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CUB", 
+        "serialNumber": 56, 
+        "englishCountryFullName": "the Republic of Cuba", 
+        "countryName": "古巴", 
+        "englishCountryName": "Cuba", 
+        "numericCode": 192, 
+        "shortCountryCode": "CU"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CYP", 
+        "serialNumber": 57, 
+        "englishCountryFullName": "the Republic of Cyprus", 
+        "countryName": "塞浦路斯", 
+        "englishCountryName": "Cyprus", 
+        "numericCode": 196, 
+        "shortCountryCode": "CY"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CZE", 
+        "serialNumber": 58, 
+        "englishCountryFullName": "the Czech Republic", 
+        "countryName": "捷克", 
+        "englishCountryName": "Czech Republic (the)", 
+        "numericCode": 203, 
+        "shortCountryCode": "CZ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "DNK", 
+        "serialNumber": 59, 
+        "englishCountryFullName": "the Kingdom of Denmark", 
+        "countryName": "丹麦", 
+        "englishCountryName": "Denmark", 
+        "numericCode": 208, 
+        "shortCountryCode": "DK"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "DJI", 
+        "serialNumber": 60, 
+        "englishCountryFullName": "the Republic of Djibouti", 
+        "countryName": "吉布提", 
+        "englishCountryName": "Djibouti", 
+        "numericCode": 262, 
+        "shortCountryCode": "DJ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "DMA", 
+        "serialNumber": 61, 
+        "englishCountryFullName": "the Commonwealth of Dominica", 
+        "countryName": "多米尼克", 
+        "englishCountryName": "Dominica", 
+        "numericCode": 212, 
+        "shortCountryCode": "DM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "DOM", 
+        "serialNumber": 62, 
+        "englishCountryFullName": "the Dominican Republic", 
+        "countryName": "多米尼加", 
+        "englishCountryName": "Dominican Republic (the)", 
+        "numericCode": 214, 
+        "shortCountryCode": "DO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ECU", 
+        "serialNumber": 63, 
+        "englishCountryFullName": "the Republic of Ecuador", 
+        "countryName": "厄瓜多尔", 
+        "englishCountryName": "Ecuador", 
+        "numericCode": 218, 
+        "shortCountryCode": "EC"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "EGY", 
+        "serialNumber": 64, 
+        "englishCountryFullName": "the Arab Republic of Egypt", 
+        "countryName": "埃及", 
+        "englishCountryName": "Egypt", 
+        "numericCode": 818, 
+        "shortCountryCode": "EG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SLV", 
+        "serialNumber": 65, 
+        "englishCountryFullName": "the Republic of El Salvador", 
+        "countryName": "萨尔瓦多", 
+        "englishCountryName": "El Salvador", 
+        "numericCode": 222, 
+        "shortCountryCode": "SV"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GNQ", 
+        "serialNumber": 66, 
+        "englishCountryFullName": "the Republic of Equatorial Guinea", 
+        "countryName": "赤道几内亚", 
+        "englishCountryName": "Equatorial Guinea", 
+        "numericCode": 226, 
+        "shortCountryCode": "GQ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ERI", 
+        "serialNumber": 67, 
+        "englishCountryFullName": "", 
+        "countryName": "厄立特里亚", 
+        "englishCountryName": "Eritrea", 
+        "numericCode": 232, 
+        "shortCountryCode": "ER"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "EST", 
+        "serialNumber": 68, 
+        "englishCountryFullName": "the Republic of Estonia", 
+        "countryName": "爱沙尼亚", 
+        "englishCountryName": "Estonia", 
+        "numericCode": 233, 
+        "shortCountryCode": "EE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ETH", 
+        "serialNumber": 69, 
+        "englishCountryFullName": "the Federal Democratic Republic of Ethiopia", 
+        "countryName": "埃塞俄比亚", 
+        "englishCountryName": "Ethiopia", 
+        "numericCode": 231, 
+        "shortCountryCode": "ET"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "FLK", 
+        "serialNumber": 70, 
+        "englishCountryFullName": "", 
+        "countryName": "福克兰群岛（马尔维纳斯）", 
+        "englishCountryName": "Falkland Islands (the) [Malvinas]", 
+        "numericCode": 238, 
+        "shortCountryCode": "FK"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "FRO", 
+        "serialNumber": 71, 
+        "englishCountryFullName": "", 
+        "countryName": "法罗群岛", 
+        "englishCountryName": "Faroe Islands (the)", 
+        "numericCode": 234, 
+        "shortCountryCode": "FO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "FJI", 
+        "serialNumber": 72, 
+        "englishCountryFullName": "the Republic of the Fiji Islands", 
+        "countryName": "斐济", 
+        "englishCountryName": "Fiji", 
+        "numericCode": 242, 
+        "shortCountryCode": "FJ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "FIN", 
+        "serialNumber": 73, 
+        "englishCountryFullName": "the Republic of Finland", 
+        "countryName": "芬兰", 
+        "englishCountryName": "Finland", 
+        "numericCode": 246, 
+        "shortCountryCode": "FI"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "FRA", 
+        "serialNumber": 74, 
+        "englishCountryFullName": "the French Republic", 
+        "countryName": "法国", 
+        "englishCountryName": "France", 
+        "numericCode": 250, 
+        "shortCountryCode": "FR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GUF", 
+        "serialNumber": 75, 
+        "englishCountryFullName": "", 
+        "countryName": "法属圭亚那", 
+        "englishCountryName": "French Guiana", 
+        "numericCode": 254, 
+        "shortCountryCode": "GF"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PYF", 
+        "serialNumber": 76, 
+        "englishCountryFullName": "", 
+        "countryName": "法属波利尼西亚", 
+        "englishCountryName": "French Polynesia", 
+        "numericCode": 258, 
+        "shortCountryCode": "PF"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ATF", 
+        "serialNumber": 77, 
+        "englishCountryFullName": "", 
+        "countryName": "法属南部领地", 
+        "englishCountryName": "French Southern Territories (the)", 
+        "numericCode": 260, 
+        "shortCountryCode": "TF"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GAB", 
+        "serialNumber": 78, 
+        "englishCountryFullName": "the Gabonese Republic", 
+        "countryName": "加蓬", 
+        "englishCountryName": "Gabon", 
+        "numericCode": 266, 
+        "shortCountryCode": "GA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GMB", 
+        "serialNumber": 79, 
+        "englishCountryFullName": "the Republic of The Gambia", 
+        "countryName": "冈比亚", 
+        "englishCountryName": "Gambia (The)", 
+        "numericCode": 270, 
+        "shortCountryCode": "GM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GEO", 
+        "serialNumber": 80, 
+        "englishCountryFullName": "", 
+        "countryName": "格鲁吉亚", 
+        "englishCountryName": "Georgia", 
+        "numericCode": 268, 
+        "shortCountryCode": "GE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "DEU", 
+        "serialNumber": 81, 
+        "englishCountryFullName": "he Federal Republic of Germany", 
+        "countryName": "德国", 
+        "englishCountryName": "Germany", 
+        "numericCode": 276, 
+        "shortCountryCode": "DE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GHA", 
+        "serialNumber": 82, 
+        "englishCountryFullName": "the Republic of Ghana", 
+        "countryName": "加纳", 
+        "englishCountryName": "Ghana", 
+        "numericCode": 288, 
+        "shortCountryCode": "GH"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GIB", 
+        "serialNumber": 83, 
+        "englishCountryFullName": "", 
+        "countryName": "直布罗陀", 
+        "englishCountryName": "Gibraltar", 
+        "numericCode": 292, 
+        "shortCountryCode": "GI"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GRC", 
+        "serialNumber": 84, 
+        "englishCountryFullName": "the Hellenic Republic", 
+        "countryName": "希腊", 
+        "englishCountryName": "Greece", 
+        "numericCode": 300, 
+        "shortCountryCode": "GR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GRL", 
+        "serialNumber": 85, 
+        "englishCountryFullName": "", 
+        "countryName": "格陵兰", 
+        "englishCountryName": "Greenland", 
+        "numericCode": 304, 
+        "shortCountryCode": "GL"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GRD", 
+        "serialNumber": 86, 
+        "englishCountryFullName": "", 
+        "countryName": "格林纳达", 
+        "englishCountryName": "Grenada", 
+        "numericCode": 308, 
+        "shortCountryCode": "GD"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GLP", 
+        "serialNumber": 87, 
+        "englishCountryFullName": "", 
+        "countryName": "瓜德罗普", 
+        "englishCountryName": "Guadeloupe", 
+        "numericCode": 312, 
+        "shortCountryCode": "GP"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GUM", 
+        "serialNumber": 88, 
+        "englishCountryFullName": "", 
+        "countryName": "关岛", 
+        "englishCountryName": "Guam", 
+        "numericCode": 316, 
+        "shortCountryCode": "GU"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GTM", 
+        "serialNumber": 89, 
+        "englishCountryFullName": "the Republic of Guatemala", 
+        "countryName": "危地马拉", 
+        "englishCountryName": "Guatemala", 
+        "numericCode": 320, 
+        "shortCountryCode": "GT"
+    }, 
+    {
+        "comment": "ISO 3166-1:2006新增", 
+        "countryCode": "GGY", 
+        "serialNumber": 90, 
+        "englishCountryFullName": "", 
+        "countryName": "格恩西岛", 
+        "englishCountryName": "Guernsey", 
+        "numericCode": 831, 
+        "shortCountryCode": "GG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GIN", 
+        "serialNumber": 91, 
+        "englishCountryFullName": "the Republic of Guinea", 
+        "countryName": "几内亚", 
+        "englishCountryName": "Guinea", 
+        "numericCode": 324, 
+        "shortCountryCode": "GN"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GNB", 
+        "serialNumber": 92, 
+        "englishCountryFullName": "the Republic of Guinea-Bissau", 
+        "countryName": "几内亚比绍", 
+        "englishCountryName": "Guinea-Bissau", 
+        "numericCode": 624, 
+        "shortCountryCode": "GW"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GUY", 
+        "serialNumber": 93, 
+        "englishCountryFullName": "the Republic of Guyana", 
+        "countryName": "圭亚那", 
+        "englishCountryName": "Guyana", 
+        "numericCode": 328, 
+        "shortCountryCode": "GY"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "HTI", 
+        "serialNumber": 94, 
+        "englishCountryFullName": "the Republic of Haiti", 
+        "countryName": "海地", 
+        "englishCountryName": "Haiti", 
+        "numericCode": 332, 
+        "shortCountryCode": "HT"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "HMD", 
+        "serialNumber": 95, 
+        "englishCountryFullName": "", 
+        "countryName": "赫德岛和麦克唐纳岛", 
+        "englishCountryName": "Heard Island and McDonald Islands", 
+        "numericCode": 334, 
+        "shortCountryCode": "HM"
+    }, 
+    {
+        "comment": "ISO 3166.1:2006调整英文名称，代码未变", 
+        "countryCode": "VAT", 
+        "serialNumber": 96, 
+        "englishCountryFullName": "", 
+        "countryName": "梵蒂冈", 
+        "englishCountryName": "Holy See (the) [Vatican City State]", 
+        "numericCode": 336, 
+        "shortCountryCode": "VA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "HND", 
+        "serialNumber": 97, 
+        "englishCountryFullName": "the Republic of Honduras", 
+        "countryName": "洪都拉斯", 
+        "englishCountryName": "Honduras", 
+        "numericCode": 340, 
+        "shortCountryCode": "HN"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "HKG", 
+        "serialNumber": 98, 
+        "englishCountryFullName": "the Hong Kong Special Administrative Region of China", 
+        "countryName": "香港", 
+        "englishCountryName": "Hong Kong", 
+        "numericCode": 344, 
+        "shortCountryCode": "HK"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "HUN", 
+        "serialNumber": 99, 
+        "englishCountryFullName": "the Republic of Hungary", 
+        "countryName": "匈牙利", 
+        "englishCountryName": "Hungary", 
+        "numericCode": 348, 
+        "shortCountryCode": "HU"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ISL", 
+        "serialNumber": 100, 
+        "englishCountryFullName": "the Republic of Iceland", 
+        "countryName": "冰岛", 
+        "englishCountryName": "Iceland", 
+        "numericCode": 352, 
+        "shortCountryCode": "IS"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "IND", 
+        "serialNumber": 101, 
+        "englishCountryFullName": "the Republic of India", 
+        "countryName": "印度", 
+        "englishCountryName": "India", 
+        "numericCode": 356, 
+        "shortCountryCode": "IN"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "IDN", 
+        "serialNumber": 102, 
+        "englishCountryFullName": "the Republic of Indonesia", 
+        "countryName": "印度尼西亚", 
+        "englishCountryName": "Indonesia", 
+        "numericCode": 360, 
+        "shortCountryCode": "ID"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "IRN", 
+        "serialNumber": 103, 
+        "englishCountryFullName": "the Islamic Republic of Iran", 
+        "countryName": "伊朗", 
+        "englishCountryName": "Iran (the Islamic Republic of)", 
+        "numericCode": 364, 
+        "shortCountryCode": "IR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "IRQ", 
+        "serialNumber": 104, 
+        "englishCountryFullName": "the Republic of Iraq", 
+        "countryName": "伊拉克", 
+        "englishCountryName": "Iraq", 
+        "numericCode": 368, 
+        "shortCountryCode": "IQ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "IRL", 
+        "serialNumber": 105, 
+        "englishCountryFullName": "", 
+        "countryName": "爱尔兰", 
+        "englishCountryName": "Ireland", 
+        "numericCode": 372, 
+        "shortCountryCode": "IE"
+    }, 
+    {
+        "comment": "ISO 3166-1:2006新增", 
+        "countryCode": "IMN", 
+        "serialNumber": 106, 
+        "englishCountryFullName": "", 
+        "countryName": "英国属地曼岛", 
+        "englishCountryName": "Isle of Man", 
+        "numericCode": 833, 
+        "shortCountryCode": "IM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ISR", 
+        "serialNumber": 107, 
+        "englishCountryFullName": "the State of Israel", 
+        "countryName": "以色列", 
+        "englishCountryName": "Israel", 
+        "numericCode": 376, 
+        "shortCountryCode": "IL"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ITA", 
+        "serialNumber": 108, 
+        "englishCountryFullName": "the Republic of Italy", 
+        "countryName": "意大利", 
+        "englishCountryName": "Italy", 
+        "numericCode": 380, 
+        "shortCountryCode": "IT"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "JAM", 
+        "serialNumber": 109, 
+        "englishCountryFullName": "", 
+        "countryName": "牙买加", 
+        "englishCountryName": "Jamaica", 
+        "numericCode": 388, 
+        "shortCountryCode": "JM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "JPN", 
+        "serialNumber": 110, 
+        "englishCountryFullName": "", 
+        "countryName": "日本", 
+        "englishCountryName": "Japan", 
+        "numericCode": 392, 
+        "shortCountryCode": "JP"
+    }, 
+    {
+        "comment": "ISO 3166-1:2006新增", 
+        "countryCode": "JEY", 
+        "serialNumber": 111, 
+        "englishCountryFullName": "", 
+        "countryName": "泽西岛", 
+        "englishCountryName": "Jersey", 
+        "numericCode": 832, 
+        "shortCountryCode": "JE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "JOR", 
+        "serialNumber": 112, 
+        "englishCountryFullName": "the Hashemite Kingdom of Jordan", 
+        "countryName": "约旦", 
+        "englishCountryName": "Jordan", 
+        "numericCode": 400, 
+        "shortCountryCode": "JO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "KAZ", 
+        "serialNumber": 113, 
+        "englishCountryFullName": "the Republic of Kazakhstan", 
+        "countryName": "哈萨克斯坦", 
+        "englishCountryName": "Kazakhstan", 
+        "numericCode": 398, 
+        "shortCountryCode": "KZ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "KEN", 
+        "serialNumber": 114, 
+        "englishCountryFullName": "the Republic of Kenya", 
+        "countryName": "肯尼亚", 
+        "englishCountryName": "Kenya", 
+        "numericCode": 404, 
+        "shortCountryCode": "KE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "KIR", 
+        "serialNumber": 115, 
+        "englishCountryFullName": "the Republic of Kiribati", 
+        "countryName": "基里巴斯", 
+        "englishCountryName": "Kiribati", 
+        "numericCode": 296, 
+        "shortCountryCode": "KI"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PRK", 
+        "serialNumber": 116, 
+        "englishCountryFullName": "the Democratic People's Republic of Korea", 
+        "countryName": "朝鲜", 
+        "englishCountryName": "Korea (the Democratic People's Republic of)", 
+        "numericCode": 408, 
+        "shortCountryCode": "KP"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "KOR", 
+        "serialNumber": 117, 
+        "englishCountryFullName": "the Republic of Korea", 
+        "countryName": "韩国", 
+        "englishCountryName": "Korea (the Republic of)", 
+        "numericCode": 410, 
+        "shortCountryCode": "KR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "KWT", 
+        "serialNumber": 118, 
+        "englishCountryFullName": "he State of Kuwait", 
+        "countryName": "科威特", 
+        "englishCountryName": "Kuwait", 
+        "numericCode": 414, 
+        "shortCountryCode": "KW"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "KGZ", 
+        "serialNumber": 119, 
+        "englishCountryFullName": "the Kyrgyz Republic", 
+        "countryName": "吉尔吉斯斯坦", 
+        "englishCountryName": "Kyrgyzstan", 
+        "numericCode": 417, 
+        "shortCountryCode": "KG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LAO", 
+        "serialNumber": 120, 
+        "englishCountryFullName": "the Lao People's Democratic Republic", 
+        "countryName": "老挝", 
+        "englishCountryName": "Lao People's Democratic Republic (the)", 
+        "numericCode": 418, 
+        "shortCountryCode": "LA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LVA", 
+        "serialNumber": 121, 
+        "englishCountryFullName": "the Republic of Latvia", 
+        "countryName": "拉脱维亚", 
+        "englishCountryName": "Latvia", 
+        "numericCode": 428, 
+        "shortCountryCode": "LV"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LBN", 
+        "serialNumber": 122, 
+        "englishCountryFullName": "the Lebanese Republic", 
+        "countryName": "黎巴嫩", 
+        "englishCountryName": "Lebanon", 
+        "numericCode": 422, 
+        "shortCountryCode": "LB"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LSO", 
+        "serialNumber": 123, 
+        "englishCountryFullName": "the Kingdom of Lesotho", 
+        "countryName": "莱索托", 
+        "englishCountryName": "Lesotho", 
+        "numericCode": 426, 
+        "shortCountryCode": "LS"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LBR", 
+        "serialNumber": 124, 
+        "englishCountryFullName": "the Republic of Liberia", 
+        "countryName": "利比里亚", 
+        "englishCountryName": "Liberia", 
+        "numericCode": 430, 
+        "shortCountryCode": "LR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LBY", 
+        "serialNumber": 125, 
+        "englishCountryFullName": "the Socialist People's Libyan Arab Jamahiriya", 
+        "countryName": "利比亚", 
+        "englishCountryName": "Libyan Arab Jamahiriya (the)", 
+        "numericCode": 434, 
+        "shortCountryCode": "LY"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LIE", 
+        "serialNumber": 126, 
+        "englishCountryFullName": "the Principality of Liechtenstein", 
+        "countryName": "列支敦士登", 
+        "englishCountryName": "Liechtenstein", 
+        "numericCode": 438, 
+        "shortCountryCode": "LI"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LTU", 
+        "serialNumber": 127, 
+        "englishCountryFullName": "the Republic of Lithuania", 
+        "countryName": "立陶宛", 
+        "englishCountryName": "Lithuania", 
+        "numericCode": 440, 
+        "shortCountryCode": "LT"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LUX", 
+        "serialNumber": 128, 
+        "englishCountryFullName": "the Grand Duchy of Luxembourg", 
+        "countryName": "卢森堡", 
+        "englishCountryName": "Luxembourg", 
+        "numericCode": 442, 
+        "shortCountryCode": "LU"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MAC", 
+        "serialNumber": 129, 
+        "englishCountryFullName": "Macao Special Administrative Region of China", 
+        "countryName": "澳门", 
+        "englishCountryName": "Macao", 
+        "numericCode": 446, 
+        "shortCountryCode": "MO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MKD", 
+        "serialNumber": 130, 
+        "englishCountryFullName": "the former Yugoslav Republic of Macedonia", 
+        "countryName": "前南马其顿", 
+        "englishCountryName": "Macedonia (the former Yugoslav Republic of)", 
+        "numericCode": 807, 
+        "shortCountryCode": "MK"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MDG", 
+        "serialNumber": 131, 
+        "englishCountryFullName": "the Republic of Madagascar", 
+        "countryName": "马达加斯加", 
+        "englishCountryName": "Madagascar", 
+        "numericCode": 450, 
+        "shortCountryCode": "MG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MWI", 
+        "serialNumber": 132, 
+        "englishCountryFullName": "the Republic of Malawi", 
+        "countryName": "马拉维", 
+        "englishCountryName": "Malawi", 
+        "numericCode": 454, 
+        "shortCountryCode": "MW"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MYS", 
+        "serialNumber": 133, 
+        "englishCountryFullName": "", 
+        "countryName": "马来西亚", 
+        "englishCountryName": "Malaysia", 
+        "numericCode": 458, 
+        "shortCountryCode": "MY"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MDV", 
+        "serialNumber": 134, 
+        "englishCountryFullName": "the Republic of Maldives", 
+        "countryName": "马尔代夫", 
+        "englishCountryName": "Maldives", 
+        "numericCode": 462, 
+        "shortCountryCode": "MV"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MLI", 
+        "serialNumber": 135, 
+        "englishCountryFullName": "the Republic of Mali", 
+        "countryName": "马里", 
+        "englishCountryName": "Mali", 
+        "numericCode": 466, 
+        "shortCountryCode": "ML"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MLT", 
+        "serialNumber": 136, 
+        "englishCountryFullName": "the Republic of Malta", 
+        "countryName": "马耳他", 
+        "englishCountryName": "Malta", 
+        "numericCode": 470, 
+        "shortCountryCode": "MT"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MHL", 
+        "serialNumber": 137, 
+        "englishCountryFullName": "the Republic of the Marshall Islands", 
+        "countryName": "马绍尔群岛", 
+        "englishCountryName": "Marshall Islands (the)", 
+        "numericCode": 584, 
+        "shortCountryCode": "MH"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MTQ", 
+        "serialNumber": 138, 
+        "englishCountryFullName": "", 
+        "countryName": "马提尼克", 
+        "englishCountryName": "Martinique", 
+        "numericCode": 474, 
+        "shortCountryCode": "MQ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MRT", 
+        "serialNumber": 139, 
+        "englishCountryFullName": "the Islamic Republic of Mauritania", 
+        "countryName": "毛利塔尼亚", 
+        "englishCountryName": "Mauritania", 
+        "numericCode": 478, 
+        "shortCountryCode": "MR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MUS", 
+        "serialNumber": 140, 
+        "englishCountryFullName": "the Republic of Mauritius", 
+        "countryName": "毛里求斯", 
+        "englishCountryName": "Mauritius", 
+        "numericCode": 480, 
+        "shortCountryCode": "MU"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MYT", 
+        "serialNumber": 141, 
+        "englishCountryFullName": "", 
+        "countryName": "马约特", 
+        "englishCountryName": "Mayotte", 
+        "numericCode": 175, 
+        "shortCountryCode": "YT"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MEX", 
+        "serialNumber": 142, 
+        "englishCountryFullName": "the United Mexican States", 
+        "countryName": "墨西哥", 
+        "englishCountryName": "Mexico", 
+        "numericCode": 484, 
+        "shortCountryCode": "MX"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "FSM", 
+        "serialNumber": 143, 
+        "englishCountryFullName": "the Federated States of Micronesia", 
+        "countryName": "密克罗尼西亚联邦", 
+        "englishCountryName": "Micronesia (the Federated States of)", 
+        "numericCode": 583, 
+        "shortCountryCode": "FM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MDA", 
+        "serialNumber": 144, 
+        "englishCountryFullName": "the Republic of Moldova", 
+        "countryName": "摩尔多瓦", 
+        "englishCountryName": "Moldova (the Republic of)", 
+        "numericCode": 498, 
+        "shortCountryCode": "MD"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MCO", 
+        "serialNumber": 145, 
+        "englishCountryFullName": "the Principality of Monaco", 
+        "countryName": "摩纳哥", 
+        "englishCountryName": "Monaco", 
+        "numericCode": 492, 
+        "shortCountryCode": "MC"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MNG", 
+        "serialNumber": 146, 
+        "englishCountryFullName": "", 
+        "countryName": "蒙古", 
+        "englishCountryName": "Mongolia", 
+        "numericCode": 496, 
+        "shortCountryCode": "MN"
+    }, 
+    {
+        "comment": "ISO 3166.1:2006新增", 
+        "countryCode": "MNE", 
+        "serialNumber": 147, 
+        "englishCountryFullName": "he Republic of Montenegro", 
+        "countryName": "黑山", 
+        "englishCountryName": "Montenegro", 
+        "numericCode": 499, 
+        "shortCountryCode": "ME"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MSR", 
+        "serialNumber": 148, 
+        "englishCountryFullName": "", 
+        "countryName": "蒙特塞拉特", 
+        "englishCountryName": "Montserrat", 
+        "numericCode": 500, 
+        "shortCountryCode": "MS"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MAR", 
+        "serialNumber": 149, 
+        "englishCountryFullName": "the Kingdom of Morocco", 
+        "countryName": "摩洛哥", 
+        "englishCountryName": "Morocco", 
+        "numericCode": 504, 
+        "shortCountryCode": "MA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MOZ", 
+        "serialNumber": 150, 
+        "englishCountryFullName": "the Republic of Mozambique", 
+        "countryName": "莫桑比克", 
+        "englishCountryName": "Mozambique", 
+        "numericCode": 508, 
+        "shortCountryCode": "MZ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MMR", 
+        "serialNumber": 151, 
+        "englishCountryFullName": "the Union of Myanmar", 
+        "countryName": "缅甸", 
+        "englishCountryName": "Myanmar", 
+        "numericCode": 104, 
+        "shortCountryCode": "MM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NAM", 
+        "serialNumber": 152, 
+        "englishCountryFullName": "the Republic of Namibia", 
+        "countryName": "纳米比亚", 
+        "englishCountryName": "Namibia", 
+        "numericCode": 516, 
+        "shortCountryCode": "NA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NRU", 
+        "serialNumber": 153, 
+        "englishCountryFullName": "the Republic of Nauru", 
+        "countryName": "瑙鲁", 
+        "englishCountryName": "Nauru", 
+        "numericCode": 520, 
+        "shortCountryCode": "NR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NPL", 
+        "serialNumber": 154, 
+        "englishCountryFullName": "Nepal", 
+        "countryName": "尼泊尔", 
+        "englishCountryName": "Nepal", 
+        "numericCode": 524, 
+        "shortCountryCode": "NP"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NLD", 
+        "serialNumber": 155, 
+        "englishCountryFullName": "the Kingdom of the Netherlands", 
+        "countryName": "荷兰", 
+        "englishCountryName": "Netherlands (the)", 
+        "numericCode": 528, 
+        "shortCountryCode": "NL"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ANT", 
+        "serialNumber": 156, 
+        "englishCountryFullName": "", 
+        "countryName": "荷属安的列斯", 
+        "englishCountryName": "Netherlands Antilles (the)", 
+        "numericCode": 530, 
+        "shortCountryCode": "AN"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NCL", 
+        "serialNumber": 157, 
+        "englishCountryFullName": "", 
+        "countryName": "新喀里多尼亚", 
+        "englishCountryName": "New Caledonia", 
+        "numericCode": 540, 
+        "shortCountryCode": "NC"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NZL", 
+        "serialNumber": 158, 
+        "englishCountryFullName": "", 
+        "countryName": "新西兰", 
+        "englishCountryName": "New Zealand", 
+        "numericCode": 554, 
+        "shortCountryCode": "NZ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NIC", 
+        "serialNumber": 159, 
+        "englishCountryFullName": "the Republic of Nicaragua", 
+        "countryName": "尼加拉瓜", 
+        "englishCountryName": "Nicaragua", 
+        "numericCode": 558, 
+        "shortCountryCode": "NI"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NER", 
+        "serialNumber": 160, 
+        "englishCountryFullName": "the Republic of the Niger", 
+        "countryName": "尼日尔", 
+        "englishCountryName": "Niger (the)", 
+        "numericCode": 562, 
+        "shortCountryCode": "NE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NGA", 
+        "serialNumber": 161, 
+        "englishCountryFullName": "the Federal Republic of Nigeria", 
+        "countryName": "尼日利亚", 
+        "englishCountryName": "Nigeria", 
+        "numericCode": 566, 
+        "shortCountryCode": "NG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NIU", 
+        "serialNumber": 162, 
+        "englishCountryFullName": "the Republic of Niue", 
+        "countryName": "纽埃", 
+        "englishCountryName": "Niue", 
+        "numericCode": 570, 
+        "shortCountryCode": "NU"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NFK", 
+        "serialNumber": 163, 
+        "englishCountryFullName": "", 
+        "countryName": "诺福克岛", 
+        "englishCountryName": "Norfolk Island", 
+        "numericCode": 574, 
+        "shortCountryCode": "NF"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "MNP", 
+        "serialNumber": 164, 
+        "englishCountryFullName": "the Commonwealth of the Northern Mariana Islands", 
+        "countryName": "北马里亚纳", 
+        "englishCountryName": "Northern Mariana Islands (the)", 
+        "numericCode": 580, 
+        "shortCountryCode": "MP"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "NOR", 
+        "serialNumber": 165, 
+        "englishCountryFullName": "the Kingdom of Norway", 
+        "countryName": "挪威", 
+        "englishCountryName": "Norway", 
+        "numericCode": 578, 
+        "shortCountryCode": "NO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "OMN", 
+        "serialNumber": 166, 
+        "englishCountryFullName": "the Sultanate of Oman", 
+        "countryName": "阿曼", 
+        "englishCountryName": "Oman", 
+        "numericCode": 512, 
+        "shortCountryCode": "OM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PAK", 
+        "serialNumber": 167, 
+        "englishCountryFullName": "the Islamic Republic of Pakistan", 
+        "countryName": "巴基斯坦", 
+        "englishCountryName": "Pakistan", 
+        "numericCode": 586, 
+        "shortCountryCode": "PK"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PLW", 
+        "serialNumber": 168, 
+        "englishCountryFullName": "the Republic of Palau", 
+        "countryName": "帕劳", 
+        "englishCountryName": "Palau", 
+        "numericCode": 585, 
+        "shortCountryCode": "PW"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PSE", 
+        "serialNumber": 169, 
+        "englishCountryFullName": "the Occupied Palestinian Territory", 
+        "countryName": "巴勒斯坦", 
+        "englishCountryName": "Palestinian Territory (the Occupied)", 
+        "numericCode": 275, 
+        "shortCountryCode": "PS"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PAN", 
+        "serialNumber": 170, 
+        "englishCountryFullName": "the Republic of Panama", 
+        "countryName": "巴拿马", 
+        "englishCountryName": "Panama", 
+        "numericCode": 591, 
+        "shortCountryCode": "PA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PNG", 
+        "serialNumber": 171, 
+        "englishCountryFullName": "", 
+        "countryName": "巴布亚新几内亚", 
+        "englishCountryName": "Papua New Guinea", 
+        "numericCode": 598, 
+        "shortCountryCode": "PG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PRY", 
+        "serialNumber": 172, 
+        "englishCountryFullName": "the Republic of Paraguay", 
+        "countryName": "巴拉圭", 
+        "englishCountryName": "Paraguay", 
+        "numericCode": 600, 
+        "shortCountryCode": "PY"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PER", 
+        "serialNumber": 173, 
+        "englishCountryFullName": "the Republic of Peru", 
+        "countryName": "秘鲁", 
+        "englishCountryName": "Peru", 
+        "numericCode": 604, 
+        "shortCountryCode": "PE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PHL", 
+        "serialNumber": 174, 
+        "englishCountryFullName": "the Republic of the Philippines", 
+        "countryName": "菲律宾", 
+        "englishCountryName": "Philippines (the)", 
+        "numericCode": 608, 
+        "shortCountryCode": "PH"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PCN", 
+        "serialNumber": 175, 
+        "englishCountryFullName": "", 
+        "countryName": "皮特凯恩", 
+        "englishCountryName": "Pitcairn", 
+        "numericCode": 612, 
+        "shortCountryCode": "PN"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "POL", 
+        "serialNumber": 176, 
+        "englishCountryFullName": "the Republic of Poland", 
+        "countryName": "波兰", 
+        "englishCountryName": "Poland", 
+        "numericCode": 616, 
+        "shortCountryCode": "PL"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PRT", 
+        "serialNumber": 177, 
+        "englishCountryFullName": "the Portuguese Republic", 
+        "countryName": "葡萄牙", 
+        "englishCountryName": "Portugal", 
+        "numericCode": 620, 
+        "shortCountryCode": "PT"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "PRI", 
+        "serialNumber": 178, 
+        "englishCountryFullName": "", 
+        "countryName": "波多黎各", 
+        "englishCountryName": "Puerto Rico", 
+        "numericCode": 630, 
+        "shortCountryCode": "PR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "QAT", 
+        "serialNumber": 179, 
+        "englishCountryFullName": "the State of Qatar", 
+        "countryName": "卡塔尔", 
+        "englishCountryName": "Qatar", 
+        "numericCode": 634, 
+        "shortCountryCode": "QA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "REU", 
+        "serialNumber": 180, 
+        "englishCountryFullName": "", 
+        "countryName": "留尼汪", 
+        "englishCountryName": "Réunion", 
+        "numericCode": 638, 
+        "shortCountryCode": "RE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ROU", 
+        "serialNumber": 181, 
+        "englishCountryFullName": "", 
+        "countryName": "罗马尼亚", 
+        "englishCountryName": "Romania", 
+        "numericCode": 642, 
+        "shortCountryCode": "RO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "RUS", 
+        "serialNumber": 182, 
+        "englishCountryFullName": "the Russian Federation", 
+        "countryName": "俄罗斯联邦", 
+        "englishCountryName": "Russian Federation (the)", 
+        "numericCode": 643, 
+        "shortCountryCode": "RU"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "RWA", 
+        "serialNumber": 183, 
+        "englishCountryFullName": "the Republic of Rwanda", 
+        "countryName": "卢旺达", 
+        "englishCountryName": "Rwanda", 
+        "numericCode": 646, 
+        "shortCountryCode": "RW"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SHN", 
+        "serialNumber": 184, 
+        "englishCountryFullName": "", 
+        "countryName": "圣赫勒拿", 
+        "englishCountryName": "Saint Helena", 
+        "numericCode": 654, 
+        "shortCountryCode": "SH"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "KNA", 
+        "serialNumber": 185, 
+        "englishCountryFullName": "", 
+        "countryName": "圣基茨和尼维斯", 
+        "englishCountryName": "Saint Kitts and Nevis", 
+        "numericCode": 659, 
+        "shortCountryCode": "KN"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LCA", 
+        "serialNumber": 186, 
+        "englishCountryFullName": "", 
+        "countryName": "圣卢西亚", 
+        "englishCountryName": "Saint Lucia", 
+        "numericCode": 662, 
+        "shortCountryCode": "LC"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SPM", 
+        "serialNumber": 187, 
+        "englishCountryFullName": "", 
+        "countryName": "圣皮埃尔和密克隆", 
+        "englishCountryName": "Saint Pierre and Miquelon", 
+        "numericCode": 666, 
+        "shortCountryCode": "PM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "VCT", 
+        "serialNumber": 188, 
+        "englishCountryFullName": "", 
+        "countryName": "圣文森特和格林纳丁斯", 
+        "englishCountryName": "Saint Vincent and the Grenadines", 
+        "numericCode": 670, 
+        "shortCountryCode": "VC"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "WSM", 
+        "serialNumber": 189, 
+        "englishCountryFullName": "the Independent State of Samoa", 
+        "countryName": "萨摩亚", 
+        "englishCountryName": "Samoa", 
+        "numericCode": 882, 
+        "shortCountryCode": "WS"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SMR", 
+        "serialNumber": 190, 
+        "englishCountryFullName": "the Republic of San Marino", 
+        "countryName": "圣马力诺", 
+        "englishCountryName": "San Marino", 
+        "numericCode": 674, 
+        "shortCountryCode": "SM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "STP", 
+        "serialNumber": 191, 
+        "englishCountryFullName": "the Democratic Republic of Sao Tome and Principe", 
+        "countryName": "圣多美和普林西比", 
+        "englishCountryName": "Sao Tome and Principe", 
+        "numericCode": 678, 
+        "shortCountryCode": "ST"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SAU", 
+        "serialNumber": 192, 
+        "englishCountryFullName": "the Kingdom of Saudi Arabia", 
+        "countryName": "沙特阿拉伯", 
+        "englishCountryName": "Saudi Arabia", 
+        "numericCode": 682, 
+        "shortCountryCode": "SA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SEN", 
+        "serialNumber": 193, 
+        "englishCountryFullName": "the Republic of Senegal", 
+        "countryName": "塞内加尔", 
+        "englishCountryName": "Senegal", 
+        "numericCode": 686, 
+        "shortCountryCode": "SN"
+    }, 
+    {
+        "comment": "ISO 3166.1-2006新增", 
+        "countryCode": "SRB", 
+        "serialNumber": 194, 
+        "englishCountryFullName": "the Republic of Serbia", 
+        "countryName": "塞尔维亚", 
+        "englishCountryName": "Serbia", 
+        "numericCode": 688, 
+        "shortCountryCode": "RS"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SYC", 
+        "serialNumber": 195, 
+        "englishCountryFullName": "the Republic of Seychelles", 
+        "countryName": "塞舌尔", 
+        "englishCountryName": "Seychelles", 
+        "numericCode": 690, 
+        "shortCountryCode": "SC"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SLE", 
+        "serialNumber": 196, 
+        "englishCountryFullName": "the Republic of Sierra Leone", 
+        "countryName": "塞拉利昂", 
+        "englishCountryName": "Sierra Leone", 
+        "numericCode": 694, 
+        "shortCountryCode": "SL"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SGP", 
+        "serialNumber": 197, 
+        "englishCountryFullName": "the Republic of Singapore", 
+        "countryName": "新加坡", 
+        "englishCountryName": "Singapore", 
+        "numericCode": 702, 
+        "shortCountryCode": "SG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SVK", 
+        "serialNumber": 198, 
+        "englishCountryFullName": "the Slovak Republic", 
+        "countryName": "斯洛伐克", 
+        "englishCountryName": "Slovakia", 
+        "numericCode": 703, 
+        "shortCountryCode": "SK"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SVN", 
+        "serialNumber": 199, 
+        "englishCountryFullName": "the Republic of Slovenia", 
+        "countryName": "斯洛文尼亚", 
+        "englishCountryName": "Slovenia", 
+        "numericCode": 705, 
+        "shortCountryCode": "SI"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SLB", 
+        "serialNumber": 200, 
+        "englishCountryFullName": "", 
+        "countryName": "所罗门群岛", 
+        "englishCountryName": "Solomon Islands (the)", 
+        "numericCode": 90, 
+        "shortCountryCode": "SB"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SOM", 
+        "serialNumber": 201, 
+        "englishCountryFullName": "the Somali Republic", 
+        "countryName": "索马里", 
+        "englishCountryName": "Somalia", 
+        "numericCode": 706, 
+        "shortCountryCode": "SO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ZAF", 
+        "serialNumber": 202, 
+        "englishCountryFullName": "the Republic of South Africa", 
+        "countryName": "南非", 
+        "englishCountryName": "South Africa", 
+        "numericCode": 710, 
+        "shortCountryCode": "ZA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SGS", 
+        "serialNumber": 203, 
+        "englishCountryFullName": "", 
+        "countryName": "南乔治亚岛和南桑德韦奇岛", 
+        "englishCountryName": "South Georgia and the South Sandwich Islands", 
+        "numericCode": 239, 
+        "shortCountryCode": "GS"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ESP", 
+        "serialNumber": 204, 
+        "englishCountryFullName": "the Kingdom of Spain", 
+        "countryName": "西班牙", 
+        "englishCountryName": "Spain", 
+        "numericCode": 724, 
+        "shortCountryCode": "ES"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "LKA", 
+        "serialNumber": 205, 
+        "englishCountryFullName": "the Democratic Socialist Republic of Sri Lanka", 
+        "countryName": "斯里兰卡", 
+        "englishCountryName": "Sri Lanka", 
+        "numericCode": 144, 
+        "shortCountryCode": "LK"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SDN", 
+        "serialNumber": 206, 
+        "englishCountryFullName": "the Republic of the Sudan", 
+        "countryName": "苏丹", 
+        "englishCountryName": "Sudan (the)", 
+        "numericCode": 736, 
+        "shortCountryCode": "SD"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SUR", 
+        "serialNumber": 207, 
+        "englishCountryFullName": "the Republic of Suriname", 
+        "countryName": "苏里南", 
+        "englishCountryName": "Suriname", 
+        "numericCode": 740, 
+        "shortCountryCode": "SR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SJM", 
+        "serialNumber": 208, 
+        "englishCountryFullName": "", 
+        "countryName": "斯瓦尔巴岛和扬马延岛", 
+        "englishCountryName": "Svalbard and Jan Mayen", 
+        "numericCode": 744, 
+        "shortCountryCode": "SJ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SWZ", 
+        "serialNumber": 209, 
+        "englishCountryFullName": "the Kingdom of Swaziland", 
+        "countryName": "斯威士兰", 
+        "englishCountryName": "Swaziland", 
+        "numericCode": 748, 
+        "shortCountryCode": "SZ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SWE", 
+        "serialNumber": 210, 
+        "englishCountryFullName": "the Kingdom of Sweden", 
+        "countryName": "瑞典", 
+        "englishCountryName": "Sweden", 
+        "numericCode": 752, 
+        "shortCountryCode": "SE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "CHE", 
+        "serialNumber": 211, 
+        "englishCountryFullName": "the Swiss Confederation", 
+        "countryName": "瑞士", 
+        "englishCountryName": "Switzerland", 
+        "numericCode": 756, 
+        "shortCountryCode": "CH"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "SYR", 
+        "serialNumber": 212, 
+        "englishCountryFullName": "the Syrian Arab Republic", 
+        "countryName": "叙利亚", 
+        "englishCountryName": "Syrian Arab Republic (the)", 
+        "numericCode": 760, 
+        "shortCountryCode": "SY"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TWN", 
+        "serialNumber": 213, 
+        "englishCountryFullName": "", 
+        "countryName": "台湾", 
+        "englishCountryName": "Taiwan (Province of China)", 
+        "numericCode": 158, 
+        "shortCountryCode": "TW"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TJK", 
+        "serialNumber": 214, 
+        "englishCountryFullName": "the Republic of Tajikistan", 
+        "countryName": "塔吉克斯坦", 
+        "englishCountryName": "Tajikistan", 
+        "numericCode": 762, 
+        "shortCountryCode": "TJ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TZA", 
+        "serialNumber": 215, 
+        "englishCountryFullName": "the United Republic of Tanzania", 
+        "countryName": "坦桑尼亚", 
+        "englishCountryName": "Tanzania,United Republic of", 
+        "numericCode": 834, 
+        "shortCountryCode": "TZ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "THA", 
+        "serialNumber": 216, 
+        "englishCountryFullName": "the Kingdom of Thailand", 
+        "countryName": "泰国", 
+        "englishCountryName": "Thailand", 
+        "numericCode": 764, 
+        "shortCountryCode": "TH"
+    }, 
+    {
+        "comment": "ISO 3166.1-2006调整了英文名称和字母代码（原代码为TP\\TMP）", 
+        "countryCode": "TLS", 
+        "serialNumber": 217, 
+        "englishCountryFullName": "the Democratic Republic of Timor-Leste", 
+        "countryName": "东帝汶", 
+        "englishCountryName": "Timor-Leste", 
+        "numericCode": 626, 
+        "shortCountryCode": "TL"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TGO", 
+        "serialNumber": 218, 
+        "englishCountryFullName": "the Togolese Republic", 
+        "countryName": "多哥", 
+        "englishCountryName": "Togo", 
+        "numericCode": 768, 
+        "shortCountryCode": "TG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TKL", 
+        "serialNumber": 219, 
+        "englishCountryFullName": "", 
+        "countryName": "托克劳", 
+        "englishCountryName": "Tokelau", 
+        "numericCode": 772, 
+        "shortCountryCode": "TK"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TON", 
+        "serialNumber": 220, 
+        "englishCountryFullName": "the Kingdom of Tonga", 
+        "countryName": "汤加", 
+        "englishCountryName": "Tonga", 
+        "numericCode": 776, 
+        "shortCountryCode": "TO"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TTO", 
+        "serialNumber": 221, 
+        "englishCountryFullName": "the Republic of Trinidad and Tobago", 
+        "countryName": "特立尼达和多巴哥", 
+        "englishCountryName": "Trinidad and Tobago", 
+        "numericCode": 780, 
+        "shortCountryCode": "TT"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TUN", 
+        "serialNumber": 222, 
+        "englishCountryFullName": "the Republic of Tunisia", 
+        "countryName": "突尼斯", 
+        "englishCountryName": "Tunisia", 
+        "numericCode": 788, 
+        "shortCountryCode": "TN"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TUR", 
+        "serialNumber": 223, 
+        "englishCountryFullName": "the Republic of Turkey", 
+        "countryName": "土耳其", 
+        "englishCountryName": "Turkey", 
+        "numericCode": 792, 
+        "shortCountryCode": "TR"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TKM", 
+        "serialNumber": 224, 
+        "englishCountryFullName": "", 
+        "countryName": "土库曼斯坦", 
+        "englishCountryName": "Turkmenistan", 
+        "numericCode": 795, 
+        "shortCountryCode": "TM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TCA", 
+        "serialNumber": 225, 
+        "englishCountryFullName": "", 
+        "countryName": "特克斯和凯科斯群岛", 
+        "englishCountryName": "Turks and Caicos Islands (the)", 
+        "numericCode": 796, 
+        "shortCountryCode": "TC"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "TUV", 
+        "serialNumber": 226, 
+        "englishCountryFullName": "", 
+        "countryName": "图瓦卢", 
+        "englishCountryName": "Tuvalu", 
+        "numericCode": 798, 
+        "shortCountryCode": "TV"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "UGA", 
+        "serialNumber": 227, 
+        "englishCountryFullName": "the Republic of Uganda", 
+        "countryName": "乌干达", 
+        "englishCountryName": "Uganda", 
+        "numericCode": 800, 
+        "shortCountryCode": "UG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "UKR", 
+        "serialNumber": 228, 
+        "englishCountryFullName": "", 
+        "countryName": "乌克兰", 
+        "englishCountryName": "Ukraine", 
+        "numericCode": 804, 
+        "shortCountryCode": "UA"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ARE", 
+        "serialNumber": 229, 
+        "englishCountryFullName": "the United Arab Emirates", 
+        "countryName": "阿联酋", 
+        "englishCountryName": "United Arab Emirates (the)", 
+        "numericCode": 784, 
+        "shortCountryCode": "AE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "GBR", 
+        "serialNumber": 230, 
+        "englishCountryFullName": "the United Kingdom of Great Britain and Northern Ireland", 
+        "countryName": "英国", 
+        "englishCountryName": "United Kingdom (the)", 
+        "numericCode": 826, 
+        "shortCountryCode": "GB"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "USA", 
+        "serialNumber": 231, 
+        "englishCountryFullName": "the United States of America", 
+        "countryName": "美国", 
+        "englishCountryName": "United States (the)", 
+        "numericCode": 840, 
+        "shortCountryCode": "US"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "UMI", 
+        "serialNumber": 232, 
+        "englishCountryFullName": "", 
+        "countryName": "美国本土外小岛屿", 
+        "englishCountryName": "United States Minor Outlying Islands (the)", 
+        "numericCode": 581, 
+        "shortCountryCode": "UM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "URY", 
+        "serialNumber": 233, 
+        "englishCountryFullName": "the Eastern Republic of Uruguay", 
+        "countryName": "乌拉圭", 
+        "englishCountryName": "Uruguay", 
+        "numericCode": 858, 
+        "shortCountryCode": "UY"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "UZB", 
+        "serialNumber": 234, 
+        "englishCountryFullName": "the Republic of Uzbekistan", 
+        "countryName": "乌兹别克斯坦", 
+        "englishCountryName": "Uzbekistan", 
+        "numericCode": 860, 
+        "shortCountryCode": "UZ"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "VUT", 
+        "serialNumber": 235, 
+        "englishCountryFullName": "the Republic of Vanuatu", 
+        "countryName": "瓦努阿图", 
+        "englishCountryName": "Vanuatu", 
+        "numericCode": 548, 
+        "shortCountryCode": "VU"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "VEN", 
+        "serialNumber": 236, 
+        "englishCountryFullName": "the Bolivarian Republic of Venezuela", 
+        "countryName": "委内瑞拉", 
+        "englishCountryName": "Venezuela", 
+        "numericCode": 862, 
+        "shortCountryCode": "VE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "VNM", 
+        "serialNumber": 237, 
+        "englishCountryFullName": "the Socialist Republic of Viet Nam", 
+        "countryName": "越南", 
+        "englishCountryName": "Viet Nam", 
+        "numericCode": 704, 
+        "shortCountryCode": "VN"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "VGB", 
+        "serialNumber": 238, 
+        "englishCountryFullName": "British Virgin Islands (the)", 
+        "countryName": "英属维尔京群岛", 
+        "englishCountryName": "Virgin Islands (British)", 
+        "numericCode": 92, 
+        "shortCountryCode": "VG"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "VIR", 
+        "serialNumber": 239, 
+        "englishCountryFullName": "the Virgin Islands of the United States", 
+        "countryName": "美属维尔京群岛", 
+        "englishCountryName": "Virgin Islands (U.S.)", 
+        "numericCode": 850, 
+        "shortCountryCode": "VI"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "WLF", 
+        "serialNumber": 240, 
+        "englishCountryFullName": "Wallis and Futuna Islands", 
+        "countryName": "瓦利斯和富图纳", 
+        "englishCountryName": "Wallis and Futuna", 
+        "numericCode": 876, 
+        "shortCountryCode": "WF"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ESH", 
+        "serialNumber": 241, 
+        "englishCountryFullName": "", 
+        "countryName": "西撒哈拉", 
+        "englishCountryName": "Western Sahara", 
+        "numericCode": 732, 
+        "shortCountryCode": "EH"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "YEM", 
+        "serialNumber": 242, 
+        "englishCountryFullName": "the Republic of Yemen", 
+        "countryName": "也门", 
+        "englishCountryName": "Yemen", 
+        "numericCode": 887, 
+        "shortCountryCode": "YE"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ZMB", 
+        "serialNumber": 243, 
+        "englishCountryFullName": "the Republic of Zambia", 
+        "countryName": "赞比亚", 
+        "englishCountryName": "Zambia", 
+        "numericCode": 894, 
+        "shortCountryCode": "ZM"
+    }, 
+    {
+        "comment": "", 
+        "countryCode": "ZWE", 
+        "serialNumber": 244, 
+        "englishCountryFullName": "the Republic of Zimbabwe", 
+        "countryName": "津巴布韦", 
+        "englishCountryName": "Zimbabwe", 
+        "numericCode": 716, 
+        "shortCountryCode": "ZW"
+    }
+]
