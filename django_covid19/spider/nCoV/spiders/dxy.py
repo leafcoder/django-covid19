@@ -150,7 +150,6 @@ class DXYSpider(scrapy.Spider):
 
         # 购物指南
         guides = self.get_list(scripts, '#fetchGoodsGuide')
-        print(guides)
         result = []
         for item in guides:
             guide = {}
@@ -168,7 +167,6 @@ class DXYSpider(scrapy.Spider):
         # 国外数据
         countries = self.get_list(
             scripts, '#getListByCountryTypeService2true')
-        print(countries)
         for country in countries:
             country.pop('id', None)
             country['countryName'] = country.pop('provinceName', None)
