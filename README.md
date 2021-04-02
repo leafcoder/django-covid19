@@ -47,6 +47,12 @@
 
     pip install django_covid19
 
+# 初始化数据
+
+初始化国家和地区编码数据；
+
+    ./manage.py loaddata initial_data
+
 # 在线大屏
 
 根据已部署的疫情在线接口，并结合使用开源数据大屏项目中的示例代码，本项目提

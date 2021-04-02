@@ -14,6 +14,7 @@ from .settings import CACHE_PAGE_TIMEOUT
 import json
 
 DEFAULT_COUNTRY_CODE = 'CHN'
+EXCLUDE_COUNTRY_CODES = ('TWN', 'HKG', 'MAC')  # They belong to China.
 
 class LatestStatisticsView(APIView):
 
@@ -338,4 +339,58 @@ class CityRetrieveByNameView(APIView):
             countryCode = DEFAULT_COUNTRY_CODE
         city = self.get_object(countryCode, cityName)
         serializer = serializers.CitySerializer(city)
+        return Response(serializer.data)
+
+
+class CountryCodeListView(ListAPIView):
+
+    """国家编码列表"""
+
+    serializer_class = serializers.CountryCodeSerializer
+    filter_class = filters.CountryCodeFilter
+
+    def get_queryset(self):
+        return models.CountryCode.objects.order_by('countryCode')
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        queryset = queryset.exclude(countryCode__in=EXCLUDE_COUNTRY_CODES)
+
+        result = []
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(
+                page, many=True, context={'request': request})
+            result = serializer.data
+            return self.get_paginated_response(result)
+
+        serializer = self.get_serializer(
+            queryset, many=True, context={'request': request})
+        result = serializer.data
+        return Response(result)
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='country-code-list'))
+    def dispatch(self, *args, **kwargs):
+        return super(CountryCodeListView, self).dispatch(
+                                                        *args, **kwargs)
+
+
+class CountryCodeRetrieveView(APIView):
+
+    def get_object(self, countryCode):
+        if countryCode in EXCLUDE_COUNTRY_CODES:
+            raise Http404
+        inst = models.CountryCode.objects.filter(
+            countryCode=countryCode).first()
+        if inst is None:
+            raise Http404
+        return inst
+
+    @method_decorator(cache_page(
+            CACHE_PAGE_TIMEOUT, key_prefix='country-code-detail'))
+    def get(self, request, countryCode):
+        inst = self.get_object(countryCode)
+        serializer = serializers.CountryCodeSerializer(
+            inst, context={ 'request': request })
         return Response(serializer.data)

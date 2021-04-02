@@ -118,6 +118,10 @@
     $ ./manage.py migrate django_covid19
     $ ./manage.py migrate
 
+初始化国家和地区编码数据；
+
+    $ ./manage.py loaddata initial_data
+
 ### 项目后台 :id=admin
 
 使用后台请先创建管理员账号；
@@ -246,17 +250,6 @@ http://111.231.75.86:8000/api/statistics/latest
     ],
     "createTime": "2020-01-20T16:31:39Z",
     "generalRemark": "1. 3 月 12 日国家卫健委确诊补订遗漏 12 例确诊病例（非 12 日新增），暂无具体省份信息。 2. 浙江省 12 例外省治愈暂无具体省份信息。",
-    "rumors": [
-        {
-            "body": "近日，有人在朋友圈兜售某公司生产的新冠病毒抗体检测试剂盒，单价 150 元，并宣称可以家庭自行使用。对此，北京市药监局提示，经批准注册的新冠病毒检测试剂盒，均需要具备 PCR 实验室及专用设备的医疗机构才能完成检测，普通市民家庭不可自行使用，市民不要轻信虚假宣传，出现相关症状应及时就医。",
-            "mainSummary": "北京市药监局提示：普通市民家庭不可自行使用",
-            "sourceUrl": "",
-            "title": "可在家使用新冠病毒试剂盒自测？",
-            "summary": "",
-            "score": 1000,
-            "rumorType": 0
-        }
-    ],
     "goodsGuides": [
         {
             "contentImgUrls": [

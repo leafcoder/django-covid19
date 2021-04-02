@@ -12,6 +12,7 @@ app_name = 'django_covid19'
 urlpatterns = [
     url(r'statistics/$', views.StatisticsListView.as_view(), name='statistics-list'),
     url(r'statistics/latest/$', views.LatestStatisticsView.as_view(), name='statistics-latest'),
+
     url(r'cities/(?P<countryCode>[A-Z]+)/$', views.CityListView.as_view(), name='city-list'),
     url(r'cities/(?P<countryCode>[A-Z]+)/(?P<cityName>[^/]+)/$', views.CityRetrieveByNameView.as_view(), name='city-detail'),
 
@@ -26,4 +27,7 @@ urlpatterns = [
     url(r'provinces/(?P<countryCode>[A-Z]+)/(?P<provinceName>[^/]+)/daily/$', views.ProvinceDailyByNameView.as_view(), name='province-daily-by-name'),
     url(r'provinces/(?P<countryCode>[A-Z]+)/(?P<provinceCode>[A-Z\-\d]+)/$', views.ProvinceRetrieveView.as_view(), name='province-detail'),
     url(r'provinces/(?P<countryCode>[A-Z]+)/(?P<provinceName>[^/]+)/$', views.ProvinceRetrieveByNameView.as_view(), name='province-detail-by-name'),
+
+    url(r'country-codes/$', views.CountryCodeListView.as_view(), name='country-code-list'),
+    url(r'country-codes/(?P<countryCode>[A-Z]+)/$', views.CountryCodeRetrieveView.as_view(), name='country-code-detail'),
 ]
