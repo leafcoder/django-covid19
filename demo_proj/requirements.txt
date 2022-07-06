@@ -14,7 +14,7 @@ djangorestframework==3.11.2
 hyperlink==19.0.0
 idna==2.9
 incremental==17.5.0
-lxml==4.6.3
+lxml==4.9.1
 parsel==1.6.0
 Protego==0.1.16
 pyasn1==0.4.8
